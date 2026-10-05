@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSLA Academy - Student Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f4f2;
+            color: #54251b;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: linear-gradient(180deg, #b63b25, #8f2f1f);
+            color: white;
+            padding: 25px 18px;
+            z-index: 10;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .logo-area img {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            background: white;
+            border-radius: 15px;
+            padding: 8px;
+        }
+
+        .logo-area h2 {
+            margin: 15px 0 4px;
+            font-size: 21px;
+        }
+
+        .logo-area p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .menu {
+            margin-top: 30px;
+        }
+
+        .menu button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: white;
+            text-align: left;
+            padding: 14px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu button:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .menu button.active {
+            background: rgba(255,255,255,0.18);
+            box-shadow: inset 3px 0 0 #ffd34d;
+        }
+
+        .logout-btn {
+            margin-top: 30px;
+            border: 1px solid rgba(255,255,255,0.7) !important;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid #ead5ce;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 25px;
+            color: #66291e;
+        }
+
+        .student-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #f8b632;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #66291e;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 35px;
+            max-width: 1250px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .welcome h2 {
+            margin: 0 0 8px;
+            font-size: 32px;
+            color: #672a1f;
+        }
+
+        .welcome p {
+            margin: 0 0 28px;
+            color: #77645e;
+            font-size: 16px;
+        }
+
+        /* DASHBOARD CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ead5ce;
+            border-radius: 17px;
+            padding: 23px;
+            box-shadow: 0 5px 18px rgba(80,40,30,0.05);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(80,40,30,0.09);
+        }
+
+        .card-icon {
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            color: #786963;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .card-value {
+            font-size: 23px;
+            font-weight: bold;
+            color: #69291e;
+        }
+
+        /* BOX */
+        .section-box {
+            background: white;
+            border: 1px solid #ead5ce;
+            border-radius: 17px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(80,40,30,0.04);
+        }
+
+        .section-box h3 {
+            margin-top: 0;
+            color: #672a1f;
+        }
+
+        /* PROFILE */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .big-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: #f8b632;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #672a1f;
+        }
+
+        .profile-header h2 {
+            margin: 0 0 5px;
+            color: #672a1f;
+        }
+
+        .profile-header p {
+            margin: 0;
+            color: #77645e;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .profile-item {
+            background: #fffaf8;
+            border: 1px solid #ead5ce;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .profile-item strong {
+            display: block;
+            font-size: 12px;
+            color: #88736c;
+            margin-bottom: 7px;
+        }
+
+        .profile-item span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #672a1f;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f9e4dc;
+            color: #672a1f;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee0dc;
+            color: #553c35;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .scheduled {
+            background: #e5f6ec;
+            color: #22804b;
+        }
+
+        .pending {
+            background: #fff0d0;
+            color: #a36a00;
+        }
+
+        /* ANNOUNCEMENTS */
+        .announcement {
+            background: #fff9f7;
+            border-left: 4px solid #d94b32;
+            border-radius: 0 10px 10px 0;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .announcement h3 {
+            margin: 0 0 8px;
+            color: #672a1f;
+            font-size: 17px;
+        }
+
+        .announcement p {
+            margin: 0 0 8px;
+            color: #77645e;
+            line-height: 1.6;
+        }
+
+        .announcement-date {
+            font-size: 12px;
+            color: #a08b84;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 22px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h2 {
+                font-size: 25px;
+            }
+        }
+        /* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .main {
+        margin-left: 200px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .header {
+        padding: 15px 20px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-box {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo-area">
+            <img src="logo.png" alt="GSLA Logo">
+            <h2>GS Language<br>Academy</h2>
+            <p>STUDENT PORTAL</p>
+        </div>
+
+        <div class="menu">
+
+            <button class="active" onclick="showSection('dashboard', this)">
+                🏠 Dashboard
+            </button>
+
+            <button onclick="showSection('profile', this)">
+                👤 My Profile
+            </button>
+
+            <button onclick="showSection('schedule', this)">
+                📅 Class Schedule
+            </button>
+
+            <button onclick="showSection('payments', this)">
+                💰 Payments
+            </button>
+
+            <button onclick="showSection('announcements', this)">
+                📢 Announcements
+            </button>
+
+            <button class="logout-btn" onclick="logout()">
+                🚪 Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <h1>Student Dashboard</h1>
+
+            <div class="student-mini">
+                <div class="avatar" id="avatar">S</div>
+                <span id="topStudentName">Student</span>
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="page-section active">
+
+                <div class="welcome">
+                    <h2>
+                        Welcome, <span id="studentName">Student</span>! 👋
+                    </h2>
+
+                    <p>
+                        Here's an overview of your GS Language Academy account.
+                    </p>
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+
+                        <div class="card-title">
+                            Current Course
+                        </div>
+
+                        <div class="card-value" id="studentCourse">
+                            -
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+
+                        <div class="card-title">
+                            Classes This Week
+                        </div>
+
+                        <div class="card-value">
+                            3
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+
+                        <div class="card-title">
+                            Course Fee
+                        </div>
+
+                        <div class="card-value">
+                            $200
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-icon">🟢</div>
+
+                        <div class="card-title">
+                            Student Status
+                        </div>
+
+                        <div class="card-value">
+                            Active
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section-box">
+
+                    <h3>📢 Latest Announcement</h3>
+
+                    <div class="announcement">
+
+                        <h3>
+                            🎓 Welcome to GS Language Academy!
+                        </h3>
+
+                        <p>
+                            Your student portal is ready.
+                            Check your schedule regularly and stay up to date
+                            with academy announcements.
+                        </p>
+
+                        <span class="announcement-date">
+                            September 2026
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <section id="profile" class="page-section">
+
+                <div class="welcome">
+                    <h2>My Profile</h2>
+
+                    <p>
+                        Manage and view your student information.
+                    </p>
+                </div>
+
+
+                <div class="section-box">
+
+                    <div class="profile-header">
+
+                        <div class="big-avatar" id="profileAvatar">
+                            S
+                        </div>
+
+                        <div>
+                            <h2 id="profileHeaderName">
+                                Student
+                            </h2>
+
+                            <p>
+                                GS Language Academy Student
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <h3>👤 Student Information</h3>
+
+
+                    <div class="profile-grid">
+
+                        <div class="profile-item">
+                            <strong>Full Name</strong>
+                            <span id="profileName">-</span>
+                        </div>
+
+
+                        <div class="profile-item">
+                            <strong>Email Address</strong>
+                            <span id="profileEmail">-</span>
+                        </div>
+
+
+                        <div class="profile-item">
+                            <strong>Phone Number</strong>
+                            <span id="profilePhone">-</span>
+                        </div>
+
+
+                        <div class="profile-item">
+                            <strong>Current Course</strong>
+                            <span id="profileCourse">-</span>
+                        </div>
+
+
+                        <div class="profile-item">
+                            <strong>Student Status</strong>
+                            <span>Active</span>
+                        </div>
+
+
+                        <div class="profile-item">
+                            <strong>Academy</strong>
+                            <span>GS Language Academy</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SCHEDULE ================= -->
+
+            <section id="schedule" class="page-section">
+
+                <div class="welcome">
+
+                    <h2>Class Schedule</h2>
+
+                    <p>
+                        Your weekly class schedule.
+                    </p>
+
+                </div>
+
+
+                <div class="section-box">
+
+                    <h3>📅 Weekly Schedule</h3>
+
+                    <table>
+
+                        <tr>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>Status</th>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Monday</strong></td>
+                            <td>5:00 PM</td>
+                            <td>English</td>
+                            <td>
+                                <span class="status scheduled">
+                                    Scheduled
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Wednesday</strong></td>
+                            <td>5:00 PM</td>
+                            <td>English</td>
+                            <td>
+                                <span class="status scheduled">
+                                    Scheduled
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Friday</strong></td>
+                            <td>5:00 PM</td>
+                            <td>English</td>
+                            <td>
+                                <span class="status scheduled">
+                                    Scheduled
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PAYMENTS ================= -->
+
+            <section id="payments" class="page-section">
+
+                <div class="welcome">
+
+                    <h2>Payments</h2>
+
+                    <p>
+                        View your course payment information.
+                    </p>
+
+                </div>
+
+
+                <div class="section-box">
+
+                    <h3>💰 Payment History</h3>
+
+                    <table>
+
+                        <tr>
+                            <th>Payment</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+
+                        <tr>
+                            <td>Course Fee</td>
+                            <td>$200</td>
+                            <td>September 2026</td>
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ANNOUNCEMENTS ================= -->
+
+            <section id="announcements" class="page-section">
+
+                <div class="welcome">
+
+                    <h2>Announcements</h2>
+
+                    <p>
+                        Important updates from GS Language Academy.
+                    </p>
+
+                </div>
+
+
+                <div class="section-box">
+
+                    <div class="announcement">
+
+                        <h3>
+                            🎓 Welcome to GS Language Academy
+                        </h3>
+
+                        <p>
+                            We are excited to have you with us.
+                            Your student portal is ready and available
+                            for your academic needs.
+                        </p>
+
+                        <span class="announcement-date">
+                            September 2026
+                        </span>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <h3>
+                            📅 Check Your Schedule
+                        </h3>
+
+                        <p>
+                            Please check your class schedule regularly
+                            for your upcoming classes.
+                        </p>
+
+                        <span class="announcement-date">
+                            September 2026
+                        </span>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <h3>
+                            💰 Payment Reminder
+                        </h3>
+
+                        <p>
+                            Please review your payment information
+                            and contact the academy if you have questions
+                            about your account.
+                        </p>
+
+                        <span class="announcement-date">
+                            September 2026
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* CHECK LOGIN */
+
+        let loggedIn = localStorage.getItem("loggedIn");
+        let studentData = localStorage.getItem("student");
+
+        if (!loggedIn || !studentData) {
+
+            window.location.href = "Login.html";
+
+        }
+
+
+        /* LOAD STUDENT */
+
+        if (studentData) {
+
+            let student = JSON.parse(studentData);
+
+            let firstLetter = student.name
+                ? student.name.charAt(0).toUpperCase()
+                : "S";
+
+
+            document.getElementById("studentName").textContent =
+                student.name;
+
+            document.getElementById("topStudentName").textContent =
+                student.name;
+
+            document.getElementById("studentCourse").textContent =
+                student.course;
+
+
+            document.getElementById("profileName").textContent =
+                student.name;
+
+            document.getElementById("profileEmail").textContent =
+                student.email;
+
+            document.getElementById("profilePhone").textContent =
+                student.phone;
+
+            document.getElementById("profileCourse").textContent =
+                student.course;
+
+
+            document.getElementById("avatar").textContent =
+                firstLetter;
+
+            document.getElementById("profileAvatar").textContent =
+                firstLetter;
+
+            document.getElementById("profileHeaderName").textContent =
+                student.name;
+
+        }
+
+
+        /* SWITCH SECTIONS */
+
+        function showSection(sectionId, button) {
+
+            let sections =
+                document.querySelectorAll(".page-section");
+
+            sections.forEach(function(section) {
+
+                section.classList.remove("active");
+
+            });
+
+
+            document.getElementById(sectionId)
+                .classList.add("active");
+
+
+            let buttons =
+                document.querySelectorAll(".menu button");
+
+            buttons.forEach(function(btn) {
+
+                btn.classList.remove("active");
+
+            });
+
+
+            button.classList.add("active");
+
+        }
+
+
+        /* LOGOUT */
+
+        function logout() {
+
+            localStorage.removeItem("loggedIn");
+
+            window.location.href = "Login.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
+<div style="text-align:center; padding:20px 10px; color:rgba(255,255,255,0.85); font-size:12px;">
+    <div style="margin-bottom:7px;">📞 +58 414-7795780</div>
+
+    <div style="margin-bottom:7px;">
+        📧 Gslanguageacademy1@gmail.com
+    </div>
+
+    <div>
+        📸
+        <a href="https://www.instagram.com/gslacademy1?stkn=aTE4dGRod3NteGxk"
+           target="_blank"
+           style="color:#ffd34d; text-decoration:none; font-weight:bold;">
+            @gslacademy1
+        </a>
+    </div>
+</div>

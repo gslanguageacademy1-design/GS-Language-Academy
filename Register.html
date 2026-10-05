@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration - GS Language Academy</title>
+
+    <!-- IMPORTANT: Load the common language system -->
+    <script src="language.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8f5;
+            color: #3f2924;
+            min-height: 100vh;
+        }
+
+        header {
+            min-height: 78px;
+            background: white;
+            border-bottom: 1px solid #eaded9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 6%;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .logo-area h2 {
+            color: #8f3528;
+            font-size: 21px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-home {
+            text-decoration: none;
+            color: #8f3528;
+            font-weight: bold;
+        }
+
+        .back-home:hover {
+            color: #d95032;
+        }
+
+        /* LANGUAGE SELECTOR */
+
+        .languageSelector {
+            padding: 10px 12px;
+            border: 1px solid #d8c9c3;
+            border-radius: 7px;
+            background: white;
+            color: #55332b;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-wrapper {
+            min-height: calc(100vh - 78px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 20px;
+            background: linear-gradient(
+                135deg,
+                #fff8f5,
+                #f9e2d9
+            );
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 40px 45px;
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(100, 50, 35, 0.12);
+        }
+
+        .register-logo {
+            display: block;
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            margin: 0 auto 10px;
+        }
+
+        .register-card h1 {
+            text-align: center;
+            color: #6f2b21;
+            font-size: 31px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #806e68;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #55332b;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d8c9c3;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #c94d31;
+            box-shadow: 0 0 0 3px rgba(201, 77, 49, 0.12);
+        }
+
+        .register-btn {
+            width: 100%;
+            border: none;
+            background: #c94d31;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .register-btn:hover {
+            background: #8f3528;
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 23px;
+            color: #806e68;
+        }
+
+        .login-text a {
+            color: #a83f29;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .home-link {
+            text-align: center;
+            margin-top: 17px;
+        }
+
+        .home-link a {
+            color: #8f3528;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 10px 20px;
+            }
+
+            .back-home {
+                display: none;
+            }
+
+            .register-card {
+                padding: 30px 25px;
+            }
+
+            .header-right {
+                margin-left: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            alt="GS Language Academy Logo"
+        >
+
+        <h2>
+            GS Language Academy
+        </h2>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <!-- WEBSITE LANGUAGE -->
+
+        <select
+            id="languageSelector"
+            class="languageSelector"
+            onchange="setLanguage(this.value)"
+        >
+
+            <option value="en">
+                🇬🇧 English
+            </option>
+
+            <option value="es">
+                🇪🇸 Español
+            </option>
+
+            <option value="ar">
+                🇸🇦 العربية
+            </option>
+
+        </select>
+
+
+        <a
+            href="index.html"
+            class="back-home"
+            data-i18n="backHome"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================= REGISTRATION ================= -->
+
+<main class="register-wrapper">
+
+    <div class="register-card">
+
+        <img
+            src="logo.png"
+            alt="GS Language Academy Logo"
+            class="register-logo"
+        >
+
+
+        <h1 data-i18n="createAccount">
+            Create Student Account
+        </h1>
+
+
+        <p
+            class="subtitle"
+            data-i18n="registerSubtitle"
+        >
+            Join GS Language Academy and start learning
+        </p>
+
+
+        <form
+            onsubmit="registerStudent(); return false;"
+        >
+
+
+            <!-- FULL NAME -->
+
+            <div class="form-group">
+
+                <label
+                    for="fullname"
+                    data-i18n="fullName"
+                >
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullname"
+                    name="fullname"
+                    data-i18n-placeholder="fullNamePlaceholder"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label
+                    for="email"
+                    data-i18n="email"
+                >
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    data-i18n-placeholder="emailPlaceholder"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label
+                    for="phone"
+                    data-i18n="phone"
+                >
+                    Phone Number
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    data-i18n-placeholder="phonePlaceholder"
+                    placeholder="Enter your phone number"
+                    required
+                >
+
+            </div>
+
+
+            <!-- COURSE -->
+
+            <div class="form-group">
+
+                <label
+                    for="course"
+                    data-i18n="selectCourse"
+                >
+                    Select Course
+                </label>
+
+                <select
+                    id="course"
+                    name="course"
+                    required
+                >
+
+                    <option
+                        value=""
+                        data-i18n="chooseCourse"
+                    >
+                        Choose a course
+                    </option>
+
+                    <option
+                        value="English"
+                        data-i18n="english"
+                    >
+                        English
+                    </option>
+
+                    <option
+                        value="Spanish"
+                        data-i18n="spanish"
+                    >
+                        Spanish
+                    </option>
+
+                    <option
+                        value="Arabic"
+                        data-i18n="arabic"
+                    >
+                        Arabic
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label
+                    for="password"
+                    data-i18n="password"
+                >
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    data-i18n-placeholder="passwordPlaceholder"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <button
+                type="submit"
+                class="register-btn"
+                data-i18n="createAccount"
+            >
+                Create Student Account
+            </button>
+
+
+        </form>
+
+
+        <p class="login-text">
+
+            <span data-i18n="alreadyAccount">
+                Already have an account?
+            </span>
+
+            <a
+                href="Login.html"
+                data-i18n="login"
+            >
+                Student Login
+            </a>
+
+        </p>
+
+
+        <div class="home-link">
+
+            <a
+                href="index.html"
+                data-i18n="returnHome"
+            >
+                Return to Homepage
+            </a>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- ================= REGISTRATION SCRIPT ================= -->
+
+<script>
+
+function registerStudent() {
+
+    const name =
+        document.getElementById("fullname").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const course =
+        document.getElementById("course").value;
+
+    const password =
+        document.getElementById("password").value;
+
+
+    /*
+       IMPORTANT:
+
+       siteLanguage = the language the student wants
+       the WEBSITE to use.
+
+       course = the language/course the student is studying.
+
+       These are TWO different things.
+    */
+
+    const siteLanguage =
+        localStorage.getItem("siteLanguage") || "en";
+
+
+    const student = {
+
+        name: name,
+
+        email: email,
+
+        phone: phone,
+
+        course: course,
+
+        password: password,
+
+        siteLanguage: siteLanguage
+
+    };
+
+
+    /* SAVE STUDENT */
+
+    localStorage.setItem(
+        "student",
+        JSON.stringify(student)
+    );
+
+
+    /* LOGIN */
+
+    localStorage.setItem(
+        "loggedIn",
+        "true"
+    );
+
+
+    /*
+       Keep the selected website language
+       for every page.
+    */
+
+    localStorage.setItem(
+        "siteLanguage",
+        siteLanguage
+    );
+
+
+    alert(
+        translations[siteLanguage].registrationSuccess
+    );
+
+
+    /* GO TO DASHBOARD */
+
+    window.location.href = "Dashboard.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

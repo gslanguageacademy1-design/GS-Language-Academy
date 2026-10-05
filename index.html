@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GS Language Academy</title>
+
+    <!-- LANGUAGE SYSTEM -->
+    <script src="language.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fffaf7;
+            color: #3f2924;
+        }
+
+        /* =========================
+           NAVIGATION
+           ========================= */
+
+        nav {
+            min-height: 78px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 6%;
+            border-bottom: 1px solid #eaded9;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo img {
+            width: 58px;
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            font-size: 21px;
+            font-weight: bold;
+            color: #8f3528;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #55332b;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #c94d31;
+        }
+
+        .login-btn {
+            background: #c94d31;
+            color: white !important;
+            padding: 12px 22px;
+            border-radius: 7px;
+        }
+
+        .login-btn:hover {
+            background: #8f3528 !important;
+        }
+
+
+        /* =========================
+           LANGUAGE SELECTOR
+           ========================= */
+
+        .languageSelector {
+            padding: 10px 12px;
+            border: 1px solid #d8c9c3;
+            border-radius: 7px;
+            background: white;
+            color: #55332b;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .languageSelector:hover {
+            border-color: #c94d31;
+        }
+
+
+        /* =========================
+           HERO
+           ========================= */
+
+        .hero {
+            min-height: 570px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 70px 8%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffaf7 0%,
+                    #f9e5dc 100%
+                );
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            background: #f6d1c3;
+            color: #8f3528;
+
+            padding: 8px 15px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.08;
+
+            color: #6f2b21;
+
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #d95032;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.8;
+
+            color: #725f58;
+
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-block;
+
+            padding: 14px 25px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .primary-btn {
+            background: #c94d31;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #8f3528;
+        }
+
+        .secondary-btn {
+            border: 2px solid #c94d31;
+            color: #a83f29;
+        }
+
+        .secondary-btn:hover {
+            background: #c94d31;
+            color: white;
+        }
+
+        .hero-logo {
+            width: 360px;
+            height: 360px;
+
+            object-fit: contain;
+
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(100, 50, 35, 0.12);
+        }
+
+
+        /* =========================
+           SECTION
+           ========================= */
+
+        .section {
+            padding: 75px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            color: #6f2b21;
+
+            font-size: 34px;
+
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #806e68;
+        }
+
+
+        /* =========================
+           PROGRAMS
+           ========================= */
+
+        .programs {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .program-card {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            border: 1px solid #eee1dc;
+
+            box-shadow:
+                0 6px 20px
+                rgba(100, 50, 35, 0.06);
+
+            transition: transform 0.2s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .program-icon {
+            font-size: 35px;
+
+            margin-bottom: 18px;
+        }
+
+        .program-card h3 {
+            color: #8f3528;
+
+            margin-bottom: 12px;
+        }
+
+        .program-card p {
+            color: #806e68;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ABOUT
+           ========================= */
+
+        .about {
+            background: #8f3528;
+            color: white;
+        }
+
+        .about-content {
+            max-width: 900px;
+
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 34px;
+
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: #f9ded5;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           FEATURES
+           ========================= */
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .feature {
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        .feature-icon {
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            color: #6f2b21;
+
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #806e68;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           CTA
+           ========================= */
+
+        .cta {
+            background: #f9e5dc;
+
+            text-align: center;
+
+            padding: 70px 20px;
+        }
+
+        .cta h2 {
+            color: #6f2b21;
+
+            font-size: 34px;
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #806e68;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        footer {
+            background: #4d211b;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 35px 20px;
+        }
+
+        footer img {
+            width: 90px;
+
+            background: white;
+
+            border-radius: 8px;
+
+            padding: 5px;
+
+            margin-bottom: 12px;
+        }
+
+        footer h3 {
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #e9c8bf;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           RTL SUPPORT
+           ========================= */
+
+        html[dir="rtl"] body {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .hero {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .hero-content {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .hero-buttons {
+            justify-content: flex-start;
+        }
+
+        html[dir="rtl"] .nav-logo {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .program-card {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .feature {
+            text-align: center;
+        }
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                flex-direction: column;
+
+                text-align: center;
+
+                gap: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+
+                flex-wrap: wrap;
+            }
+
+            .programs,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                width: 280px;
+                height: 280px;
+            }
+
+            html[dir="rtl"] .hero {
+                flex-direction: column;
+            }
+
+            html[dir="rtl"] .hero-content {
+                text-align: center;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            nav {
+                padding: 10px 20px;
+
+                flex-wrap: wrap;
+
+                gap: 12px;
+            }
+
+            .nav-links {
+                gap: 8px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .nav-links a:not(.login-btn) {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero {
+                padding: 55px 25px;
+            }
+
+            .section {
+                padding: 55px 25px;
+            }
+
+            .languageSelector {
+                padding: 9px 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<nav>
+
+    <div class="nav-logo">
+
+        <img
+            src="logo.png"
+            alt="GS Language Academy Logo"
+        >
+
+        <span>
+            GS Language Academy
+        </span>
+
+    </div>
+
+
+    <div class="nav-links">
+
+
+        <!-- HOME -->
+
+        <a
+            href="#home"
+            data-i18n="home"
+        >
+            Home
+        </a>
+
+
+        <!-- ABOUT -->
+
+        <a
+            href="#about"
+            data-i18n="about"
+        >
+            About
+        </a>
+
+
+        <!-- PROGRAMS -->
+
+        <a
+            href="#programs"
+            data-i18n="programs"
+        >
+            Programs
+        </a>
+
+
+        <!-- =================================================
+             LANGUAGE SELECTOR
+
+             IMPORTANT:
+             The ID must be languageSelector because
+             language.js uses this ID.
+             ================================================= -->
+
+        <select
+            id="languageSelector"
+            class="languageSelector"
+            onchange="setLanguage(this.value)"
+            aria-label="Select website language"
+        >
+
+            <option value="en">
+                🇬🇧 English
+            </option>
+
+            <option value="es">
+                🇪🇸 Español
+            </option>
+
+            <option value="ar">
+                🇸🇦 العربية
+            </option>
+
+        </select>
+
+
+        <!-- LOGIN -->
+
+        <a
+            href="Login.html"
+            class="login-btn"
+            data-i18n="login"
+        >
+            Student Login
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-content">
+
+
+        <div
+            class="hero-badge"
+            data-i18n="welcomeBadge"
+        >
+            WELCOME TO GS LANGUAGE ACADEMY
+        </div>
+
+
+        <h1>
+
+            <span data-i18n="heroTitle1">
+                Learn Today.
+            </span>
+
+            <br>
+
+            <span data-i18n="heroTitle2">
+                Build Your Future.
+            </span>
+
+        </h1>
+
+
+        <p data-i18n="heroText">
+
+            Learn languages with confidence through a modern,
+            organized, and student-focused learning experience.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <!-- REGISTER -->
+
+            <a
+                href="Register.html"
+                class="primary-btn"
+                data-i18n="createAccount"
+            >
+                Create Student Account
+            </a>
+
+
+            <!-- PROGRAMS -->
+
+            <a
+                href="#programs"
+                class="secondary-btn"
+                data-i18n="explorePrograms"
+            >
+                Explore Programs
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <img
+        src="logo.png"
+        alt="GS Language Academy"
+        class="hero-logo"
+    >
+
+</section>
+
+
+<!-- =====================================================
+     PROGRAMS
+     ===================================================== -->
+
+<section
+    class="section"
+    id="programs"
+>
+
+    <div class="section-title">
+
+        <h2 data-i18n="ourPrograms">
+            Our Programs
+        </h2>
+
+        <p data-i18n="programsText">
+            Choose the learning path that works best for you.
+        </p>
+
+    </div>
+
+
+    <div class="programs">
+
+
+        <!-- ENGLISH -->
+
+        <div class="program-card">
+
+            <div class="program-icon">
+                🇬🇧
+            </div>
+
+            <h3 data-i18n="english">
+                English
+            </h3>
+
+            <p data-i18n="englishText">
+
+                Build your English communication skills,
+                improve your confidence, and develop practical
+                language abilities.
+
+            </p>
+
+        </div>
+
+
+        <!-- SPANISH -->
+
+        <div class="program-card">
+
+            <div class="program-icon">
+                🇪🇸
+            </div>
+
+            <h3 data-i18n="spanish">
+                Spanish
+            </h3>
+
+            <p data-i18n="spanishText">
+
+                Learn Spanish through structured lessons
+                designed for practical communication.
+
+            </p>
+
+        </div>
+
+
+        <!-- ARABIC -->
+
+        <div class="program-card">
+
+            <div class="program-icon">
+                🇸🇦
+            </div>
+
+            <h3 data-i18n="arabic">
+                Arabic
+            </h3>
+
+            <p data-i18n="arabicText">
+
+                Learn Arabic through structured lessons
+                designed for practical communication.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+     ===================================================== -->
+
+<section
+    class="section about"
+    id="about"
+>
+
+    <div class="about-content">
+
+        <h2 data-i18n="whyUs">
+            Why GS Language Academy?
+        </h2>
+
+        <p data-i18n="whyUsText">
+
+            GS Language Academy is designed to make language
+            learning organized, accessible, and engaging for
+            every student.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+     ===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2 data-i18n="everything">
+            Everything You Need
+        </h2>
+
+        <p data-i18n="everythingText">
+            Your student experience, organized in one place.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+
+        <!-- PROFILE -->
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                👤
+            </div>
+
+            <h3 data-i18n="profile">
+                Student Profile
+            </h3>
+
+            <p data-i18n="profileText">
+
+                Keep your student information organized
+                and easily accessible.
+
+            </p>
+
+        </div>
+
+
+        <!-- SCHEDULE -->
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📅
+            </div>
+
+            <h3 data-i18n="schedule">
+                Class Schedule
+            </h3>
+
+            <p data-i18n="scheduleText">
+
+                Quickly check your upcoming classes
+                and weekly schedule.
+
+            </p>
+
+        </div>
+
+
+        <!-- UPDATES -->
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📢
+            </div>
+
+            <h3 data-i18n="updates">
+                Academy Updates
+            </h3>
+
+            <p data-i18n="updatesText">
+
+                Stay informed with important announcements
+                from the academy.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CALL TO ACTION
+     ===================================================== -->
+
+<section class="cta">
+
+    <h2 data-i18n="ready">
+        Ready to Start Learning?
+    </h2>
+
+
+    <p data-i18n="readyText">
+
+        Create your student account and begin your journey
+        with GS Language Academy.
+
+    </p>
+
+
+    <a
+        href="Register.html"
+        class="primary-btn"
+        data-i18n="createAccount"
+    >
+        Create Student Account
+    </a>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+    <img
+        src="logo.png"
+        alt="GS Language Academy Logo"
+    >
+
+
+    <h3>
+        GS Language Academy
+    </h3>
+
+
+    <p>
+        © 2026 GS Language Academy.
+        All rights reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     EXTRA SAFETY
+
+     This makes sure that if the page loads before
+     language.js finishes initializing, the selector
+     still displays the saved language.
+     ===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const savedLanguage =
+        localStorage.getItem("siteLanguage") || "en";
+
+    const selector =
+        document.getElementById("languageSelector");
+
+    if (selector) {
+        selector.value = savedLanguage;
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

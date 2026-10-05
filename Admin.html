@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel - GS Language Academy</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f4f2;
+            color: #672a1f;
+        }
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        #adminLogin {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: #fffaf8;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(103, 42, 31, 0.15);
+            text-align: center;
+        }
+
+        .login-box img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .login-box h1 {
+            color: #7f3025;
+            margin-bottom: 8px;
+        }
+
+        .login-box p {
+            color: #8b625b;
+            margin-bottom: 25px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dec9c4;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #a93d2f;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            border: none;
+            background: #a93d2f;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #7f3025;
+        }
+
+        .btn-danger {
+            background: #8b2e25;
+        }
+
+        .btn-small {
+            padding: 7px 12px;
+            font-size: 12px;
+        }
+
+        /* =========================
+           ADMIN LAYOUT
+        ========================= */
+
+        #adminPanel {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #7f3025;
+            color: white;
+            padding: 25px 15px;
+            overflow-y: auto;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .brand img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .brand h2 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #a93d2f;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+            background: #672a1f;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            color: #7f3025;
+        }
+
+        .admin-badge {
+            background: #f8b632;
+            color: #672a1f;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            color: #7f3025;
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #8b625b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #fffaf8;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(103, 42, 31, 0.08);
+        }
+
+        .stat-card h3 {
+            font-size: 13px;
+            color: #8b625b;
+            margin-bottom: 10px;
+        }
+
+        .stat-card strong {
+            font-size: 28px;
+            color: #a93d2f;
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            background: #fffaf8;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(103, 42, 31, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            color: #7f3025;
+            margin-bottom: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-grid .full {
+            grid-column: 1 / -1;
+        }
+
+        /* =========================
+           TABLES
+        ========================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eadbd7;
+            font-size: 13px;
+        }
+
+        th {
+            color: #7f3025;
+            background: #f7f0ed;
+        }
+
+        td {
+            color: #6d514b;
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-box {
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid .full {
+                grid-column: auto;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<div id="adminLogin">
+
+    <div class="login-box">
+
+        <img src="logo.png" alt="GS Language Academy">
+
+        <h1>GS Language Academy</h1>
+
+        <p>Administrator Login</p>
+
+        <input
+            type="text"
+            id="adminUsername"
+            placeholder="Admin Username"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Admin Password"
+        >
+
+        <button class="btn" onclick="adminLogin()">
+            Login
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN PANEL
+===================================================== -->
+
+<div id="adminPanel">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img src="logo.png" alt="GS Language Academy">
+
+            <h2>GS Language Academy</h2>
+
+            <p>Administration</p>
+
+        </div>
+
+
+        <button class="nav-btn active"
+                onclick="showSection('dashboard', this)">
+            🏠 Dashboard
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('students', this)">
+            👩‍🎓 Students
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('teachers', this)">
+            👩‍🏫 Teachers
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('classes', this)">
+            📅 Classes
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('attendance', this)">
+            ✅ Attendance
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('lessons', this)">
+            📝 Lesson Records
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('progress', this)">
+            📊 Student Progress
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('payments', this)">
+            💰 Payments
+        </button>
+
+        <button class="nav-btn"
+                onclick="showSection('announcements', this)">
+            📢 Announcements
+        </button>
+
+        <button class="nav-btn logout-btn"
+                onclick="adminLogout()">
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <div class="topbar">
+
+            <h1>Admin Dashboard</h1>
+
+            <div class="admin-badge">
+                Administrator
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section id="dashboard" class="section active">
+
+            <div class="section-title">
+
+                <h2>Welcome, Admin 👋</h2>
+
+                <p>
+                    Manage your academy from one place.
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <strong id="studentCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Teachers</h3>
+                    <strong id="teacherCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Classes</h3>
+                    <strong id="classCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Payments</h3>
+                    <strong id="paymentCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Quick Access</h3>
+
+                <p>
+                    Use the menu on the left to manage students,
+                    teachers, classes, attendance, lesson records,
+                    progress, payments and announcements.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STUDENTS
+        ================================================= -->
+
+        <section id="students" class="section">
+
+            <div class="section-title">
+
+                <h2>👩‍🎓 Students</h2>
+
+                <p>
+                    Manage all academy students.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Add Student</h3>
+
+                <div class="form-grid">
+
+                    <input
+                        id="studentName"
+                        placeholder="Student Name"
+                    >
+
+                    <input
+                        id="studentEmail"
+                        type="email"
+                        placeholder="Email"
+                    >
+
+                    <input
+                        id="studentPhone"
+                        placeholder="Phone"
+                    >
+
+                    <input
+                        id="studentCourse"
+                        placeholder="Course"
+                    >
+
+                    <input
+                        id="studentLevel"
+                        placeholder="Level"
+                    >
+
+                    <button
+                        class="btn"
+                        onclick="addStudent()">
+                        Add Student
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Student List</h3>
+
+                <input
+                    class="search-box"
+                    id="studentSearch"
+                    placeholder="Search students..."
+                    oninput="displayStudents()"
+                >
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Course</th>
+                                <th>Level</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="studentTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TEACHERS
+        ================================================= -->
+
+        <section id="teachers" class="section">
+
+            <div class="section-title">
+
+                <h2>👩‍🏫 Teachers</h2>
+
+                <p>
+                    Add teachers and manage their accounts.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Add Teacher</h3>
+
+                <div class="form-grid">
+
+                    <input
+                        id="teacherName"
+                        placeholder="Teacher Name"
+                    >
+
+                    <input
+                        id="teacherEmail"
+                        type="email"
+                        placeholder="Teacher Email"
+                    >
+
+                    <input
+                        id="teacherUsername"
+                        placeholder="Username"
+                    >
+
+                    <input
+                        id="teacherPassword"
+                        type="password"
+                        placeholder="Password"
+                    >
+
+                    <input
+                        id="teacherSubject"
+                        placeholder="Subject / Language"
+                    >
+
+                    <button
+                        class="btn"
+                        onclick="addTeacher()">
+                        Add Teacher
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Teacher List</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Subject</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="teacherTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CLASSES
+        ================================================= -->
+
+        <section id="classes" class="section">
+
+            <div class="section-title">
+
+                <h2>📅 Classes</h2>
+
+                <p>
+                    Create and assign classes.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Create Class</h3>
+
+                <div class="form-grid">
+
+                    <select id="classStudent">
+                        <option value="">
+                            Select Student
+                        </option>
+                    </select>
+
+                    <select id="classTeacher">
+                        <option value="">
+                            Select Teacher
+                        </option>
+                    </select>
+
+                    <input
+                        id="classCourse"
+                        placeholder="Course"
+                    >
+
+                    <input
+                        id="classDate"
+                        type="date"
+                    >
+
+                    <input
+                        id="classTime"
+                        type="time"
+                    >
+
+                    <input
+                        id="classLocation"
+                        placeholder="Location / Online"
+                    >
+
+                    <button
+                        class="btn"
+                        onclick="addClass()">
+                        Create Class
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Scheduled Classes</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Teacher</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="classTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ATTENDANCE
+        ================================================= -->
+
+        <section id="attendance" class="section">
+
+            <div class="section-title">
+
+                <h2>✅ Attendance</h2>
+
+                <p>
+                    Record and review student attendance.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Record Attendance</h3>
+
+                <div class="form-grid">
+
+                    <select id="attendanceStudent">
+                        <option value="">
+                            Select Student
+                        </option>
+                    </select>
+
+                    <select id="attendanceStatus">
+
+                        <option value="Present">
+                            Present
+                        </option>
+
+                        <option value="Absent">
+                            Absent
+                        </option>
+
+                        <option value="Late">
+                            Late
+                        </option>
+
+                    </select>
+
+                    <input
+                        id="attendanceDate"
+                        type="date"
+                    >
+
+                    <input
+                        id="attendanceNotes"
+                        placeholder="Notes"
+                    >
+
+                    <button
+                        class="btn"
+                        onclick="addAttendance()">
+                        Save Attendance
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Attendance History</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="attendanceTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LESSON RECORDS
+        ================================================= -->
+
+        <section id="lessons" class="section">
+
+            <div class="section-title">
+
+                <h2>📝 Lesson Records</h2>
+
+                <p>
+                    Record what was taught during each lesson.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Add Lesson Record</h3>
+
+                <div class="form-grid">
+
+                    <select id="lessonStudent">
+                        <option value="">
+                            Select Student
+                        </option>
+                    </select>
+
+                    <select id="lessonTeacher">
+                        <option value="">
+                            Select Teacher
+                        </option>
+                    </select>
+
+                    <input
+                        id="lessonDate"
+                        type="date"
+                    >
+
+                    <input
+                        id="lessonTopic"
+                        placeholder="Lesson Topic"
+                    >
+
+                    <textarea
+                        id="lessonContent"
+                        class="full"
+                        placeholder="What was covered in the lesson?"
+                    ></textarea>
+
+                    <textarea
+                        id="lessonHomework"
+                        class="full"
+                        placeholder="Homework / Assignment"
+                    ></textarea>
+
+                    <textarea
+                        id="lessonNotes"
+                        class="full"
+                        placeholder="Teacher Notes"
+                    ></textarea>
+
+                    <button
+                        class="btn"
+                        onclick="addLesson()">
+                        Save Lesson Record
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Lesson History</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Teacher</th>
+                                <th>Date</th>
+                                <th>Topic</th>
+                                <th>Content</th>
+                                <th>Homework</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="lessonTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================= -->
+
+        <section id="progress" class="section">
+
+            <div class="section-title">
+
+                <h2>📊 Student Progress</h2>
+
+                <p>
+                    Track student academic progress.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Update Student Progress</h3>
+
+                <div class="form-grid">
+
+                    <select id="progressStudent">
+                        <option value="">
+                            Select Student
+                        </option>
+                    </select>
+
+                    <select id="progressLevel">
+
+                        <option value="Excellent">
+                            Excellent
+                        </option>
+
+                        <option value="Very Good">
+                            Very Good
+                        </option>
+
+                        <option value="Good">
+                            Good
+                        </option>
+
+                        <option value="Needs Improvement">
+                            Needs Improvement
+                        </option>
+
+                    </select>
+
+                    <input
+                        id="progressDate"
+                        type="date"
+                    >
+
+                    <input
+                        id="progressScore"
+                        placeholder="Score / Percentage"
+                    >
+
+                    <textarea
+                        id="progressNotes"
+                        class="full"
+                        placeholder="Progress Notes"
+                    ></textarea>
+
+                    <button
+                        class="btn"
+                        onclick="addProgress()">
+                        Save Progress
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Progress History</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Date</th>
+                                <th>Level</th>
+                                <th>Score</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="progressTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAYMENTS
+        ================================================= -->
+
+        <section id="payments" class="section">
+
+            <div class="section-title">
+
+                <h2>💰 Payments</h2>
+
+                <p>
+                    Manage student payments.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Record Payment</h3>
+
+                <div class="form-grid">
+
+                    <select id="paymentStudent">
+                        <option value="">
+                            Select Student
+                        </option>
+                    </select>
+
+                    <input
+                        id="paymentAmount"
+                        type="number"
+                        placeholder="Amount"
+                    >
+
+                    <input
+                        id="paymentDate"
+                        type="date"
+                    >
+
+                    <select id="paymentStatus">
+
+                        <option value="Paid">
+                            Paid
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Partial">
+                            Partial
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="btn"
+                        onclick="addPayment()">
+                        Save Payment
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Payment History</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="paymentTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ANNOUNCEMENTS
+        ================================================= -->
+
+        <section id="announcements" class="section">
+
+            <div class="section-title">
+
+                <h2>📢 Announcements</h2>
+
+                <p>
+                    Publish important academy announcements.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Create Announcement</h3>
+
+                <input
+                    id="announcementTitle"
+                    placeholder="Announcement Title"
+                >
+
+                <textarea
+                    id="announcementText"
+                    placeholder="Announcement Message"
+                ></textarea>
+
+                <button
+                    class="btn"
+                    onclick="addAnnouncement()">
+                    Publish Announcement
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Published Announcements</h3>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="announcementTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function adminLogin() {
+
+    let username =
+        document.getElementById("adminUsername").value;
+
+    let password =
+        document.getElementById("adminPassword").value;
+
+
+    if (username === "Maha" && password === "123123") {
+
+        localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+        );
+
+        document.getElementById("adminLogin").style.display =
+            "none";
+
+        document.getElementById("adminPanel").style.display =
+            "block";
+
+        loadEverything();
+
+    } else {
+
+        alert("Invalid admin username or password.");
+
+    }
+}
+
+
+/* =========================================================
+   ADMIN LOGOUT
+========================================================= */
+
+function adminLogout() {
+
+    localStorage.removeItem("adminLoggedIn");
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   CHECK LOGIN
+========================================================= */
+
+window.onload = function() {
+
+    if (
+        localStorage.getItem("adminLoggedIn") === "true"
+    ) {
+
+        document.getElementById("adminLogin").style.display =
+            "none";
+
+        document.getElementById("adminPanel").style.display =
+            "block";
+
+        loadEverything();
+
+    }
+
+};
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showSection(sectionId, button) {
+
+    document.querySelectorAll(".section")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    document.getElementById(sectionId)
+        .classList.add("active");
+
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+}
+
+
+/* =========================================================
+   DATA HELPERS
+========================================================= */
+
+function getData(key) {
+
+    return JSON.parse(
+        localStorage.getItem(key) || "[]"
+    );
+
+}
+
+
+function saveData(key, data) {
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(data)
+    );
+
+}
+
+
+function generateId() {
+
+    return Date.now() +
+        Math.floor(Math.random() * 1000);
+
+}
+
+
+/* =========================================================
+   STUDENTS
+========================================================= */
+
+function addStudent() {
+
+    let students = getData("students");
+
+    let student = {
+
+        id: generateId(),
+
+        name:
+            document.getElementById("studentName").value,
+
+        email:
+            document.getElementById("studentEmail").value,
+
+        phone:
+            document.getElementById("studentPhone").value,
+
+        course:
+            document.getElementById("studentCourse").value,
+
+        level:
+            document.getElementById("studentLevel").value
+
+    };
+
+
+    if (!student.name || !student.email) {
+
+        alert("Please enter the student name and email.");
+
+        return;
+
+    }
+
+
+    students.push(student);
+
+    saveData("students", students);
+
+    alert("Student added successfully.");
+
+    document.getElementById("studentName").value = "";
+    document.getElementById("studentEmail").value = "";
+    document.getElementById("studentPhone").value = "";
+    document.getElementById("studentCourse").value = "";
+    document.getElementById("studentLevel").value = "";
+
+    loadEverything();
+
+}
+
+
+function displayStudents() {
+
+    let students = getData("students");
+
+    let search =
+        document.getElementById("studentSearch")
+            .value
+            .toLowerCase();
+
+
+    let table =
+        document.getElementById("studentTable");
+
+
+    table.innerHTML = "";
+
+
+    students
+        .filter(student =>
+
+            student.name
+                .toLowerCase()
+                .includes(search)
+
+        )
+        .forEach(student => {
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>${student.name}</td>
+
+                    <td>${student.email}</td>
+
+                    <td>${student.phone || ""}</td>
+
+                    <td>${student.course || ""}</td>
+
+                    <td>${student.level || ""}</td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-danger btn-small"
+                            onclick="deleteItem('students', ${student.id})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* =========================================================
+   TEACHERS
+========================================================= */
+
+function addTeacher() {
+
+    let teachers = getData("teachers");
+
+
+    let teacher = {
+
+        id: generateId(),
+
+        name:
+            document.getElementById("teacherName").value,
+
+        email:
+            document.getElementById("teacherEmail").value,
+
+        username:
+            document.getElementById("teacherUsername").value,
+
+        password:
+            document.getElementById("teacherPassword").value,
+
+        subject:
+            document.getElementById("teacherSubject").value
+
+    };
+
+
+    if (
+        !teacher.name ||
+        !teacher.username ||
+        !teacher.password
+    ) {
+
+        alert(
+            "Please enter teacher name, username and password."
+        );
+
+        return;
+
+    }
+
+
+    teachers.push(teacher);
+
+    saveData("teachers", teachers);
+
+    alert("Teacher added successfully.");
+
+    document.getElementById("teacherName").value = "";
+    document.getElementById("teacherEmail").value = "";
+    document.getElementById("teacherUsername").value = "";
+    document.getElementById("teacherPassword").value = "";
+    document.getElementById("teacherSubject").value = "";
+
+    loadEverything();
+
+}
+
+
+function displayTeachers() {
+
+    let teachers = getData("teachers");
+
+    let table =
+        document.getElementById("teacherTable");
+
+
+    table.innerHTML = "";
+
+
+    teachers.forEach(teacher => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${teacher.name}</td>
+
+                <td>${teacher.email || ""}</td>
+
+                <td>${teacher.username}</td>
+
+                <td>${teacher.subject || ""}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('teachers', ${teacher.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   CLASSES
+========================================================= */
+
+function addClass() {
+
+    let classes = getData("classes");
+
+
+    let studentId =
+        document.getElementById("classStudent").value;
+
+    let teacherId =
+        document.getElementById("classTeacher").value;
+
+
+    let students = getData("students");
+
+    let teachers = getData("teachers");
+
+
+    let student =
+        students.find(s => String(s.id) === String(studentId));
+
+    let teacher =
+        teachers.find(t => String(t.id) === String(teacherId));
+
+
+    if (!student || !teacher) {
+
+        alert("Please select a student and teacher.");
+
+        return;
+
+    }
+
+
+    let newClass = {
+
+        id: generateId(),
+
+        studentId: student.id,
+
+        studentName: student.name,
+
+        teacherId: teacher.id,
+
+        teacherName: teacher.name,
+
+        course:
+            document.getElementById("classCourse").value,
+
+        date:
+            document.getElementById("classDate").value,
+
+        time:
+            document.getElementById("classTime").value,
+
+        location:
+            document.getElementById("classLocation").value
+
+    };
+
+
+    classes.push(newClass);
+
+    saveData("classes", classes);
+
+    alert("Class created successfully.");
+
+    loadEverything();
+
+}
+
+
+function displayClasses() {
+
+    let classes = getData("classes");
+
+    let table =
+        document.getElementById("classTable");
+
+
+    table.innerHTML = "";
+
+
+    classes.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.studentName}</td>
+
+                <td>${item.teacherName}</td>
+
+                <td>${item.course || ""}</td>
+
+                <td>${item.date || ""}</td>
+
+                <td>${item.time || ""}</td>
+
+                <td>${item.location || ""}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('classes', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   ATTENDANCE
+========================================================= */
+
+function addAttendance() {
+
+    let attendance = getData("attendance");
+
+    let studentId =
+        document.getElementById("attendanceStudent").value;
+
+
+    let students = getData("students");
+
+
+    let student =
+        students.find(s => String(s.id) === String(studentId));
+
+
+    if (!student) {
+
+        alert("Please select a student.");
+
+        return;
+
+    }
+
+
+    attendance.push({
+
+        id: generateId(),
+
+        studentId: student.id,
+
+        studentName: student.name,
+
+        date:
+            document.getElementById("attendanceDate").value,
+
+        status:
+            document.getElementById("attendanceStatus").value,
+
+        notes:
+            document.getElementById("attendanceNotes").value
+
+    });
+
+
+    saveData("attendance", attendance);
+
+    alert("Attendance saved.");
+
+    loadEverything();
+
+}
+
+
+function displayAttendance() {
+
+    let attendance = getData("attendance");
+
+    let table =
+        document.getElementById("attendanceTable");
+
+
+    table.innerHTML = "";
+
+
+    attendance.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.studentName}</td>
+
+                <td>${item.date || ""}</td>
+
+                <td>${item.status}</td>
+
+                <td>${item.notes || ""}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('attendance', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   LESSON RECORDS
+========================================================= */
+
+function addLesson() {
+
+    let lessons = getData("lessons");
+
+    let students = getData("students");
+
+    let teachers = getData("teachers");
+
+
+    let studentId =
+        document.getElementById("lessonStudent").value;
+
+    let teacherId =
+        document.getElementById("lessonTeacher").value;
+
+
+    let student =
+        students.find(s => String(s.id) === String(studentId));
+
+    let teacher =
+        teachers.find(t => String(t.id) === String(teacherId));
+
+
+    if (!student || !teacher) {
+
+        alert("Please select a student and teacher.");
+
+        return;
+
+    }
+
+
+    lessons.push({
+
+        id: generateId(),
+
+        studentId: student.id,
+
+        studentName: student.name,
+
+        teacherId: teacher.id,
+
+        teacherName: teacher.name,
+
+        date:
+            document.getElementById("lessonDate").value,
+
+        topic:
+            document.getElementById("lessonTopic").value,
+
+        content:
+            document.getElementById("lessonContent").value,
+
+        homework:
+            document.getElementById("lessonHomework").value,
+
+        notes:
+            document.getElementById("lessonNotes").value
+
+    });
+
+
+    saveData("lessons", lessons);
+
+    alert("Lesson record saved.");
+
+    loadEverything();
+
+}
+
+
+function displayLessons() {
+
+    let lessons = getData("lessons");
+
+    let table =
+        document.getElementById("lessonTable");
+
+
+    table.innerHTML = "";
+
+
+    lessons.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.studentName}</td>
+
+                <td>${item.teacherName}</td>
+
+                <td>${item.date || ""}</td>
+
+                <td>${item.topic || ""}</td>
+
+                <td>${item.content || ""}</td>
+
+                <td>${item.homework || ""}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('lessons', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function addProgress() {
+
+    let progress = getData("progress");
+
+    let students = getData("students");
+
+
+    let studentId =
+        document.getElementById("progressStudent").value;
+
+
+    let student =
+        students.find(s => String(s.id) === String(studentId));
+
+
+    if (!student) {
+
+        alert("Please select a student.");
+
+        return;
+
+    }
+
+
+    progress.push({
+
+        id: generateId(),
+
+        studentId: student.id,
+
+        studentName: student.name,
+
+        date:
+            document.getElementById("progressDate").value,
+
+        level:
+            document.getElementById("progressLevel").value,
+
+        score:
+            document.getElementById("progressScore").value,
+
+        notes:
+            document.getElementById("progressNotes").value
+
+    });
+
+
+    saveData("progress", progress);
+
+    alert("Progress saved.");
+
+    loadEverything();
+
+}
+
+
+function displayProgress() {
+
+    let progress = getData("progress");
+
+    let table =
+        document.getElementById("progressTable");
+
+
+    table.innerHTML = "";
+
+
+    progress.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.studentName}</td>
+
+                <td>${item.date || ""}</td>
+
+                <td>${item.level}</td>
+
+                <td>${item.score || ""}</td>
+
+                <td>${item.notes || ""}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('progress', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   PAYMENTS
+========================================================= */
+
+function addPayment() {
+
+    let payments = getData("payments");
+
+    let students = getData("students");
+
+
+    let studentId =
+        document.getElementById("paymentStudent").value;
+
+
+    let student =
+        students.find(s => String(s.id) === String(studentId));
+
+
+    if (!student) {
+
+        alert("Please select a student.");
+
+        return;
+
+    }
+
+
+    payments.push({
+
+        id: generateId(),
+
+        studentId: student.id,
+
+        studentName: student.name,
+
+        amount:
+            document.getElementById("paymentAmount").value,
+
+        date:
+            document.getElementById("paymentDate").value,
+
+        status:
+            document.getElementById("paymentStatus").value
+
+    });
+
+
+    saveData("payments", payments);
+
+    alert("Payment saved.");
+
+    loadEverything();
+
+}
+
+
+function displayPayments() {
+
+    let payments = getData("payments");
+
+    let table =
+        document.getElementById("paymentTable");
+
+
+    table.innerHTML = "";
+
+
+    payments.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.studentName}</td>
+
+                <td>$${item.amount}</td>
+
+                <td>${item.date || ""}</td>
+
+                <td>${item.status}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('payments', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   ANNOUNCEMENTS
+========================================================= */
+
+function addAnnouncement() {
+
+    let announcements =
+        getData("announcements");
+
+
+    let title =
+        document.getElementById("announcementTitle").value;
+
+    let text =
+        document.getElementById("announcementText").value;
+
+
+    if (!title || !text) {
+
+        alert("Please enter a title and message.");
+
+        return;
+
+    }
+
+
+    announcements.push({
+
+        id: generateId(),
+
+        title: title,
+
+        text: text,
+
+        date: new Date().toLocaleDateString()
+
+    });
+
+
+    saveData(
+        "announcements",
+        announcements
+    );
+
+
+    alert("Announcement published.");
+
+    document.getElementById("announcementTitle").value = "";
+    document.getElementById("announcementText").value = "";
+
+    loadEverything();
+
+}
+
+
+function displayAnnouncements() {
+
+    let announcements =
+        getData("announcements");
+
+
+    let table =
+        document.getElementById(
+            "announcementTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    announcements.forEach(item => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${item.title}</td>
+
+                <td>${item.text}</td>
+
+                <td>${item.date}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-small"
+                        onclick="deleteItem('announcements', ${item.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteItem(key, id) {
+
+    if (!confirm("Are you sure you want to delete this record?")) {
+
+        return;
+
+    }
+
+
+    let data = getData(key);
+
+
+    data = data.filter(
+        item => item.id !== id
+    );
+
+
+    saveData(key, data);
+
+    loadEverything();
+
+}
+
+
+/* =========================================================
+   DROPDOWN HELPERS
+========================================================= */
+
+function populateDropdowns() {
+
+    let students = getData("students");
+
+    let teachers = getData("teachers");
+
+
+    let studentDropdowns = [
+
+        "classStudent",
+        "attendanceStudent",
+        "lessonStudent",
+        "progressStudent",
+        "paymentStudent"
+
+    ];
+
+
+    studentDropdowns.forEach(id => {
+
+        let dropdown =
+            document.getElementById(id);
+
+
+        if (!dropdown) return;
+
+
+        dropdown.innerHTML =
+            '<option value="">Select Student</option>';
+
+
+        students.forEach(student => {
+
+            dropdown.innerHTML += `
+
+                <option value="${student.id}">
+                    ${student.name}
+                </option>
+
+            `;
+
+        });
+
+    });
+
+
+    let teacherDropdowns = [
+
+        "classTeacher",
+        "lessonTeacher"
+
+    ];
+
+
+    teacherDropdowns.forEach(id => {
+
+        let dropdown =
+            document.getElementById(id);
+
+
+        if (!dropdown) return;
+
+
+        dropdown.innerHTML =
+            '<option value="">Select Teacher</option>';
+
+
+        teachers.forEach(teacher => {
+
+            dropdown.innerHTML += `
+
+                <option value="${teacher.id}">
+                    ${teacher.name}
+                </option>
+
+            `;
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   DASHBOARD COUNTS
+========================================================= */
+
+function updateStats() {
+
+    document.getElementById("studentCount").textContent =
+        getData("students").length;
+
+
+    document.getElementById("teacherCount").textContent =
+        getData("teachers").length;
+
+
+    document.getElementById("classCount").textContent =
+        getData("classes").length;
+
+
+    document.getElementById("paymentCount").textContent =
+        getData("payments").length;
+
+}
+
+
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
+
+function loadEverything() {
+
+    displayStudents();
+
+    displayTeachers();
+
+    displayClasses();
+
+    displayAttendance();
+
+    displayLessons();
+
+    displayProgress();
+
+    displayPayments();
+
+    displayAnnouncements();
+
+    populateDropdowns();
+
+    updateStats();
+
+}
+
+</script>
+
+</body>
+</html>

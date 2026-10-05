@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - GS Language Academy</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f4f2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #672a1f;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            background: #fffaf8;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(103, 42, 31, 0.12);
+            text-align: center;
+        }
+
+        .logo {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #7f3025;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8b625b;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .login-type {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 13px 8px;
+            border: 2px solid #e4c8c1;
+            background: white;
+            color: #7f3025;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .type-btn:hover {
+            border-color: #a93d2f;
+        }
+
+        .type-btn.active {
+            background: #a93d2f;
+            color: white;
+            border-color: #a93d2f;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        body.rtl .login-form {
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #672a1f;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 17px;
+            border: 1px solid #dec9c4;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #a93d2f;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: #a93d2f;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            background: #7f3025;
+        }
+
+        .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .register-link a {
+            color: #a93d2f;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid #eadbd7;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #8b625b;
+        }
+
+        .contact-info a {
+            color: #7f3025;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+
+            .login-container {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .type-btn {
+                font-size: 13px;
+                padding: 12px 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="login-container">
+
+    <!-- LOGO -->
+
+    <img
+        src="logo.png"
+        alt="GS Language Academy Logo"
+        class="logo"
+    >
+
+
+    <!-- TITLE -->
+
+    <h1 data-i18n="academyName">
+        GS Language Academy
+    </h1>
+
+
+    <p
+        class="subtitle"
+        data-i18n="welcomeBack"
+    >
+        Welcome back! Please log in to continue.
+    </p>
+
+
+    <!-- LOGIN TYPE -->
+
+    <div
+        class="question"
+        data-i18n="loginQuestion"
+    >
+        How would you like to log in?
+    </div>
+
+
+    <div class="login-type">
+
+        <button
+            type="button"
+            class="type-btn active"
+            id="studentBtn"
+            onclick="showStudentLogin()"
+            data-i18n="student"
+        >
+            Student
+        </button>
+
+
+        <button
+            type="button"
+            class="type-btn"
+            id="teacherBtn"
+            onclick="showTeacherLogin()"
+            data-i18n="teacher"
+        >
+            Teacher
+        </button>
+
+
+        <button
+            type="button"
+            class="type-btn"
+            id="adminBtn"
+            onclick="showAdminLogin()"
+            data-i18n="admin"
+        >
+            Admin
+        </button>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- STUDENT LOGIN -->
+    <!-- ================================= -->
+
+    <form
+        id="studentLoginForm"
+        class="login-form"
+    >
+
+        <label
+            for="studentEmail"
+            data-i18n="email"
+        >
+            Email
+        </label>
+
+
+        <input
+            type="email"
+            id="studentEmail"
+            name="email"
+            data-i18n-placeholder="emailPlaceholder"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label
+            for="studentPassword"
+            data-i18n="password"
+        >
+            Password
+        </label>
+
+
+        <input
+            type="password"
+            id="studentPassword"
+            name="password"
+            data-i18n-placeholder="passwordPlaceholder"
+            placeholder="Enter your password"
+            required
+        >
+
+
+        <button
+            type="submit"
+            class="login-button"
+            data-i18n="studentLogin"
+        >
+            Student Login
+        </button>
+
+    </form>
+
+
+    <!-- ================================= -->
+    <!-- TEACHER LOGIN -->
+    <!-- ================================= -->
+
+    <form
+        id="teacherLoginForm"
+        class="login-form hidden"
+    >
+
+        <label
+            for="teacherEmail"
+            data-i18n="email"
+        >
+            Email
+        </label>
+
+
+        <input
+            type="email"
+            id="teacherEmail"
+            data-i18n-placeholder="emailPlaceholder"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label
+            for="teacherPassword"
+            data-i18n="password"
+        >
+            Password
+        </label>
+
+
+        <input
+            type="password"
+            id="teacherPassword"
+            data-i18n-placeholder="passwordPlaceholder"
+            placeholder="Enter your password"
+            required
+        >
+
+
+        <button
+            type="submit"
+            class="login-button"
+            data-i18n="teacherLogin"
+        >
+            Teacher Login
+        </button>
+
+    </form>
+
+
+    <!-- ================================= -->
+    <!-- ADMIN LOGIN -->
+    <!-- ================================= -->
+
+    <form
+        id="adminLoginForm"
+        class="login-form hidden"
+    >
+
+        <label
+            for="adminEmail"
+            data-i18n="email"
+        >
+            Email
+        </label>
+
+
+        <input
+            type="email"
+            id="adminEmail"
+            data-i18n-placeholder="emailPlaceholder"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label
+            for="adminPassword"
+            data-i18n="password"
+        >
+            Password
+        </label>
+
+
+        <input
+            type="password"
+            id="adminPassword"
+            data-i18n-placeholder="passwordPlaceholder"
+            placeholder="Enter your password"
+            required
+        >
+
+
+        <button
+            type="submit"
+            class="login-button"
+            data-i18n="adminLogin"
+        >
+            Admin Login
+        </button>
+
+    </form>
+
+
+    <!-- ================================= -->
+    <!-- REGISTER -->
+    <!-- ================================= -->
+
+    <div
+        class="register-link"
+        id="registerLink"
+    >
+
+        <span data-i18n="noAccount">
+            Don't have a student account?
+        </span>
+
+        <a
+            href="Register.html"
+            data-i18n="registerHere"
+        >
+            Register here
+        </a>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- CONTACT -->
+    <!-- ================================= -->
+
+    <div class="contact-info">
+
+        <strong data-i18n="contactAcademy">
+            Contact GS Language Academy
+        </strong>
+
+        <br>
+
+
+        <span data-i18n="emailLabel">
+            Email:
+        </span>
+
+        <a href="mailto:Gslanguageacademy1@gmail.com">
+            Gslanguageacademy1@gmail.com
+        </a>
+
+        <br>
+
+
+        <span data-i18n="phoneLabel">
+            Phone / WhatsApp:
+        </span>
+
+        <a href="tel:+584147795780">
+            +58 414-7795780
+        </a>
+
+        <br>
+
+
+        <span data-i18n="instagramLabel">
+            Instagram:
+        </span>
+
+        <a
+            href="https://www.instagram.com/gslacademy1?stkn=aTE4dGRod3NteGxk"
+            target="_blank"
+        >
+            @gslacademy1
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   LANGUAGE SYSTEM
+   ===================================================== */
+
+const translations = {
+
+    en: {
+
+        academyName:
+            "GS Language Academy",
+
+        welcomeBack:
+            "Welcome back! Please log in to continue.",
+
+        loginQuestion:
+            "How would you like to log in?",
+
+        student:
+            "Student",
+
+        teacher:
+            "Teacher",
+
+        admin:
+            "Admin",
+
+        email:
+            "Email",
+
+        password:
+            "Password",
+
+        emailPlaceholder:
+            "Enter your email",
+
+        passwordPlaceholder:
+            "Enter your password",
+
+        studentLogin:
+            "Student Login",
+
+        teacherLogin:
+            "Teacher Login",
+
+        adminLogin:
+            "Admin Login",
+
+        noAccount:
+            "Don't have a student account?",
+
+        registerHere:
+            "Register here",
+
+        contactAcademy:
+            "Contact GS Language Academy",
+
+        emailLabel:
+            "Email:",
+
+        phoneLabel:
+            "Phone / WhatsApp:",
+
+        instagramLabel:
+            "Instagram:",
+
+        invalidStudent:
+            "Invalid email or password!",
+
+        noStudent:
+            "No student registration found. Please register first.",
+
+        noTeacher:
+            "No teacher accounts found. Please contact the administrator.",
+
+        invalidTeacher:
+            "Invalid teacher email or password.",
+
+        invalidAdmin:
+            "Invalid admin email or password."
+
+    },
+
+
+    es: {
+
+        academyName:
+            "GS Language Academy",
+
+        welcomeBack:
+            "¡Bienvenido de nuevo! Inicia sesión para continuar.",
+
+        loginQuestion:
+            "¿Cómo deseas iniciar sesión?",
+
+        student:
+            "Estudiante",
+
+        teacher:
+            "Profesor",
+
+        admin:
+            "Administrador",
+
+        email:
+            "Correo electrónico",
+
+        password:
+            "Contraseña",
+
+        emailPlaceholder:
+            "Introduce tu correo electrónico",
+
+        passwordPlaceholder:
+            "Introduce tu contraseña",
+
+        studentLogin:
+            "Iniciar sesión como estudiante",
+
+        teacherLogin:
+            "Iniciar sesión como profesor",
+
+        adminLogin:
+            "Iniciar sesión como administrador",
+
+        noAccount:
+            "¿No tienes una cuenta de estudiante?",
+
+        registerHere:
+            "Regístrate aquí",
+
+        contactAcademy:
+            "Contacta con GS Language Academy",
+
+        emailLabel:
+            "Correo:",
+
+        phoneLabel:
+            "Teléfono / WhatsApp:",
+
+        instagramLabel:
+            "Instagram:",
+
+        invalidStudent:
+            "¡Correo electrónico o contraseña incorrectos!",
+
+        noStudent:
+            "No se encontró ningún registro de estudiante. Regístrate primero.",
+
+        noTeacher:
+            "No se encontraron cuentas de profesores. Contacta con el administrador.",
+
+        invalidTeacher:
+            "Correo electrónico o contraseña del profesor incorrectos.",
+
+        invalidAdmin:
+            "Correo electrónico o contraseña del administrador incorrectos."
+
+    },
+
+
+    ar: {
+
+        academyName:
+            "أكاديمية GS للغات",
+
+        welcomeBack:
+            "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة.",
+
+        loginQuestion:
+            "كيف تريد تسجيل الدخول؟",
+
+        student:
+            "طالب",
+
+        teacher:
+            "معلم",
+
+        admin:
+            "مدير",
+
+        email:
+            "البريد الإلكتروني",
+
+        password:
+            "كلمة المرور",
+
+        emailPlaceholder:
+            "أدخل بريدك الإلكتروني",
+
+        passwordPlaceholder:
+            "أدخل كلمة المرور",
+
+        studentLogin:
+            "تسجيل دخول الطالب",
+
+        teacherLogin:
+            "تسجيل دخول المعلم",
+
+        adminLogin:
+            "تسجيل دخول المدير",
+
+        noAccount:
+            "ليس لديك حساب طالب؟",
+
+        registerHere:
+            "سجل هنا",
+
+        contactAcademy:
+            "تواصل مع أكاديمية GS للغات",
+
+        emailLabel:
+            "البريد الإلكتروني:",
+
+        phoneLabel:
+            "الهاتف / واتساب:",
+
+        instagramLabel:
+            "إنستغرام:",
+
+        invalidStudent:
+            "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
+
+        noStudent:
+            "لم يتم العثور على تسجيل طالب. يرجى التسجيل أولاً.",
+
+        noTeacher:
+            "لم يتم العثور على حسابات للمعلمين. يرجى التواصل مع المدير.",
+
+        invalidTeacher:
+            "البريد الإلكتروني أو كلمة المرور الخاصة بالمعلم غير صحيحة.",
+
+        invalidAdmin:
+            "البريد الإلكتروني أو كلمة المرور الخاصة بالمدير غير صحيحة."
+
+    }
+
+};
+
+
+/* =====================================================
+   GET SAVED LANGUAGE
+   ===================================================== */
+
+function getLanguage() {
+
+    let language =
+        localStorage.getItem("language");
+
+    if (
+        language !== "en" &&
+        language !== "es" &&
+        language !== "ar"
+    ) {
+
+        language = "en";
+
+    }
+
+    return language;
+}
+
+
+/* =====================================================
+   APPLY LANGUAGE
+   ===================================================== */
+
+function applyLanguage() {
+
+    const language =
+        getLanguage();
+
+    const text =
+        translations[language];
+
+
+    /* HTML LANGUAGE */
+
+    document.documentElement.lang =
+        language;
+
+
+    /* RTL FOR ARABIC */
+
+    if (language === "ar") {
+
+        document.documentElement.dir =
+            "rtl";
+
+        document.body.classList.add("rtl");
+
+    } else {
+
+        document.documentElement.dir =
+            "ltr";
+
+        document.body.classList.remove("rtl");
+
+    }
+
+
+    /* NORMAL TEXT */
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(function(element) {
+
+            const key =
+                element.getAttribute("data-i18n");
+
+            if (text[key]) {
+
+                element.textContent =
+                    text[key];
+
+            }
+
+        });
+
+
+    /* PLACEHOLDERS */
+
+    document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach(function(element) {
+
+            const key =
+                element.getAttribute(
+                    "data-i18n-placeholder"
+                );
+
+            if (text[key]) {
+
+                element.placeholder =
+                    text[key];
+
+            }
+
+        });
+
+}
+
+
+/* =====================================================
+   SHOW STUDENT LOGIN
+   ===================================================== */
+
+function showStudentLogin() {
+
+    document
+        .getElementById("studentLoginForm")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("teacherLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("adminLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("studentBtn")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("teacherBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("adminBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("registerLink")
+        .style
+        .display = "block";
+
+}
+
+
+/* =====================================================
+   SHOW TEACHER LOGIN
+   ===================================================== */
+
+function showTeacherLogin() {
+
+    document
+        .getElementById("studentLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("teacherLoginForm")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("adminLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("studentBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("teacherBtn")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("adminBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("registerLink")
+        .style
+        .display = "none";
+
+}
+
+
+/* =====================================================
+   SHOW ADMIN LOGIN
+   ===================================================== */
+
+function showAdminLogin() {
+
+    document
+        .getElementById("studentLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("teacherLoginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("adminLoginForm")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("studentBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("teacherBtn")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("adminBtn")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("registerLink")
+        .style
+        .display = "none";
+
+}
+
+
+/* =====================================================
+   STUDENT LOGIN
+   ===================================================== */
+
+function loginStudent() {
+
+    const language =
+        getLanguage();
+
+    const text =
+        translations[language];
+
+
+    let email =
+        document.getElementById(
+            "studentEmail"
+        ).value.trim();
+
+
+    let password =
+        document.getElementById(
+            "studentPassword"
+        ).value;
+
+
+    let studentData =
+        localStorage.getItem("student");
+
+
+    if (studentData) {
+
+        let student =
+            JSON.parse(studentData);
+
+
+        if (
+            email === student.email &&
+            password === student.password
+        ) {
+
+            localStorage.setItem(
+                "loggedIn",
+                "true"
+            );
+
+
+            window.location.href =
+                "Dashboard.html";
+
+        } else {
+
+            alert(
+                text.invalidStudent
+            );
+
+        }
+
+    } else {
+
+        alert(
+            text.noStudent
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   TEACHER LOGIN
+   ===================================================== */
+
+function teacherLogin() {
+
+    const language =
+        getLanguage();
+
+    const text =
+        translations[language];
+
+
+    let email =
+        document.getElementById(
+            "teacherEmail"
+        ).value.trim();
+
+
+    let password =
+        document.getElementById(
+            "teacherPassword"
+        ).value;
+
+
+    let teachersData =
+        localStorage.getItem("teachers");
+
+
+    if (!teachersData) {
+
+        alert(
+            text.noTeacher
+        );
+
+        return;
+
+    }
+
+
+    let teachers =
+        JSON.parse(teachersData);
+
+
+    let teacher =
+        teachers.find(function(t) {
+
+            return (
+                t.email === email &&
+                t.password === password
+            );
+
+        });
+
+
+    if (teacher) {
+
+        localStorage.setItem(
+            "teacherLoggedIn",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "currentTeacherId",
+            teacher.id
+        );
+
+
+        window.location.href =
+            "Teacher.html";
+
+    } else {
+
+        alert(
+            text.invalidTeacher
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+   ===================================================== */
+
+function adminLogin() {
+
+    const language =
+        getLanguage();
+
+    const text =
+        translations[language];
+
+
+    let email =
+        document.getElementById(
+            "adminEmail"
+        ).value.trim();
+
+
+    let password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+
+    /* ADMIN ACCOUNT */
+
+    if (
+        email === "Gslanguageacademy1@gmail.com" &&
+        password === "123123"
+    ) {
+
+        localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+        );
+
+
+        window.location.href =
+            "Admin.html";
+
+    } else {
+
+        alert(
+            text.invalidAdmin
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   FORM SUBMIT
+   ===================================================== */
+
+document
+    .getElementById("studentLoginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            loginStudent();
+
+        }
+    );
+
+
+document
+    .getElementById("teacherLoginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            teacherLogin();
+
+        }
+    );
+
+
+document
+    .getElementById("adminLoginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            adminLogin();
+
+        }
+    );
+
+
+/* =====================================================
+   APPLY LANGUAGE WHEN PAGE LOADS
+   ===================================================== */
+
+applyLanguage();
+
+</script>
+
+
+</body>
+
+</html>
