@@ -5,21 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Build practical English skills, prepare for international job interviews, and get ready for remote work with GS Language Academy.">
-    <meta name="theme-color" content="#702b25">
+    <meta name="theme-color" content="#8b3f35">
     <title>GS Language Academy | English for Remote Work</title>
 
     <style>
         :root {
-            --maroon: #702b25;
-            --maroon-dark: #4d211b;
-            --coral: #d9573d;
-            --cream: #fffaf6;
-            --peach: #f8e4da;
-            --ink: #392824;
-            --muted: #76645e;
+            --maroon: #8b3f35;
+            --maroon-dark: #693129;
+            --coral: #f07858;
+            --coral-light: #ff9a75;
+            --cream: #fffaf3;
+            --peach: #ffe4d6;
+            --peach-light: #fff0e8;
+            --ink: #49332e;
+            --muted: #806b63;
             --white: #ffffff;
-            --line: #edddd5;
-            --shadow: 0 18px 50px rgba(83, 39, 30, .12);
+            --line: #f0d9cd;
+            --shadow: 0 18px 50px rgba(139, 63, 53, .13);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,10 +35,9 @@
         a { color: inherit; }
         .container { width: min(1160px, 88%); margin: 0 auto; }
 
-        /* Navigation */
         nav {
             min-height: 78px;
-            background: rgba(255,255,255,.96);
+            background: rgba(255,255,255,.97);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -52,7 +53,7 @@
         .nav-logo img { width: 54px; height: 54px; object-fit: contain; }
         .nav-logo span { font-size: 20px; font-weight: 800; color: var(--maroon); }
         .nav-links { display: flex; align-items: center; gap: 25px; }
-        .nav-links a { text-decoration: none; color: #55332b; font-weight: 700; font-size: 14px; }
+        .nav-links a { text-decoration: none; color: #68443b; font-weight: 700; font-size: 14px; }
         .nav-links a:hover { color: var(--coral); }
         .nav-links .login-btn {
             background: var(--maroon);
@@ -62,7 +63,6 @@
         }
         .nav-links .login-btn:hover { background: var(--coral); color: var(--white); }
 
-        /* Buttons */
         .btn {
             display: inline-flex;
             justify-content: center;
@@ -76,19 +76,19 @@
             transition: transform .2s, background .2s, box-shadow .2s;
         }
         .btn:hover { transform: translateY(-2px); }
-        .btn-primary { background: var(--coral); color: var(--white); box-shadow: 0 9px 22px rgba(217,87,61,.22); }
+        .btn-primary { background: var(--coral); color: var(--white); box-shadow: 0 9px 22px rgba(240,120,88,.24); }
         .btn-primary:hover { background: var(--maroon); }
-        .btn-secondary { border: 2px solid var(--maroon); color: var(--maroon); background: rgba(255,255,255,.55); }
+        .btn-secondary { border: 2px solid var(--maroon); color: var(--maroon); background: rgba(255,255,255,.75); }
         .btn-secondary:hover { background: var(--maroon); color: var(--white); }
 
-        /* Hero */
         .hero {
             position: relative;
             overflow: hidden;
             padding: 76px 0 82px;
             background:
-                radial-gradient(circle at 88% 15%, rgba(244,174,143,.38), transparent 28%),
-                linear-gradient(125deg, #fffaf6 0%, #f8e4da 100%);
+                radial-gradient(circle at 88% 15%, rgba(255,173,137,.48), transparent 29%),
+                radial-gradient(circle at 8% 90%, rgba(255,213,185,.48), transparent 27%),
+                linear-gradient(125deg, #fffaf3 0%, #ffe8dc 100%);
         }
         .hero-grid {
             display: grid;
@@ -102,7 +102,7 @@
             gap: 8px;
             padding: 8px 14px;
             border-radius: 30px;
-            background: #f5d3c5;
+            background: #ffdfd0;
             color: var(--maroon);
             font-size: 12px;
             font-weight: 800;
@@ -121,14 +121,14 @@
         }
         .hero h1 span { color: var(--coral); }
         .hero h2 {
-            color: #49312b;
+            color: #593b32;
             font-size: clamp(20px, 2.2vw, 27px);
             line-height: 1.35;
             margin-bottom: 17px;
         }
         .hero-copy { max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.85; margin-bottom: 27px; }
         .hero-buttons { display: flex; flex-wrap: wrap; gap: 13px; }
-        .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 24px; color: #725b53; font-size: 13px; font-weight: 700; }
+        .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 24px; color: #80645a; font-size: 13px; font-weight: 700; }
         .hero-note strong { color: var(--maroon); }
         .hero-visual { position: relative; min-height: 430px; }
         .hero-photo {
@@ -163,30 +163,28 @@
             display: grid;
             place-items: center;
             border-radius: 50%;
-            background: #f6bd83;
-            color: var(--maroon);
+            background: #ffc987;
+            color: var(--maroon-dark);
             text-align: center;
             font-size: 12px;
             font-weight: 900;
             transform: rotate(9deg);
-            box-shadow: 0 8px 25px rgba(83,39,30,.12);
+            box-shadow: 0 8px 25px rgba(139,63,53,.12);
         }
 
-        /* General sections */
         .section { padding: 82px 0; }
         .section-heading { max-width: 720px; text-align: center; margin: 0 auto 42px; }
         .section-kicker { color: var(--coral); font-size: 12px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 9px; }
         .section-heading h2 { color: var(--maroon); font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin-bottom: 13px; }
         .section-heading p { color: var(--muted); font-size: 16px; }
 
-        /* Programs / modalities */
         .program-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
         .program-card {
             overflow: hidden;
             background: var(--white);
             border: 1px solid var(--line);
             border-radius: 20px;
-            box-shadow: 0 9px 28px rgba(83,39,30,.06);
+            box-shadow: 0 9px 28px rgba(139,63,53,.07);
             transition: transform .2s, box-shadow .2s;
         }
         .program-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
@@ -194,8 +192,8 @@
         .program-content { padding: 27px 29px 30px; }
         .program-label {
             display: inline-block;
-            color: var(--coral);
-            background: #fff0e9;
+            color: #bd563f;
+            background: #fff0e8;
             border-radius: 30px;
             padding: 6px 11px;
             font-size: 11px;
@@ -208,17 +206,16 @@
         .program-card p { color: var(--muted); line-height: 1.8; }
         .program-footer { margin-top: 19px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--maroon); font-size: 13px; font-weight: 800; }
 
-        /* Why us */
-        .benefits-section { background: #702b25; color: var(--white); }
-        .benefits-section .section-kicker { color: #ffc29f; }
+        .benefits-section { background: linear-gradient(120deg, #a84e40 0%, #c7654f 100%); color: var(--white); }
+        .benefits-section .section-kicker { color: #ffe0bd; }
         .benefits-section .section-heading h2 { color: var(--white); }
-        .benefits-section .section-heading p { color: #f4d9d0; }
+        .benefits-section .section-heading p { color: #fff0e8; }
         .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .benefit-card {
             padding: 29px 25px;
-            border: 1px solid rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.35);
             border-radius: 17px;
-            background: rgba(255,255,255,.08);
+            background: rgba(255,255,255,.13);
         }
         .benefit-number {
             display: grid;
@@ -226,16 +223,15 @@
             width: 46px;
             height: 46px;
             border-radius: 13px;
-            background: #f6bd83;
+            background: #ffd29e;
             color: var(--maroon);
             font-size: 17px;
             font-weight: 900;
             margin-bottom: 19px;
         }
         .benefit-card h3 { color: var(--white); font-size: 20px; margin-bottom: 10px; }
-        .benefit-card p { color: #f3dcd5; font-size: 14px; line-height: 1.8; }
+        .benefit-card p { color: #fff1e9; font-size: 14px; line-height: 1.8; }
 
-        /* Visual callout */
         .work-section { padding: 78px 0; }
         .work-panel {
             display: grid;
@@ -244,20 +240,19 @@
             gap: 38px;
             padding: 28px;
             border-radius: 24px;
-            background: #f8e6dd;
+            background: #ffeadf;
         }
         .work-panel img { width: 100%; height: 310px; object-fit: cover; border-radius: 17px; }
         .work-panel h2 { color: var(--maroon); font-size: clamp(27px, 3.5vw, 37px); line-height: 1.15; margin-bottom: 14px; }
         .work-panel p { color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
 
-        /* CTA and footer */
-        .cta { padding: 76px 20px; text-align: center; background: #f8e4da; }
+        .cta { padding: 76px 20px; text-align: center; background: linear-gradient(120deg, #ffe8dc, #fff4e9); }
         .cta h2 { color: var(--maroon); font-size: clamp(29px, 4vw, 40px); margin-bottom: 12px; }
         .cta p { max-width: 650px; margin: 0 auto 24px; color: var(--muted); }
-        footer { background: var(--maroon-dark); color: var(--white); text-align: center; padding: 42px 20px 25px; }
+        footer { background: #693129; color: var(--white); text-align: center; padding: 42px 20px 25px; }
         footer .footer-logo { width: 82px; height: 82px; object-fit: contain; background: var(--white); border-radius: 12px; padding: 6px; margin-bottom: 12px; }
         footer h3 { font-size: 21px; margin-bottom: 7px; }
-        footer .footer-intro { color: #e9c8bf; font-size: 14px; }
+        footer .footer-intro { color: #f4d9cf; font-size: 14px; }
         .footer-contact { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin: 24px 0; }
         .footer-contact a {
             display: inline-flex;
@@ -267,15 +262,15 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 13px;
-            border: 1px solid rgba(255,255,255,.28);
+            border: 1px solid rgba(255,255,255,.35);
             border-radius: 9px;
             padding: 11px 14px;
-            background: rgba(255,255,255,.05);
+            background: rgba(255,255,255,.08);
             transition: background .2s, transform .2s;
         }
-        .footer-contact a:hover { background: #713027; transform: translateY(-2px); }
+        .footer-contact a:hover { background: #8b3f35; transform: translateY(-2px); }
         .contact-icon { width: 21px; height: 21px; flex: 0 0 21px; }
-        .copyright { color: #d9b7ae; font-size: 12px; margin-top: 22px; }
+        .copyright { color: #e9c8bf; font-size: 12px; margin-top: 22px; }
 
         @media (max-width: 900px) {
             .hero-grid { grid-template-columns: 1fr; gap: 38px; }
@@ -357,10 +352,10 @@
                     </div>
                 </div>
 
-                <div class="hero-visual" aria-label="Young professional learning and working remotely">
+                <div class="hero-visual" aria-label="Students and professionals learning and working remotely">
                     <img class="hero-photo"
                          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
-                         alt="Young professionals collaborating around a laptop">
+                         alt="A diverse group of adult men and women collaborating in a bright workplace">
                     <div class="visual-tag">
                         Speak with confidence. Work with purpose.
                         <small>Build skills for a global workplace.</small>
@@ -381,12 +376,12 @@
                 <div class="program-grid">
                     <article class="program-card">
                         <img class="program-image"
-                             src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
-                             alt="Students learning together in a collaborative setting"
+                             src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+                             alt="A classroom of children learning together, representing young learners at GS Language Academy"
                              loading="lazy">
                         <div class="program-content">
                             <span class="program-label">Learn together</span>
-                            <h3>🇬🇧 English: Premium Group Classes</h3>
+                            <h3>🇬🇧 🇺🇸 English: Premium Group Classes</h3>
                             <p>
                                 Learn within an interactive community without sacrificing personalized attention.
                                 Features live sessions focused on conversational fluency, simulated remote workplace
@@ -399,12 +394,12 @@
 
                     <article class="program-card">
                         <img class="program-image"
-                             src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
-                             alt="Professional taking an online lesson at a laptop"
+                             src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+                             alt="An adult learner receiving one-on-one English coaching from an instructor"
                              loading="lazy">
                         <div class="program-content">
                             <span class="program-label">Personalized coaching</span>
-                            <h3>🇬🇧 English: 1:1 VIP Coaching</h3>
+                            <h3>🇬🇧 🇺🇸 English: 1:1 VIP Coaching</h3>
                             <p>
                                 The fastest path toward your career goals. Work with an instructor dedicated to your
                                 growth, with lessons tailored to the remote-work sector you want to target—such as
@@ -451,8 +446,8 @@
         <section class="work-section">
             <div class="container">
                 <div class="work-panel">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
-                         alt="A modern home office setup with a laptop"
+                    <img src="https://images.unsplash.com/photo-1598257006458-087169a1f08d?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
+                         alt="An adult professional working remotely in a bright home office"
                          loading="lazy">
                     <div>
                         <div class="section-kicker">English that moves with you</div>
