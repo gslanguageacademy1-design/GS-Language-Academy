@@ -1,17 +1,12 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="ltr">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GS Language Academy</title>
 
     <style>
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -37,6 +32,23 @@
             border-radius: 18px;
             box-shadow: 0 8px 30px rgba(103, 42, 31, 0.12);
             text-align: center;
+        }
+
+        .language-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 18px;
+        }
+
+        .language-select {
+            padding: 9px 12px;
+            border: 1px solid #dec9c4;
+            border-radius: 8px;
+            background: white;
+            color: #672a1f;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .logo {
@@ -163,6 +175,7 @@
             font-size: 12px;
             line-height: 1.8;
             color: #8b625b;
+            overflow-wrap: anywhere;
         }
 
         .contact-info a {
@@ -171,12 +184,39 @@
             font-weight: bold;
         }
 
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 9px;
+            line-height: 1.5;
+            flex-wrap: wrap;
+        }
+
+        .contact-icon {
+            width: 19px;
+            height: 19px;
+            flex: 0 0 19px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .contact-row a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .hidden {
             display: none;
         }
 
         @media (max-width: 480px) {
-
             .login-container {
                 padding: 30px 22px;
             }
@@ -189,19 +229,27 @@
                 font-size: 13px;
                 padding: 12px 5px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
 <div class="login-container">
 
-    <!-- LOGO -->
+    <!-- LANGUAGE SELECTOR - NO FLAGS -->
+    <div class="language-bar">
+        <select
+            id="languageSelector"
+            class="language-select"
+            aria-label="Select language"
+            onchange="changeLanguage(this.value)"
+        >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ar">العربية</option>
+        </select>
+    </div>
 
     <img
         src="logo.png"
@@ -209,85 +257,34 @@
         class="logo"
     >
 
+    <h1 data-i18n="academyName">GS Language Academy</h1>
 
-    <!-- TITLE -->
-
-    <h1 data-i18n="academyName">
-        GS Language Academy
-    </h1>
-
-
-    <p
-        class="subtitle"
-        data-i18n="welcomeBack"
-    >
+    <p class="subtitle" data-i18n="welcomeBack">
         Welcome back! Please log in to continue.
     </p>
 
-
-    <!-- LOGIN TYPE -->
-
-    <div
-        class="question"
-        data-i18n="loginQuestion"
-    >
+    <div class="question" data-i18n="loginQuestion">
         How would you like to log in?
     </div>
 
-
     <div class="login-type">
+        <button type="button" class="type-btn active"
+            id="studentBtn" onclick="showStudentLogin()"
+            data-i18n="student">Student</button>
 
-        <button
-            type="button"
-            class="type-btn active"
-            id="studentBtn"
-            onclick="showStudentLogin()"
-            data-i18n="student"
-        >
-            Student
-        </button>
+        <button type="button" class="type-btn"
+            id="teacherBtn" onclick="showTeacherLogin()"
+            data-i18n="teacher">Teacher</button>
 
-
-        <button
-            type="button"
-            class="type-btn"
-            id="teacherBtn"
-            onclick="showTeacherLogin()"
-            data-i18n="teacher"
-        >
-            Teacher
-        </button>
-
-
-        <button
-            type="button"
-            class="type-btn"
-            id="adminBtn"
-            onclick="showAdminLogin()"
-            data-i18n="admin"
-        >
-            Admin
-        </button>
-
+        <button type="button" class="type-btn"
+            id="adminBtn" onclick="showAdminLogin()"
+            data-i18n="admin">Admin</button>
     </div>
 
-
-    <!-- ================================= -->
     <!-- STUDENT LOGIN -->
-    <!-- ================================= -->
+    <form id="studentLoginForm" class="login-form">
 
-    <form
-        id="studentLoginForm"
-        class="login-form"
-    >
-
-        <label
-            for="studentEmail"
-            data-i18n="email"
-        >
-            Email
-        </label>
-
+        <label for="studentEmail" data-i18n="email">Email</label>
 
         <input
             type="email"
@@ -298,14 +295,9 @@
             required
         >
 
-
-        <label
-            for="studentPassword"
-            data-i18n="password"
-        >
+        <label for="studentPassword" data-i18n="password">
             Password
         </label>
-
 
         <input
             type="password"
@@ -316,34 +308,16 @@
             required
         >
 
-
-        <button
-            type="submit"
-            class="login-button"
-            data-i18n="studentLogin"
-        >
+        <button type="submit" class="login-button"
+            data-i18n="studentLogin">
             Student Login
         </button>
-
     </form>
 
-
-    <!-- ================================= -->
     <!-- TEACHER LOGIN -->
-    <!-- ================================= -->
+    <form id="teacherLoginForm" class="login-form hidden">
 
-    <form
-        id="teacherLoginForm"
-        class="login-form hidden"
-    >
-
-        <label
-            for="teacherEmail"
-            data-i18n="email"
-        >
-            Email
-        </label>
-
+        <label for="teacherEmail" data-i18n="email">Email</label>
 
         <input
             type="email"
@@ -353,14 +327,9 @@
             required
         >
 
-
-        <label
-            for="teacherPassword"
-            data-i18n="password"
-        >
+        <label for="teacherPassword" data-i18n="password">
             Password
         </label>
-
 
         <input
             type="password"
@@ -370,34 +339,16 @@
             required
         >
 
-
-        <button
-            type="submit"
-            class="login-button"
-            data-i18n="teacherLogin"
-        >
+        <button type="submit" class="login-button"
+            data-i18n="teacherLogin">
             Teacher Login
         </button>
-
     </form>
 
-
-    <!-- ================================= -->
     <!-- ADMIN LOGIN -->
-    <!-- ================================= -->
+    <form id="adminLoginForm" class="login-form hidden">
 
-    <form
-        id="adminLoginForm"
-        class="login-form hidden"
-    >
-
-        <label
-            for="adminEmail"
-            data-i18n="email"
-        >
-            Email
-        </label>
-
+        <label for="adminEmail" data-i18n="email">Email</label>
 
         <input
             type="email"
@@ -407,14 +358,9 @@
             required
         >
 
-
-        <label
-            for="adminPassword"
-            data-i18n="password"
-        >
+        <label for="adminPassword" data-i18n="password">
             Password
         </label>
-
 
         <input
             type="password"
@@ -424,844 +370,372 @@
             required
         >
 
-
-        <button
-            type="submit"
-            class="login-button"
-            data-i18n="adminLogin"
-        >
+        <button type="submit" class="login-button"
+            data-i18n="adminLogin">
             Admin Login
         </button>
-
     </form>
 
-
-    <!-- ================================= -->
     <!-- REGISTER -->
-    <!-- ================================= -->
-
-    <div
-        class="register-link"
-        id="registerLink"
-    >
+    <div class="register-link" id="registerLink">
 
         <span data-i18n="noAccount">
             Don't have a student account?
         </span>
 
-        <a
-            href="Register.html"
-            data-i18n="registerHere"
-        >
+        <a href="Register.html" data-i18n="registerHere">
             Register here
         </a>
 
     </div>
 
-
-    <!-- ================================= -->
-    <!-- CONTACT -->
-    <!-- ================================= -->
-
+    <!-- CONTACT - NO PHONE CALL OPTION -->
     <div class="contact-info">
 
         <strong data-i18n="contactAcademy">
             Contact GS Language Academy
         </strong>
 
-        <br>
+        <!-- EMAIL -->
+        <div class="contact-row">
 
+            <svg class="contact-icon" viewBox="0 0 24 24"
+                aria-hidden="true" fill="currentColor">
+                <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/>
+            </svg>
 
-        <span data-i18n="emailLabel">
-            Email:
-        </span>
+            <span data-i18n="emailLabel">Email:</span>
 
-        <a href="mailto:Gslanguageacademy1@gmail.com">
-            Gslanguageacademy1@gmail.com
-        </a>
+            <a href="mailto:gslanguageacademy1@gmail.com">
+                gslanguageacademy1@gmail.com
+            </a>
+        </div>
 
-        <br>
+        <!-- WHATSAPP -->
+        <div class="contact-row">
 
+            <svg class="contact-icon" viewBox="0 0 24 24"
+                aria-hidden="true" fill="currentColor">
+                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .15 5.35.15 11.93c0 2.1.55 4.15 1.6 5.96L.05 24l6.27-1.64a11.9 11.9 0 0 0 5.76 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.19-1.24-6.19-3.5-8.42zM12.09 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.72.97.99-3.63-.24-.37a9.84 9.84 0 0 1-1.52-5.25c0-5.46 4.44-9.9 9.9-9.9 2.65 0 5.14 1.03 7.01 2.9a9.84 9.84 0 0 1 2.9 7.01c0 5.46-4.44 9.9-9.91 9.9zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/>
+            </svg>
 
-        <span data-i18n="phoneLabel">
-            Phone / WhatsApp:
-        </span>
+            <span data-i18n="whatsappLabel">WhatsApp:</span>
 
-        <a href="tel:+584147795780">
-            +58 414-7795780
-        </a>
+            <a href="https://wa.me/584224120156"
+                target="_blank"
+                rel="noopener noreferrer">
+                +58 422-4120156
+            </a>
+        </div>
 
-        <br>
+        <!-- INSTAGRAM -->
+        <div class="contact-row">
 
+            <svg class="contact-icon" viewBox="0 0 24 24"
+                aria-hidden="true" fill="currentColor">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zM17.5 5.7a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/>
+            </svg>
 
-        <span data-i18n="instagramLabel">
-            Instagram:
-        </span>
+            <span data-i18n="instagramLabel">Instagram:</span>
 
-        <a
-            href="https://www.instagram.com/gslacademy1?stkn=aTE4dGRod3NteGxk"
-            target="_blank"
-        >
-            @gslacademy1
-        </a>
+            <a href="https://www.instagram.com/gslacademy1/"
+                target="_blank"
+                rel="noopener noreferrer">
+                @gslacademy1
+            </a>
+        </div>
 
     </div>
-
 </div>
 
-
 <script>
-
-/* =====================================================
-   LANGUAGE SYSTEM
-   ===================================================== */
 
 const translations = {
 
     en: {
-
-        academyName:
-            "GS Language Academy",
-
-        welcomeBack:
-            "Welcome back! Please log in to continue.",
-
-        loginQuestion:
-            "How would you like to log in?",
-
-        student:
-            "Student",
-
-        teacher:
-            "Teacher",
-
-        admin:
-            "Admin",
-
-        email:
-            "Email",
-
-        password:
-            "Password",
-
-        emailPlaceholder:
-            "Enter your email",
-
-        passwordPlaceholder:
-            "Enter your password",
-
-        studentLogin:
-            "Student Login",
-
-        teacherLogin:
-            "Teacher Login",
-
-        adminLogin:
-            "Admin Login",
-
-        noAccount:
-            "Don't have a student account?",
-
-        registerHere:
-            "Register here",
-
-        contactAcademy:
-            "Contact GS Language Academy",
-
-        emailLabel:
-            "Email:",
-
-        phoneLabel:
-            "Phone / WhatsApp:",
-
-        instagramLabel:
-            "Instagram:",
-
-        invalidStudent:
-            "Invalid email or password!",
-
-        noStudent:
-            "No student registration found. Please register first.",
-
-        noTeacher:
-            "No teacher accounts found. Please contact the administrator.",
-
-        invalidTeacher:
-            "Invalid teacher email or password.",
-
-        invalidAdmin:
-            "Invalid admin email or password."
-
+        academyName: "GS Language Academy",
+        welcomeBack: "Welcome back! Please log in to continue.",
+        loginQuestion: "How would you like to log in?",
+        student: "Student",
+        teacher: "Teacher",
+        admin: "Admin",
+        email: "Email",
+        password: "Password",
+        emailPlaceholder: "Enter your email",
+        passwordPlaceholder: "Enter your password",
+        studentLogin: "Student Login",
+        teacherLogin: "Teacher Login",
+        adminLogin: "Admin Login",
+        noAccount: "Don't have a student account?",
+        registerHere: "Register here",
+        contactAcademy: "Contact GS Language Academy",
+        emailLabel: "Email:",
+        whatsappLabel: "WhatsApp:",
+        instagramLabel: "Instagram:",
+        invalidStudent: "Invalid email or password!",
+        noStudent: "No student registration found. Please register first.",
+        noTeacher: "No teacher accounts found. Please contact the administrator.",
+        invalidTeacher: "Invalid teacher email or password.",
+        invalidAdmin: "Invalid admin email or password."
     },
-
 
     es: {
-
-        academyName:
-            "GS Language Academy",
-
-        welcomeBack:
-            "¡Bienvenido de nuevo! Inicia sesión para continuar.",
-
-        loginQuestion:
-            "¿Cómo deseas iniciar sesión?",
-
-        student:
-            "Estudiante",
-
-        teacher:
-            "Profesor",
-
-        admin:
-            "Administrador",
-
-        email:
-            "Correo electrónico",
-
-        password:
-            "Contraseña",
-
-        emailPlaceholder:
-            "Introduce tu correo electrónico",
-
-        passwordPlaceholder:
-            "Introduce tu contraseña",
-
-        studentLogin:
-            "Iniciar sesión como estudiante",
-
-        teacherLogin:
-            "Iniciar sesión como profesor",
-
-        adminLogin:
-            "Iniciar sesión como administrador",
-
-        noAccount:
-            "¿No tienes una cuenta de estudiante?",
-
-        registerHere:
-            "Regístrate aquí",
-
-        contactAcademy:
-            "Contacta con GS Language Academy",
-
-        emailLabel:
-            "Correo:",
-
-        phoneLabel:
-            "Teléfono / WhatsApp:",
-
-        instagramLabel:
-            "Instagram:",
-
-        invalidStudent:
-            "¡Correo electrónico o contraseña incorrectos!",
-
-        noStudent:
-            "No se encontró ningún registro de estudiante. Regístrate primero.",
-
-        noTeacher:
-            "No se encontraron cuentas de profesores. Contacta con el administrador.",
-
-        invalidTeacher:
-            "Correo electrónico o contraseña del profesor incorrectos.",
-
-        invalidAdmin:
-            "Correo electrónico o contraseña del administrador incorrectos."
-
+        academyName: "GS Language Academy",
+        welcomeBack: "¡Bienvenido de nuevo! Inicia sesión para continuar.",
+        loginQuestion: "¿Cómo deseas iniciar sesión?",
+        student: "Estudiante",
+        teacher: "Profesor",
+        admin: "Administrador",
+        email: "Correo electrónico",
+        password: "Contraseña",
+        emailPlaceholder: "Introduce tu correo electrónico",
+        passwordPlaceholder: "Introduce tu contraseña",
+        studentLogin: "Iniciar sesión como estudiante",
+        teacherLogin: "Iniciar sesión como profesor",
+        adminLogin: "Iniciar sesión como administrador",
+        noAccount: "¿No tienes una cuenta de estudiante?",
+        registerHere: "Regístrate aquí",
+        contactAcademy: "Contacta con GS Language Academy",
+        emailLabel: "Correo:",
+        whatsappLabel: "WhatsApp:",
+        instagramLabel: "Instagram:",
+        invalidStudent: "¡Correo electrónico o contraseña incorrectos!",
+        noStudent: "No se encontró ningún registro de estudiante. Regístrate primero.",
+        noTeacher: "No se encontraron cuentas de profesores. Contacta con el administrador.",
+        invalidTeacher: "Correo electrónico o contraseña del profesor incorrectos.",
+        invalidAdmin: "Correo electrónico o contraseña del administrador incorrectos."
     },
 
-
     ar: {
-
-        academyName:
-            "أكاديمية GS للغات",
-
-        welcomeBack:
-            "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة.",
-
-        loginQuestion:
-            "كيف تريد تسجيل الدخول؟",
-
-        student:
-            "طالب",
-
-        teacher:
-            "معلم",
-
-        admin:
-            "مدير",
-
-        email:
-            "البريد الإلكتروني",
-
-        password:
-            "كلمة المرور",
-
-        emailPlaceholder:
-            "أدخل بريدك الإلكتروني",
-
-        passwordPlaceholder:
-            "أدخل كلمة المرور",
-
-        studentLogin:
-            "تسجيل دخول الطالب",
-
-        teacherLogin:
-            "تسجيل دخول المعلم",
-
-        adminLogin:
-            "تسجيل دخول المدير",
-
-        noAccount:
-            "ليس لديك حساب طالب؟",
-
-        registerHere:
-            "سجل هنا",
-
-        contactAcademy:
-            "تواصل مع أكاديمية GS للغات",
-
-        emailLabel:
-            "البريد الإلكتروني:",
-
-        phoneLabel:
-            "الهاتف / واتساب:",
-
-        instagramLabel:
-            "إنستغرام:",
-
-        invalidStudent:
-            "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
-
-        noStudent:
-            "لم يتم العثور على تسجيل طالب. يرجى التسجيل أولاً.",
-
-        noTeacher:
-            "لم يتم العثور على حسابات للمعلمين. يرجى التواصل مع المدير.",
-
-        invalidTeacher:
-            "البريد الإلكتروني أو كلمة المرور الخاصة بالمعلم غير صحيحة.",
-
-        invalidAdmin:
-            "البريد الإلكتروني أو كلمة المرور الخاصة بالمدير غير صحيحة."
-
+        academyName: "أكاديمية GS للغات",
+        welcomeBack: "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة.",
+        loginQuestion: "كيف تريد تسجيل الدخول؟",
+        student: "طالب",
+        teacher: "معلم",
+        admin: "مدير",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        emailPlaceholder: "أدخل بريدك الإلكتروني",
+        passwordPlaceholder: "أدخل كلمة المرور",
+        studentLogin: "تسجيل دخول الطالب",
+        teacherLogin: "تسجيل دخول المعلم",
+        adminLogin: "تسجيل دخول المدير",
+        noAccount: "ليس لديك حساب طالب؟",
+        registerHere: "سجل هنا",
+        contactAcademy: "تواصل مع أكاديمية GS للغات",
+        emailLabel: "البريد الإلكتروني:",
+        whatsappLabel: "واتساب:",
+        instagramLabel: "إنستغرام:",
+        invalidStudent: "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
+        noStudent: "لم يتم العثور على تسجيل طالب. يرجى التسجيل أولاً.",
+        noTeacher: "لم يتم العثور على حسابات للمعلمين. يرجى التواصل مع المدير.",
+        invalidTeacher: "البريد الإلكتروني أو كلمة المرور الخاصة بالمعلم غير صحيحة.",
+        invalidAdmin: "البريد الإلكتروني أو كلمة المرور الخاصة بالمدير غير صحيحة."
     }
 
 };
 
-
-/* =====================================================
-   GET SAVED LANGUAGE
-   ===================================================== */
-
 function getLanguage() {
+    const savedLanguage = localStorage.getItem("language");
 
-    let language =
-        localStorage.getItem("language");
-
-    if (
-        language !== "en" &&
-        language !== "es" &&
-        language !== "ar"
-    ) {
-
-        language = "en";
-
-    }
-
-    return language;
+    return translations[savedLanguage]
+        ? savedLanguage
+        : "en";
 }
 
+function changeLanguage(language) {
 
-/* =====================================================
-   APPLY LANGUAGE
-   ===================================================== */
+    if (!translations[language]) {
+        language = "en";
+    }
+
+    localStorage.setItem("language", language);
+    applyLanguage();
+}
 
 function applyLanguage() {
 
-    const language =
-        getLanguage();
+    const language = getLanguage();
+    const text = translations[language];
 
-    const text =
-        translations[language];
+    document.documentElement.lang = language;
 
+    document.documentElement.dir =
+        language === "ar" ? "rtl" : "ltr";
 
-    /* HTML LANGUAGE */
+    document.body.classList.toggle(
+        "rtl",
+        language === "ar"
+    );
 
-    document.documentElement.lang =
-        language;
+    document.querySelectorAll("[data-i18n]").forEach(function(element) {
 
+        const key = element.getAttribute("data-i18n");
 
-    /* RTL FOR ARABIC */
+        if (text[key]) {
+            element.textContent = text[key];
+        }
 
-    if (language === "ar") {
+    });
 
-        document.documentElement.dir =
-            "rtl";
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function(element) {
 
-        document.body.classList.add("rtl");
+        const key = element.getAttribute("data-i18n-placeholder");
 
-    } else {
+        if (text[key]) {
+            element.placeholder = text[key];
+        }
 
-        document.documentElement.dir =
-            "ltr";
+    });
 
-        document.body.classList.remove("rtl");
+    const selector = document.getElementById("languageSelector");
 
+    if (selector) {
+        selector.value = language;
     }
-
-
-    /* NORMAL TEXT */
-
-    document
-        .querySelectorAll("[data-i18n]")
-        .forEach(function(element) {
-
-            const key =
-                element.getAttribute("data-i18n");
-
-            if (text[key]) {
-
-                element.textContent =
-                    text[key];
-
-            }
-
-        });
-
-
-    /* PLACEHOLDERS */
-
-    document
-        .querySelectorAll("[data-i18n-placeholder]")
-        .forEach(function(element) {
-
-            const key =
-                element.getAttribute(
-                    "data-i18n-placeholder"
-                );
-
-            if (text[key]) {
-
-                element.placeholder =
-                    text[key];
-
-            }
-
-        });
-
 }
-
-
-/* =====================================================
-   SHOW STUDENT LOGIN
-   ===================================================== */
 
 function showStudentLogin() {
 
-    document
-        .getElementById("studentLoginForm")
-        .classList
-        .remove("hidden");
+    document.getElementById("studentLoginForm").classList.remove("hidden");
+    document.getElementById("teacherLoginForm").classList.add("hidden");
+    document.getElementById("adminLoginForm").classList.add("hidden");
 
+    document.getElementById("studentBtn").classList.add("active");
+    document.getElementById("teacherBtn").classList.remove("active");
+    document.getElementById("adminBtn").classList.remove("active");
 
-    document
-        .getElementById("teacherLoginForm")
-        .classList
-        .add("hidden");
-
-
-    document
-        .getElementById("adminLoginForm")
-        .classList
-        .add("hidden");
-
-
-    document
-        .getElementById("studentBtn")
-        .classList
-        .add("active");
-
-
-    document
-        .getElementById("teacherBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("adminBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("registerLink")
-        .style
-        .display = "block";
-
+    document.getElementById("registerLink").style.display = "block";
 }
-
-
-/* =====================================================
-   SHOW TEACHER LOGIN
-   ===================================================== */
 
 function showTeacherLogin() {
 
-    document
-        .getElementById("studentLoginForm")
-        .classList
-        .add("hidden");
+    document.getElementById("studentLoginForm").classList.add("hidden");
+    document.getElementById("teacherLoginForm").classList.remove("hidden");
+    document.getElementById("adminLoginForm").classList.add("hidden");
 
+    document.getElementById("studentBtn").classList.remove("active");
+    document.getElementById("teacherBtn").classList.add("active");
+    document.getElementById("adminBtn").classList.remove("active");
 
-    document
-        .getElementById("teacherLoginForm")
-        .classList
-        .remove("hidden");
-
-
-    document
-        .getElementById("adminLoginForm")
-        .classList
-        .add("hidden");
-
-
-    document
-        .getElementById("studentBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("teacherBtn")
-        .classList
-        .add("active");
-
-
-    document
-        .getElementById("adminBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("registerLink")
-        .style
-        .display = "none";
-
+    document.getElementById("registerLink").style.display = "none";
 }
-
-
-/* =====================================================
-   SHOW ADMIN LOGIN
-   ===================================================== */
 
 function showAdminLogin() {
 
-    document
-        .getElementById("studentLoginForm")
-        .classList
-        .add("hidden");
+    document.getElementById("studentLoginForm").classList.add("hidden");
+    document.getElementById("teacherLoginForm").classList.add("hidden");
+    document.getElementById("adminLoginForm").classList.remove("hidden");
 
+    document.getElementById("studentBtn").classList.remove("active");
+    document.getElementById("teacherBtn").classList.remove("active");
+    document.getElementById("adminBtn").classList.add("active");
 
-    document
-        .getElementById("teacherLoginForm")
-        .classList
-        .add("hidden");
-
-
-    document
-        .getElementById("adminLoginForm")
-        .classList
-        .remove("hidden");
-
-
-    document
-        .getElementById("studentBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("teacherBtn")
-        .classList
-        .remove("active");
-
-
-    document
-        .getElementById("adminBtn")
-        .classList
-        .add("active");
-
-
-    document
-        .getElementById("registerLink")
-        .style
-        .display = "none";
-
+    document.getElementById("registerLink").style.display = "none";
 }
-
-
-/* =====================================================
-   STUDENT LOGIN
-   ===================================================== */
 
 function loginStudent() {
 
-    const language =
-        getLanguage();
-
-    const text =
-        translations[language];
-
-
-    let email =
-        document.getElementById(
-            "studentEmail"
-        ).value.trim();
-
-
-    let password =
-        document.getElementById(
-            "studentPassword"
-        ).value;
-
-
-    let studentData =
-        localStorage.getItem("student");
-
+    const text = translations[getLanguage()];
+    const email = document.getElementById("studentEmail").value.trim();
+    const password = document.getElementById("studentPassword").value;
+    const studentData = localStorage.getItem("student");
 
     if (studentData) {
 
-        let student =
-            JSON.parse(studentData);
+        const student = JSON.parse(studentData);
 
+        if (email === student.email && password === student.password) {
 
-        if (
-            email === student.email &&
-            password === student.password
-        ) {
-
-            localStorage.setItem(
-                "loggedIn",
-                "true"
-            );
-
-
-            window.location.href =
-                "Dashboard.html";
+            localStorage.setItem("loggedIn", "true");
+            window.location.href = "Dashboard.html";
 
         } else {
 
-            alert(
-                text.invalidStudent
-            );
+            alert(text.invalidStudent);
 
         }
 
     } else {
 
-        alert(
-            text.noStudent
-        );
+        alert(text.noStudent);
 
     }
-
 }
-
-
-/* =====================================================
-   TEACHER LOGIN
-   ===================================================== */
 
 function teacherLogin() {
 
-    const language =
-        getLanguage();
-
-    const text =
-        translations[language];
-
-
-    let email =
-        document.getElementById(
-            "teacherEmail"
-        ).value.trim();
-
-
-    let password =
-        document.getElementById(
-            "teacherPassword"
-        ).value;
-
-
-    let teachersData =
-        localStorage.getItem("teachers");
-
+    const text = translations[getLanguage()];
+    const email = document.getElementById("teacherEmail").value.trim();
+    const password = document.getElementById("teacherPassword").value;
+    const teachersData = localStorage.getItem("teachers");
 
     if (!teachersData) {
 
-        alert(
-            text.noTeacher
-        );
-
+        alert(text.noTeacher);
         return;
 
     }
 
+    const teachers = JSON.parse(teachersData);
 
-    let teachers =
-        JSON.parse(teachersData);
-
-
-    let teacher =
-        teachers.find(function(t) {
-
-            return (
-                t.email === email &&
-                t.password === password
-            );
-
-        });
-
+    const teacher = teachers.find(function(t) {
+        return t.email === email && t.password === password;
+    });
 
     if (teacher) {
 
-        localStorage.setItem(
-            "teacherLoggedIn",
-            "true"
-        );
+        localStorage.setItem("teacherLoggedIn", "true");
+        localStorage.setItem("currentTeacherId", teacher.id);
 
-
-        localStorage.setItem(
-            "currentTeacherId",
-            teacher.id
-        );
-
-
-        window.location.href =
-            "Teacher.html";
+        window.location.href = "Teacher.html";
 
     } else {
 
-        alert(
-            text.invalidTeacher
-        );
+        alert(text.invalidTeacher);
 
     }
-
 }
-
-
-/* =====================================================
-   ADMIN LOGIN
-   ===================================================== */
 
 function adminLogin() {
 
-    const language =
-        getLanguage();
-
-    const text =
-        translations[language];
-
-
-    let email =
-        document.getElementById(
-            "adminEmail"
-        ).value.trim();
-
-
-    let password =
-        document.getElementById(
-            "adminPassword"
-        ).value;
-
-
-    /* ADMIN ACCOUNT */
+    const text = translations[getLanguage()];
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPassword").value;
 
     if (
-        email === "Gslanguageacademy1@gmail.com" &&
+        email.toLowerCase() === "gslanguageacademy1@gmail.com" &&
         password === "123123"
     ) {
 
-        localStorage.setItem(
-            "adminLoggedIn",
-            "true"
-        );
-
-
-        window.location.href =
-            "Admin.html";
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "Admin.html";
 
     } else {
 
-        alert(
-            text.invalidAdmin
-        );
+        alert(text.invalidAdmin);
 
     }
-
 }
 
+document.getElementById("studentLoginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    loginStudent();
+});
 
-/* =====================================================
-   FORM SUBMIT
-   ===================================================== */
+document.getElementById("teacherLoginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    teacherLogin();
+});
 
-document
-    .getElementById("studentLoginForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-            loginStudent();
-
-        }
-    );
-
-
-document
-    .getElementById("teacherLoginForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-            teacherLogin();
-
-        }
-    );
-
-
-document
-    .getElementById("adminLoginForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-            adminLogin();
-
-        }
-    );
-
-
-/* =====================================================
-   APPLY LANGUAGE WHEN PAGE LOADS
-   ===================================================== */
+document.getElementById("adminLoginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    adminLogin();
+});
 
 applyLanguage();
 
 </script>
 
-
 </body>
-
 </html>
