@@ -1,596 +1,848 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="ltr">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join GS Language Academy</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    <title>Student Registration - GS Language Academy</title>
+:root {
+    --wine: #70251f;
+    --dark-wine: #511914;
+    --orange: #f47732;
+    --cream: #fff8f1;
+    --text: #38211e;
+    --muted: #8b716b;
+    --border: #eadbd3;
+}
 
-    <!-- IMPORTANT: Load the common language system -->
-    <script src="language.js"></script>
+body {
+    min-height: 100vh;
+    background: #f8eee7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 16px;
+    color: var(--text);
+}
 
-    <style>
+.page-container {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 680px;
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(81,25,20,.13);
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* WELCOME PANEL */
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff8f5;
-            color: #3f2924;
-            min-height: 100vh;
-        }
+.brand-panel {
+    background: linear-gradient(145deg, #70251f, #511914);
+    color: white;
+    padding: 55px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
 
-        header {
-            min-height: 78px;
-            background: white;
-            border-bottom: 1px solid #eaded9;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 6%;
-        }
+.brand-panel::before,
+.brand-panel::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+.brand-panel::before {
+    width: 280px;
+    height: 280px;
+    background: rgba(255,255,255,.055);
+    top: -100px;
+    right: -100px;
+}
 
-        .logo-area img {
-            width: 52px;
-            height: 52px;
-            object-fit: contain;
-        }
+.brand-panel::after {
+    width: 220px;
+    height: 220px;
+    background: rgba(244,119,50,.12);
+    bottom: -90px;
+    left: -70px;
+}
 
-        .logo-area h2 {
-            color: #8f3528;
-            font-size: 21px;
-        }
+.brand-content {
+    position: relative;
+    z-index: 1;
+}
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.logo-container {
+    width: 110px;
+    height: 110px;
+    background: white;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    margin-bottom: 38px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
 
-        .back-home {
-            text-decoration: none;
-            color: #8f3528;
-            font-weight: bold;
-        }
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
-        .back-home:hover {
-            color: #d95032;
-        }
+.welcome-label {
+    color: #ffad78;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 17px;
+}
 
-        /* LANGUAGE SELECTOR */
+.brand-panel h1 {
+    font-size: 36px;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: white;
+}
 
-        .languageSelector {
-            padding: 10px 12px;
-            border: 1px solid #d8c9c3;
-            border-radius: 7px;
-            background: white;
-            color: #55332b;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.brand-panel h1 span {
+    color: #ffad78;
+}
 
-        .register-wrapper {
-            min-height: calc(100vh - 78px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 45px 20px;
-            background: linear-gradient(
-                135deg,
-                #fff8f5,
-                #f9e2d9
-            );
-        }
+.brand-description {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #f4ddd4;
+    max-width: 370px;
+    margin-bottom: 35px;
+}
 
-        .register-card {
-            width: 100%;
-            max-width: 520px;
-            background: white;
-            padding: 40px 45px;
-            border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(100, 50, 35, 0.12);
-        }
+.welcome-points {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
-        .register-logo {
-            display: block;
-            width: 85px;
-            height: 85px;
-            object-fit: contain;
-            margin: 0 auto 10px;
-        }
+.welcome-point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff4ee;
+    font-size: 14px;
+    line-height: 1.5;
+}
 
-        .register-card h1 {
-            text-align: center;
-            color: #6f2b21;
-            font-size: 31px;
-            margin-bottom: 8px;
-        }
+.point-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(244,119,50,.2);
+    color: #ffad78;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #806e68;
-            margin-bottom: 28px;
-        }
+.brand-footer {
+    margin-top: 45px;
+    color: #d9b7ad;
+    font-size: 12px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+/* REGISTRATION PANEL */
 
-        label {
-            display: block;
-            font-weight: bold;
-            color: #55332b;
-            margin-bottom: 7px;
-        }
+.register-panel {
+    padding: 38px 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fffdfb;
+}
 
-        input,
-        select {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #d8c9c3;
-            border-radius: 8px;
-            font-size: 15px;
-            background: white;
-            outline: none;
-        }
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
 
-        input:focus,
-        select:focus {
-            border-color: #c94d31;
-            box-shadow: 0 0 0 3px rgba(201, 77, 49, 0.12);
-        }
+.back-home {
+    text-decoration: none;
+    color: var(--wine);
+    font-size: 13px;
+    font-weight: bold;
+}
 
-        .register-btn {
-            width: 100%;
-            border: none;
-            background: #c94d31;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-        }
+.back-home:hover {
+    color: var(--orange);
+}
 
-        .register-btn:hover {
-            background: #8f3528;
-        }
+.language-select {
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--wine);
+    padding: 10px 13px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
 
-        .login-text {
-            text-align: center;
-            margin-top: 23px;
-            color: #806e68;
-        }
+.register-heading {
+    margin-bottom: 25px;
+}
 
-        .login-text a {
-            color: #a83f29;
-            font-weight: bold;
-            text-decoration: none;
-        }
+.register-heading h2 {
+    color: var(--wine);
+    font-size: 30px;
+    margin-bottom: 10px;
+}
 
-        .home-link {
-            text-align: center;
-            margin-top: 17px;
-        }
+.register-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
 
-        .home-link a {
-            color: #8f3528;
-            text-decoration: none;
-            font-size: 14px;
-        }
+/* FORM */
 
-        @media (max-width: 600px) {
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 15px;
+}
 
-            header {
-                padding: 10px 20px;
-            }
+.form-group {
+    margin-bottom: 17px;
+}
 
-            .back-home {
-                display: none;
-            }
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
 
-            .register-card {
-                padding: 30px 25px;
-            }
+.form-group label {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
 
-            .header-right {
-                margin-left: auto;
-            }
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 47px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    outline: none;
+    color: var(--text);
+    font-size: 14px;
+    transition: .2s;
+}
 
-        }
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(244,119,50,.10);
+}
 
-    </style>
+.register-button {
+    width: 100%;
+    height: 50px;
+    background: var(--wine);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: .2s;
+}
 
+.register-button:hover {
+    background: var(--orange);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 17px rgba(244,119,50,.20);
+}
+
+.login-text {
+    text-align: center;
+    margin-top: 23px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.login-text a {
+    color: var(--wine);
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.login-text a:hover {
+    color: var(--orange);
+    text-decoration: underline;
+}
+
+/* ARABIC */
+
+html[dir="rtl"] .register-panel {
+    text-align: right;
+}
+
+html[dir="rtl"] .top-bar {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .welcome-point {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .login-text a {
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+    .page-container {
+        max-width: 560px;
+        grid-template-columns: 1fr;
+    }
+
+    .brand-panel {
+        padding: 35px 30px;
+        min-height: 350px;
+    }
+
+    .brand-panel h1 {
+        font-size: 29px;
+    }
+
+    .brand-description {
+        margin-bottom: 22px;
+    }
+
+    .welcome-points {
+        gap: 12px;
+    }
+
+    .brand-footer {
+        margin-top: 25px;
+    }
+
+    .logo-container {
+        width: 85px;
+        height: 85px;
+        margin-bottom: 24px;
+    }
+
+    .register-panel {
+        padding: 35px 30px;
+    }
+}
+
+@media(max-width:480px) {
+    body {
+        padding: 12px;
+    }
+
+    .page-container {
+        border-radius: 17px;
+    }
+
+    .brand-panel,
+    .register-panel {
+        padding: 28px 22px;
+    }
+
+    .brand-panel h1 {
+        font-size: 26px;
+    }
+
+    .register-heading h2 {
+        font-size: 26px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: auto;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<div class="page-container">
 
-<!-- ================= HEADER ================= -->
+    <!-- WELCOME SECTION -->
 
-<header>
+    <section class="brand-panel">
 
-    <div class="logo-area">
+        <div class="brand-content">
 
-        <img
-            src="logo.png"
-            alt="GS Language Academy Logo"
-        >
+            <div class="logo-container">
+                <img src="logo.png" alt="GS Language Academy Logo">
+            </div>
 
-        <h2>
-            GS Language Academy
-        </h2>
+            <div class="welcome-label" data-i18n="welcomeLabel">
+                A LITTLE HELLO FROM US
+            </div>
 
-    </div>
+            <h1 data-i18n="brandTitle">
+                We're So Glad
+                <span>You're Here!</span>
+            </h1>
 
+            <p class="brand-description" data-i18n="brandDescription">
+                Every new skill begins with a first step. We're excited
+                to be part of yours. Tell us a little about yourself,
+                and let's get your English learning journey started!
+            </p>
 
-    <div class="header-right">
+            <div class="welcome-points">
 
-        <!-- WEBSITE LANGUAGE -->
+                <div class="welcome-point">
+                    <span class="point-icon">✓</span>
+                    <span data-i18n="pointOne">
+                        Your goals matter to us
+                    </span>
+                </div>
 
-        <select
-            id="languageSelector"
-            class="languageSelector"
-            onchange="setLanguage(this.value)"
-        >
+                <div class="welcome-point">
+                    <span class="point-icon">✓</span>
+                    <span data-i18n="pointTwo">
+                        Learn at your own pace
+                    </span>
+                </div>
 
-            <option value="en">
-                🇬🇧 English
-            </option>
-
-            <option value="es">
-                🇪🇸 Español
-            </option>
-
-            <option value="ar">
-                🇸🇦 العربية
-            </option>
-
-        </select>
-
-
-        <a
-            href="index.html"
-            class="back-home"
-            data-i18n="backHome"
-        >
-            ← Back to Home
-        </a>
-
-    </div>
-
-</header>
-
-
-<!-- ================= REGISTRATION ================= -->
-
-<main class="register-wrapper">
-
-    <div class="register-card">
-
-        <img
-            src="logo.png"
-            alt="GS Language Academy Logo"
-            class="register-logo"
-        >
-
-
-        <h1 data-i18n="createAccount">
-            Create Student Account
-        </h1>
-
-
-        <p
-            class="subtitle"
-            data-i18n="registerSubtitle"
-        >
-            Join GS Language Academy and start learning
-        </p>
-
-
-        <form
-            onsubmit="registerStudent(); return false;"
-        >
-
-
-            <!-- FULL NAME -->
-
-            <div class="form-group">
-
-                <label
-                    for="fullname"
-                    data-i18n="fullName"
-                >
-                    Full Name
-                </label>
-
-                <input
-                    type="text"
-                    id="fullname"
-                    name="fullname"
-                    data-i18n-placeholder="fullNamePlaceholder"
-                    placeholder="Enter your full name"
-                    required
-                >
+                <div class="welcome-point">
+                    <span class="point-icon">✓</span>
+                    <span data-i18n="pointThree">
+                        Take your next step with confidence
+                    </span>
+                </div>
 
             </div>
 
+        </div>
 
-            <!-- EMAIL -->
+        <div class="brand-footer" data-i18n="brandFooter">
+            We can't wait to see what you'll achieve!
+        </div>
 
-            <div class="form-group">
-
-                <label
-                    for="email"
-                    data-i18n="email"
-                >
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    data-i18n-placeholder="emailPlaceholder"
-                    placeholder="Enter your email"
-                    required
-                >
-
-            </div>
+    </section>
 
 
-            <!-- PHONE -->
+    <!-- REGISTRATION FORM -->
 
-            <div class="form-group">
+    <main class="register-panel">
 
-                <label
-                    for="phone"
-                    data-i18n="phone"
-                >
-                    Phone Number
-                </label>
+        <div class="top-bar">
 
-                <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    data-i18n-placeholder="phonePlaceholder"
-                    placeholder="Enter your phone number"
-                    required
-                >
+            <a href="index.html" class="back-home" data-i18n="backHome">
+                ← Back to Home
+            </a>
 
-            </div>
+            <select id="languageSelector"
+                    class="language-select"
+                    aria-label="Select language"
+                    onchange="changeLanguage(this.value)">
+
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="ar">العربية</option>
+
+            </select>
+
+        </div>
 
 
-            <!-- COURSE -->
+        <div class="register-heading">
 
-            <div class="form-group">
+            <h2 data-i18n="createTitle">
+                Let's Get to Know You!
+            </h2>
 
-                <label
-                    for="course"
-                    data-i18n="selectCourse"
-                >
-                    Select Course
-                </label>
+            <p data-i18n="registerSubtitle">
+                Fill in your details below to create your student account.
+                Your learning journey is just one step away!
+            </p>
 
-                <select
-                    id="course"
-                    name="course"
-                    required
-                >
+        </div>
 
-                    <option
-                        value=""
-                        data-i18n="chooseCourse"
+
+        <form id="registerForm">
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+
+                    <label for="fullname" data-i18n="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullname"
+                        name="fullname"
+                        placeholder="Enter your full name"
+                        data-i18n-placeholder="fullNamePlaceholder"
+                        autocomplete="name"
+                        required
                     >
-                        Choose a course
-                    </option>
 
-                    <option
-                        value="English"
-                        data-i18n="english"
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email" data-i18n="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        data-i18n-placeholder="emailPlaceholder"
+                        autocomplete="email"
+                        required
                     >
-                        English
-                    </option>
 
-                    <option
-                        value="Spanish"
-                        data-i18n="spanish"
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone" data-i18n="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        data-i18n-placeholder="phonePlaceholder"
+                        autocomplete="tel"
+                        required
                     >
-                        Spanish
-                    </option>
 
-                    <option
-                        value="Arabic"
-                        data-i18n="arabic"
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label for="course" data-i18n="selectCourse">
+                        Select Course
+                    </label>
+
+                    <select id="course" name="course" required>
+
+                        <option value="" disabled selected data-i18n="chooseCourse">
+                            Choose your course
+                        </option>
+
+                        <option value="English" data-i18n="english">
+                            English
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label for="password" data-i18n="password">
+                        Create Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        data-i18n-placeholder="passwordPlaceholder"
+                        autocomplete="new-password"
+                        required
                     >
-                        Arabic
-                    </option>
 
-                </select>
+                </div>
 
             </div>
 
 
-            <!-- PASSWORD -->
-
-            <div class="form-group">
-
-                <label
-                    for="password"
-                    data-i18n="password"
-                >
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    data-i18n-placeholder="passwordPlaceholder"
-                    placeholder="Create a password"
-                    required
-                >
-
-            </div>
-
-
-            <!-- CREATE ACCOUNT -->
-
-            <button
-                type="submit"
-                class="register-btn"
-                data-i18n="createAccount"
-            >
-                Create Student Account
+            <button type="submit"
+                    class="register-button"
+                    data-i18n="createAccount">
+                Create My Account
             </button>
-
 
         </form>
 
 
         <p class="login-text">
-
             <span data-i18n="alreadyAccount">
-                Already have an account?
+                Already part of our community?
             </span>
 
-            <a
-                href="Login.html"
-                data-i18n="login"
-            >
-                Student Login
+            <a href="Login.html" data-i18n="login">
+                Sign In
             </a>
-
         </p>
 
+    </main>
 
-        <div class="home-link">
+</div>
 
-            <a
-                href="index.html"
-                data-i18n="returnHome"
-            >
-                Return to Homepage
-            </a>
-
-        </div>
-
-
-    </div>
-
-</main>
-
-
-<!-- ================= REGISTRATION SCRIPT ================= -->
 
 <script>
 
+/* TRANSLATIONS */
+
+const translations = {
+
+    en: {
+        welcomeLabel: "A LITTLE HELLO FROM US",
+        brandTitle: "We're So Glad<br><span>You're Here!</span>",
+        brandDescription: "Every new skill begins with a first step. We're excited to be part of yours. Tell us a little about yourself, and let's get your English learning journey started!",
+        pointOne: "Your goals matter to us",
+        pointTwo: "Learn at your own pace",
+        pointThree: "Take your next step with confidence",
+        brandFooter: "We can't wait to see what you'll achieve!",
+
+        backHome: "← Back to Home",
+        createTitle: "Let's Get to Know You!",
+        registerSubtitle: "Fill in your details below to create your student account. Your learning journey is just one step away!",
+
+        fullName: "Full Name",
+        fullNamePlaceholder: "Enter your full name",
+        email: "Email Address",
+        emailPlaceholder: "Enter your email",
+        phone: "Phone Number",
+        phonePlaceholder: "Enter your phone number",
+        selectCourse: "Select Course",
+        chooseCourse: "Choose your course",
+        english: "English",
+        password: "Create Password",
+        passwordPlaceholder: "Create a password",
+
+        createAccount: "Create My Account",
+        alreadyAccount: "Already part of our community?",
+        login: "Sign In",
+
+        success: "Welcome to GS Language Academy! Your registration was successful."
+    },
+
+    es: {
+        welcomeLabel: "UN PEQUEÑO SALUDO DE NUESTRA PARTE",
+        brandTitle: "¡Nos Alegra<br><span>Que Estés Aquí!</span>",
+        brandDescription: "Cada nueva habilidad comienza con un primer paso. Nos alegra formar parte del tuyo. Cuéntanos un poco sobre ti y comencemos tu camino de aprendizaje del inglés.",
+        pointOne: "Tus objetivos son importantes para nosotros",
+        pointTwo: "Aprende a tu propio ritmo",
+        pointThree: "Da tu próximo paso con confianza",
+        brandFooter: "¡Estamos deseando ver todo lo que lograrás!",
+
+        backHome: "← Volver al inicio",
+        createTitle: "¡Queremos Conocerte!",
+        registerSubtitle: "Completa tus datos para crear tu cuenta de estudiante. ¡Tu aprendizaje está a solo un paso!",
+
+        fullName: "Nombre Completo",
+        fullNamePlaceholder: "Introduce tu nombre completo",
+        email: "Correo Electrónico",
+        emailPlaceholder: "Introduce tu correo electrónico",
+        phone: "Número de Teléfono",
+        phonePlaceholder: "Introduce tu número de teléfono",
+        selectCourse: "Selecciona un Curso",
+        chooseCourse: "Elige tu curso",
+        english: "Inglés",
+        password: "Crear Contraseña",
+        passwordPlaceholder: "Crea una contraseña",
+
+        createAccount: "Crear Mi Cuenta",
+        alreadyAccount: "¿Ya formas parte de nuestra comunidad?",
+        login: "Iniciar Sesión",
+
+        success: "¡Bienvenido a GS Language Academy! Tu registro se realizó correctamente."
+    },
+
+    ar: {
+        welcomeLabel: "تحية صغيرة من فريقنا",
+        brandTitle: "سعداء جداً<br><span>بوجودك معنا!</span>",
+        brandDescription: "كل مهارة جديدة تبدأ بخطوة أولى. يسعدنا أن نكون جزءاً من خطوتك القادمة. أخبرنا قليلاً عن نفسك، ولنبدأ معاً رحلتك في تعلّم الإنجليزية!",
+        pointOne: "أهدافك مهمة بالنسبة لنا",
+        pointTwo: "تعلّم بالسرعة التي تناسبك",
+        pointThree: "اتخذ خطوتك القادمة بثقة",
+        brandFooter: "نتطلع لرؤية كل ما ستحققه!",
+
+        backHome: "العودة إلى الصفحة الرئيسية ←",
+        createTitle: "دعنا نتعرف عليك!",
+        registerSubtitle: "أدخل بياناتك لإنشاء حسابك كطالب. رحلتك التعليمية أصبحت على بُعد خطوة واحدة!",
+
+        fullName: "الاسم الكامل",
+        fullNamePlaceholder: "أدخل اسمك الكامل",
+        email: "البريد الإلكتروني",
+        emailPlaceholder: "أدخل بريدك الإلكتروني",
+        phone: "رقم الهاتف",
+        phonePlaceholder: "أدخل رقم هاتفك",
+        selectCourse: "اختر الدورة",
+        chooseCourse: "اختر دورتك",
+        english: "اللغة الإنجليزية",
+        password: "إنشاء كلمة المرور",
+        passwordPlaceholder: "أنشئ كلمة مرور",
+
+        createAccount: "إنشاء حسابي",
+        alreadyAccount: "هل أنت بالفعل جزء من مجتمعنا؟",
+        login: "تسجيل الدخول",
+
+        success: "أهلاً بك في أكاديمية GS للغات! تم تسجيلك بنجاح."
+    }
+
+};
+
+
+/* LANGUAGE SETTINGS */
+
+function getLanguage() {
+
+    const saved =
+        localStorage.getItem("language") ||
+        localStorage.getItem("siteLanguage") ||
+        "en";
+
+    return translations[saved] ? saved : "en";
+}
+
+function changeLanguage(language) {
+
+    if (!translations[language]) {
+        language = "en";
+    }
+
+    localStorage.setItem("language", language);
+    localStorage.setItem("siteLanguage", language);
+
+    applyLanguage();
+}
+
+function applyLanguage() {
+
+    const language = getLanguage();
+    const text = translations[language];
+
+    document.documentElement.lang = language;
+    document.documentElement.dir =
+        language === "ar" ? "rtl" : "ltr";
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+
+        const key = element.getAttribute("data-i18n");
+
+        if (text[key]) {
+            element.innerHTML = text[key];
+        }
+
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+
+        const key = element.getAttribute("data-i18n-placeholder");
+
+        if (text[key]) {
+            element.placeholder = text[key];
+        }
+
+    });
+
+    document.getElementById("languageSelector").value = language;
+}
+
+
+/* STUDENT REGISTRATION */
+
 function registerStudent() {
 
-    const name =
-        document.getElementById("fullname").value.trim();
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const course =
-        document.getElementById("course").value;
-
-    const password =
-        document.getElementById("password").value;
-
-
-    /*
-       IMPORTANT:
-
-       siteLanguage = the language the student wants
-       the WEBSITE to use.
-
-       course = the language/course the student is studying.
-
-       These are TWO different things.
-    */
-
-    const siteLanguage =
-        localStorage.getItem("siteLanguage") || "en";
-
+    const name = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const course = document.getElementById("course").value;
+    const password = document.getElementById("password").value;
+    const language = getLanguage();
 
     const student = {
-
         name: name,
-
         email: email,
-
         phone: phone,
-
         course: course,
-
         password: password,
-
-        siteLanguage: siteLanguage
-
+        siteLanguage: language
     };
 
+    // Preserve the existing student registration storage key.
+    localStorage.setItem("student", JSON.stringify(student));
 
-    /* SAVE STUDENT */
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("language", language);
+    localStorage.setItem("siteLanguage", language);
 
-    localStorage.setItem(
-        "student",
-        JSON.stringify(student)
-    );
+    alert(translations[language].success);
 
-
-    /* LOGIN */
-
-    localStorage.setItem(
-        "loggedIn",
-        "true"
-    );
-
-
-    /*
-       Keep the selected website language
-       for every page.
-    */
-
-    localStorage.setItem(
-        "siteLanguage",
-        siteLanguage
-    );
-
-
-    alert(
-        translations[siteLanguage].registrationSuccess
-    );
-
-
-    /* GO TO DASHBOARD */
-
+    // Redirect to the student dashboard.
     window.location.href = "Dashboard.html";
-
 }
+
+
+/* FORM SUBMISSION */
+
+document.getElementById("registerForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+    registerStudent();
+
+});
+
+
+/* INITIALIZE */
+
+applyLanguage();
 
 </script>
 
-
 </body>
-
 </html>
