@@ -1,233 +1,421 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - GS Language Academy</title>
+    <title>Student Login | GS Language Academy</title>
 
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --wine: #70251f;
+            --dark-wine: #511914;
+            --orange: #f47732;
+            --cream: #fff8f1;
+            --peach: #ffe1c9;
+            --text: #38211e;
+            --muted: #8b716b;
+            --border: #eadbd3;
         }
 
         body {
-            background: #f7f4f2;
             min-height: 100vh;
+            background: #f8eee7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 18px;
+            color: var(--text);
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 640px;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(81, 25, 20, 0.13);
+        }
+
+        /* LEFT STUDENT WELCOME PANEL */
+
+        .brand-panel {
+            background: linear-gradient(145deg, #70251f, #511914);
+            color: white;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.055);
+            top: -100px;
+            right: -100px;
+        }
+
+        .brand-panel::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(244, 119, 50, 0.12);
+            bottom: -90px;
+            left: -70px;
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            width: 115px;
+            height: 115px;
+            background: white;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .daily-label {
+            color: #ffad78;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .brand-panel h1 {
+            font-size: 34px;
+            line-height: 1.3;
+            margin-bottom: 18px;
+            color: white;
+        }
+
+        .brand-panel .highlight {
+            color: #ffad78;
+        }
+
+        .brand-description {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #f4ddd4;
+            max-width: 370px;
+            margin-bottom: 32px;
+        }
+
+        .brand-points {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand-point {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff4ee;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .point-icon {
+            width: 29px;
+            height: 29px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(244, 119, 50, 0.2);
+            color: #ffad78;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            color: #672a1f;
+            font-weight: bold;
         }
 
-        .login-container {
-            width: 100%;
-            max-width: 430px;
-            background: #fffaf8;
-            padding: 40px;
-            border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(103, 42, 31, 0.12);
-            text-align: center;
+        .brand-footer {
+            margin-top: 45px;
+            color: #d9b7ad;
+            font-size: 12px;
+            position: relative;
+            z-index: 1;
         }
 
-        .language-bar {
+        /* RIGHT LOGIN PANEL */
+
+        .login-panel {
+            padding: 40px 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fffdfb;
+        }
+
+        .top-bar {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 18px;
+            margin-bottom: 30px;
         }
 
         .language-select {
-            padding: 9px 12px;
-            border: 1px solid #dec9c4;
-            border-radius: 8px;
+            border: 1px solid var(--border);
             background: white;
-            color: #672a1f;
+            color: var(--wine);
+            padding: 10px 13px;
+            border-radius: 9px;
             font-size: 13px;
             font-weight: bold;
+            outline: none;
             cursor: pointer;
         }
 
-        .logo {
-            width: 95px;
-            height: 95px;
-            object-fit: contain;
-            margin-bottom: 15px;
+        .login-heading {
+            margin-bottom: 27px;
         }
 
-        h1 {
-            color: #7f3025;
-            font-size: 28px;
-            margin-bottom: 8px;
+        .login-heading h2 {
+            color: var(--wine);
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
-            color: #8b625b;
-            margin-bottom: 25px;
+        .login-heading p {
+            color: var(--muted);
             font-size: 14px;
+            line-height: 1.7;
         }
 
         .question {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
-            margin-bottom: 15px;
+            color: var(--text);
+            margin-bottom: 13px;
         }
 
+        /* ROLE SELECTOR */
+
         .login-type {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-bottom: 27px;
         }
 
         .type-btn {
-            flex: 1;
-            padding: 13px 8px;
-            border: 2px solid #e4c8c1;
+            border: 1px solid var(--border);
             background: white;
-            color: #7f3025;
-            border-radius: 10px;
+            color: var(--wine);
+            padding: 13px 5px;
+            border-radius: 11px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
 
         .type-btn:hover {
-            border-color: #a93d2f;
+            border-color: var(--orange);
+            background: #fff8f2;
         }
 
         .type-btn.active {
-            background: #a93d2f;
+            background: var(--wine);
+            border-color: var(--wine);
             color: white;
-            border-color: #a93d2f;
+            box-shadow: 0 5px 14px rgba(112, 37, 31, 0.18);
         }
+
+        /* FORMS */
 
         .login-form {
-            text-align: left;
-        }
-
-        body.rtl .login-form {
-            text-align: right;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 7px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #672a1f;
-        }
-
-        input {
             width: 100%;
-            padding: 13px;
-            margin-bottom: 17px;
-            border: 1px solid #dec9c4;
-            border-radius: 9px;
-            font-size: 14px;
-            outline: none;
         }
 
-        input:focus {
-            border-color: #a93d2f;
+        .login-form label {
+            display: block;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .login-form input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            outline: none;
+            color: var(--text);
+            font-size: 14px;
+            margin-bottom: 19px;
+            transition: 0.2s;
+        }
+
+        .login-form input:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(244, 119, 50, 0.10);
         }
 
         .login-button {
             width: 100%;
-            padding: 14px;
-            background: #a93d2f;
-            color: white;
+            height: 49px;
+            background: var(--wine);
             border: none;
-            border-radius: 9px;
-            font-size: 16px;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 5px;
+            transition: 0.2s;
         }
 
         .login-button:hover {
-            background: #7f3025;
+            background: var(--orange);
+            transform: translateY(-1px);
+            box-shadow: 0 7px 17px rgba(244, 119, 50, 0.20);
         }
 
         .register-link {
-            margin-top: 20px;
-            font-size: 14px;
             text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: var(--muted);
         }
 
         .register-link a {
-            color: #a93d2f;
+            color: var(--wine);
             font-weight: bold;
             text-decoration: none;
+            margin-left: 4px;
         }
 
         .register-link a:hover {
+            color: var(--orange);
             text-decoration: underline;
-        }
-
-        .contact-info {
-            margin-top: 25px;
-            padding-top: 18px;
-            border-top: 1px solid #eadbd7;
-            font-size: 12px;
-            line-height: 1.8;
-            color: #8b625b;
-            overflow-wrap: anywhere;
-        }
-
-        .contact-info a {
-            color: #7f3025;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        .contact-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 9px;
-            line-height: 1.5;
-            flex-wrap: wrap;
-        }
-
-        .contact-icon {
-            width: 19px;
-            height: 19px;
-            flex: 0 0 19px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .contact-row a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 22px;
+        /* ARABIC */
+
+        html[dir="rtl"] .login-panel,
+        html[dir="rtl"] .brand-panel {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .top-bar {
+            justify-content: flex-start;
+        }
+
+        html[dir="rtl"] .brand-point {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .register-link a {
+            margin-left: 0;
+            margin-right: 4px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .page-container {
+                max-width: 520px;
+                grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 24px;
+            .brand-panel {
+                padding: 35px 30px;
+                min-height: 330px;
+            }
+
+            .brand-panel h1 {
+                font-size: 28px;
+            }
+
+            .brand-description {
+                margin-bottom: 20px;
+            }
+
+            .brand-points {
+                gap: 12px;
+            }
+
+            .brand-footer {
+                margin-top: 25px;
+            }
+
+            .logo-container {
+                width: 85px;
+                height: 85px;
+                margin-bottom: 22px;
+            }
+
+            .login-panel {
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 420px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .page-container {
+                border-radius: 17px;
+            }
+
+            .brand-panel,
+            .login-panel {
+                padding: 28px 22px;
+            }
+
+            .brand-panel h1 {
+                font-size: 25px;
+            }
+
+            .login-heading h2 {
+                font-size: 26px;
             }
 
             .type-btn {
-                font-size: 13px;
-                padding: 12px 5px;
+                font-size: 12px;
+                padding: 12px 3px;
             }
         }
     </style>
@@ -235,313 +423,519 @@
 
 <body>
 
-<div class="login-container">
+<div class="page-container">
 
-    <!-- LANGUAGE SELECTOR - NO FLAGS -->
-    <div class="language-bar">
-        <select
-            id="languageSelector"
-            class="language-select"
-            aria-label="Select language"
-            onchange="changeLanguage(this.value)"
-        >
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="ar">العربية</option>
-        </select>
-    </div>
+    <!-- STUDENT DAILY WELCOME SECTION -->
 
-    <img
-        src="logo.png"
-        alt="GS Language Academy Logo"
-        class="logo"
-    >
+    <section class="brand-panel">
 
-    <h1 data-i18n="academyName">GS Language Academy</h1>
+        <div class="brand-content">
 
-    <p class="subtitle" data-i18n="welcomeBack">
-        Welcome back! Please log in to continue.
-    </p>
+            <div class="logo-container">
+                <img src="logo.png" alt="GS Language Academy Logo">
+            </div>
 
-    <div class="question" data-i18n="loginQuestion">
-        How would you like to log in?
-    </div>
+            <div class="daily-label" data-i18n="dailyLabel">
+                YOUR LEARNING SPACE
+            </div>
 
-    <div class="login-type">
-        <button type="button" class="type-btn active"
-            id="studentBtn" onclick="showStudentLogin()"
-            data-i18n="student">Student</button>
+            <h1 data-i18n="brandTitle">
+                Ready for Your<br>
+                <span class="highlight">Next Step?</span>
+            </h1>
 
-        <button type="button" class="type-btn"
-            id="teacherBtn" onclick="showTeacherLogin()"
-            data-i18n="teacher">Teacher</button>
+            <p class="brand-description" data-i18n="brandDescription">
+                Welcome back to your learning space. Sign in to stay
+                connected with your classes, schedule, attendance,
+                progress, and everything you need for your English journey.
+            </p>
 
-        <button type="button" class="type-btn"
-            id="adminBtn" onclick="showAdminLogin()"
-            data-i18n="admin">Admin</button>
-    </div>
+            <div class="brand-points">
 
-    <!-- STUDENT LOGIN -->
-    <form id="studentLoginForm" class="login-form">
+                <div class="brand-point">
+                    <span class="point-icon">✓</span>
 
-        <label for="studentEmail" data-i18n="email">Email</label>
+                    <span data-i18n="pointOne">
+                        Check your upcoming classes
+                    </span>
+                </div>
 
-        <input
-            type="email"
-            id="studentEmail"
-            name="email"
-            data-i18n-placeholder="emailPlaceholder"
-            placeholder="Enter your email"
-            required
-        >
+                <div class="brand-point">
+                    <span class="point-icon">✓</span>
 
-        <label for="studentPassword" data-i18n="password">
-            Password
-        </label>
+                    <span data-i18n="pointTwo">
+                        Keep track of your learning progress
+                    </span>
+                </div>
 
-        <input
-            type="password"
-            id="studentPassword"
-            name="password"
-            data-i18n-placeholder="passwordPlaceholder"
-            placeholder="Enter your password"
-            required
-        >
+                <div class="brand-point">
+                    <span class="point-icon">✓</span>
 
-        <button type="submit" class="login-button"
-            data-i18n="studentLogin">
-            Student Login
-        </button>
-    </form>
+                    <span data-i18n="pointThree">
+                        Stay up to date with your academy
+                    </span>
+                </div>
 
-    <!-- TEACHER LOGIN -->
-    <form id="teacherLoginForm" class="login-form hidden">
+            </div>
 
-        <label for="teacherEmail" data-i18n="email">Email</label>
-
-        <input
-            type="email"
-            id="teacherEmail"
-            data-i18n-placeholder="emailPlaceholder"
-            placeholder="Enter your email"
-            required
-        >
-
-        <label for="teacherPassword" data-i18n="password">
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="teacherPassword"
-            data-i18n-placeholder="passwordPlaceholder"
-            placeholder="Enter your password"
-            required
-        >
-
-        <button type="submit" class="login-button"
-            data-i18n="teacherLogin">
-            Teacher Login
-        </button>
-    </form>
-
-    <!-- ADMIN LOGIN -->
-    <form id="adminLoginForm" class="login-form hidden">
-
-        <label for="adminEmail" data-i18n="email">Email</label>
-
-        <input
-            type="email"
-            id="adminEmail"
-            data-i18n-placeholder="emailPlaceholder"
-            placeholder="Enter your email"
-            required
-        >
-
-        <label for="adminPassword" data-i18n="password">
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="adminPassword"
-            data-i18n-placeholder="passwordPlaceholder"
-            placeholder="Enter your password"
-            required
-        >
-
-        <button type="submit" class="login-button"
-            data-i18n="adminLogin">
-            Admin Login
-        </button>
-    </form>
-
-    <!-- REGISTER -->
-    <div class="register-link" id="registerLink">
-
-        <span data-i18n="noAccount">
-            Don't have a student account?
-        </span>
-
-        <a href="Register.html" data-i18n="registerHere">
-            Register here
-        </a>
-
-    </div>
-
-    <!-- CONTACT - NO PHONE CALL OPTION -->
-    <div class="contact-info">
-
-        <strong data-i18n="contactAcademy">
-            Contact GS Language Academy
-        </strong>
-
-        <!-- EMAIL -->
-        <div class="contact-row">
-
-            <svg class="contact-icon" viewBox="0 0 24 24"
-                aria-hidden="true" fill="currentColor">
-                <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/>
-            </svg>
-
-            <span data-i18n="emailLabel">Email:</span>
-
-            <a href="mailto:gslanguageacademy1@gmail.com">
-                gslanguageacademy1@gmail.com
-            </a>
         </div>
 
-        <!-- WHATSAPP -->
-        <div class="contact-row">
-
-            <svg class="contact-icon" viewBox="0 0 24 24"
-                aria-hidden="true" fill="currentColor">
-                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .15 5.35.15 11.93c0 2.1.55 4.15 1.6 5.96L.05 24l6.27-1.64a11.9 11.9 0 0 0 5.76 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.19-1.24-6.19-3.5-8.42zM12.09 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.72.97.99-3.63-.24-.37a9.84 9.84 0 0 1-1.52-5.25c0-5.46 4.44-9.9 9.9-9.9 2.65 0 5.14 1.03 7.01 2.9a9.84 9.84 0 0 1 2.9 7.01c0 5.46-4.44 9.9-9.91 9.9zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/>
-            </svg>
-
-            <span data-i18n="whatsappLabel">WhatsApp:</span>
-
-            <a href="https://wa.me/584224120156"
-                target="_blank"
-                rel="noopener noreferrer">
-                +58 422-4120156
-            </a>
+        <div class="brand-footer" data-i18n="brandFooter">
+            Your classes. Your progress. Your next opportunity.
         </div>
 
-        <!-- INSTAGRAM -->
-        <div class="contact-row">
+    </section>
 
-            <svg class="contact-icon" viewBox="0 0 24 24"
-                aria-hidden="true" fill="currentColor">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zM17.5 5.7a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/>
-            </svg>
 
-            <span data-i18n="instagramLabel">Instagram:</span>
+    <!-- LOGIN SECTION -->
 
-            <a href="https://www.instagram.com/gslacademy1/"
-                target="_blank"
-                rel="noopener noreferrer">
-                @gslacademy1
-            </a>
+    <main class="login-panel">
+
+        <div class="top-bar">
+
+            <select
+                id="languageSelector"
+                class="language-select"
+                aria-label="Select language"
+                onchange="changeLanguage(this.value)"
+            >
+
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="ar">العربية</option>
+
+            </select>
+
         </div>
 
-    </div>
+
+        <div class="login-heading">
+
+            <h2 data-i18n="welcomeTitle">
+                Welcome Back!
+            </h2>
+
+            <p data-i18n="welcomeDescription">
+                Your learning space is waiting for you. Sign in to
+                check your schedule, classes, progress, and updates.
+            </p>
+
+        </div>
+
+
+        <div class="question" data-i18n="loginQuestion">
+            How would you like to sign in?
+        </div>
+
+
+        <!-- ROLE SELECTOR -->
+
+        <div class="login-type">
+
+            <button
+                type="button"
+                class="type-btn active"
+                id="studentBtn"
+                onclick="showStudentLogin()"
+                data-i18n="student"
+            >
+                Student
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                id="teacherBtn"
+                onclick="showTeacherLogin()"
+                data-i18n="teacher"
+            >
+                Teacher
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                id="adminBtn"
+                onclick="showAdminLogin()"
+                data-i18n="admin"
+            >
+                Admin
+            </button>
+
+        </div>
+
+
+        <!-- STUDENT LOGIN -->
+
+        <form id="studentLoginForm" class="login-form">
+
+            <label for="studentEmail" data-i18n="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="studentEmail"
+                name="email"
+                placeholder="Enter your email"
+                data-i18n-placeholder="emailPlaceholder"
+                required
+            >
+
+
+            <label for="studentPassword" data-i18n="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="studentPassword"
+                name="password"
+                placeholder="Enter your password"
+                data-i18n-placeholder="passwordPlaceholder"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="login-button"
+                data-i18n="studentLogin"
+            >
+                Open My Dashboard
+            </button>
+
+        </form>
+
+
+        <!-- TEACHER LOGIN -->
+
+        <form id="teacherLoginForm" class="login-form hidden">
+
+            <label for="teacherEmail" data-i18n="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="teacherEmail"
+                placeholder="Enter your email"
+                data-i18n-placeholder="emailPlaceholder"
+                required
+            >
+
+            <label for="teacherPassword" data-i18n="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="teacherPassword"
+                placeholder="Enter your password"
+                data-i18n-placeholder="passwordPlaceholder"
+                required
+            >
+
+            <button
+                type="submit"
+                class="login-button"
+                data-i18n="teacherLogin"
+            >
+                Sign In as Teacher
+            </button>
+
+        </form>
+
+
+        <!-- ADMIN LOGIN -->
+
+        <form id="adminLoginForm" class="login-form hidden">
+
+            <label for="adminEmail" data-i18n="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="adminEmail"
+                placeholder="Enter your email"
+                data-i18n-placeholder="emailPlaceholder"
+                required
+            >
+
+            <label for="adminPassword" data-i18n="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Enter your password"
+                data-i18n-placeholder="passwordPlaceholder"
+                required
+            >
+
+            <button
+                type="submit"
+                class="login-button"
+                data-i18n="adminLogin"
+            >
+                Sign In as Admin
+            </button>
+
+        </form>
+
+
+        <!-- STUDENT REGISTRATION -->
+
+        <div class="register-link" id="registerLink">
+
+            <span data-i18n="noAccount">
+                New to GS Language Academy?
+            </span>
+
+            <a href="Register.html" data-i18n="registerHere">
+                Create your student account
+            </a>
+
+        </div>
+
+    </main>
+
 </div>
 
+
 <script>
+
+/* TRANSLATIONS */
 
 const translations = {
 
     en: {
-        academyName: "GS Language Academy",
-        welcomeBack: "Welcome back! Please log in to continue.",
-        loginQuestion: "How would you like to log in?",
+
+        dailyLabel: "YOUR LEARNING SPACE",
+
+        brandTitle: "Ready for Your<br><span class=\"highlight\">Next Step?</span>",
+
+        brandDescription:
+            "Welcome back to your learning space. Sign in to stay connected with your classes, schedule, attendance, progress, and everything you need for your English journey.",
+
+        pointOne: "Check your upcoming classes",
+        pointTwo: "Keep track of your learning progress",
+        pointThree: "Stay up to date with your academy",
+
+        brandFooter:
+            "Your classes. Your progress. Your next opportunity.",
+
+        welcomeTitle: "Welcome Back!",
+
+        welcomeDescription:
+            "Your learning space is waiting for you. Sign in to check your schedule, classes, progress, and updates.",
+
+        loginQuestion:
+            "How would you like to sign in?",
+
         student: "Student",
         teacher: "Teacher",
         admin: "Admin",
-        email: "Email",
+
+        email: "Email Address",
         password: "Password",
+
         emailPlaceholder: "Enter your email",
         passwordPlaceholder: "Enter your password",
-        studentLogin: "Student Login",
-        teacherLogin: "Teacher Login",
-        adminLogin: "Admin Login",
-        noAccount: "Don't have a student account?",
-        registerHere: "Register here",
-        contactAcademy: "Contact GS Language Academy",
-        emailLabel: "Email:",
-        whatsappLabel: "WhatsApp:",
-        instagramLabel: "Instagram:",
-        invalidStudent: "Invalid email or password!",
-        noStudent: "No student registration found. Please register first.",
-        noTeacher: "No teacher accounts found. Please contact the administrator.",
-        invalidTeacher: "Invalid teacher email or password.",
-        invalidAdmin: "Invalid admin email or password."
+
+        studentLogin: "Open My Dashboard",
+        teacherLogin: "Sign In as Teacher",
+        adminLogin: "Sign In as Admin",
+
+        noAccount: "New to GS Language Academy?",
+        registerHere: "Create your student account",
+
+        invalidStudent:
+            "Invalid student email or password!",
+
+        noStudent:
+            "No student registration found. Please create your student account first.",
+
+        noTeacher:
+            "No teacher accounts found. Please contact the administrator.",
+
+        invalidTeacher:
+            "Invalid teacher email or password.",
+
+        invalidAdmin:
+            "Invalid admin email or password."
     },
 
+
     es: {
-        academyName: "GS Language Academy",
-        welcomeBack: "¡Bienvenido de nuevo! Inicia sesión para continuar.",
-        loginQuestion: "¿Cómo deseas iniciar sesión?",
+
+        dailyLabel: "TU ESPACIO DE APRENDIZAJE",
+
+        brandTitle:
+            "¿Listo para tu<br><span class=\"highlight\">Próximo Paso?</span>",
+
+        brandDescription:
+            "Bienvenido de nuevo a tu espacio de aprendizaje. Inicia sesión para mantenerte conectado con tus clases, horarios, asistencia, progreso y todo lo que necesitas para tu aprendizaje de inglés.",
+
+        pointOne: "Consulta tus próximas clases",
+        pointTwo: "Sigue tu progreso de aprendizaje",
+        pointThree: "Mantente al día con tu academia",
+
+        brandFooter:
+            "Tus clases. Tu progreso. Tu próxima oportunidad.",
+
+        welcomeTitle:
+            "¡Bienvenido de nuevo!",
+
+        welcomeDescription:
+            "Tu espacio de aprendizaje te está esperando. Inicia sesión para consultar tus horarios, clases, progreso y novedades.",
+
+        loginQuestion:
+            "¿Cómo quieres iniciar sesión?",
+
         student: "Estudiante",
         teacher: "Profesor",
         admin: "Administrador",
+
         email: "Correo electrónico",
         password: "Contraseña",
-        emailPlaceholder: "Introduce tu correo electrónico",
-        passwordPlaceholder: "Introduce tu contraseña",
-        studentLogin: "Iniciar sesión como estudiante",
-        teacherLogin: "Iniciar sesión como profesor",
-        adminLogin: "Iniciar sesión como administrador",
-        noAccount: "¿No tienes una cuenta de estudiante?",
-        registerHere: "Regístrate aquí",
-        contactAcademy: "Contacta con GS Language Academy",
-        emailLabel: "Correo:",
-        whatsappLabel: "WhatsApp:",
-        instagramLabel: "Instagram:",
-        invalidStudent: "¡Correo electrónico o contraseña incorrectos!",
-        noStudent: "No se encontró ningún registro de estudiante. Regístrate primero.",
-        noTeacher: "No se encontraron cuentas de profesores. Contacta con el administrador.",
-        invalidTeacher: "Correo electrónico o contraseña del profesor incorrectos.",
-        invalidAdmin: "Correo electrónico o contraseña del administrador incorrectos."
+
+        emailPlaceholder:
+            "Introduce tu correo electrónico",
+
+        passwordPlaceholder:
+            "Introduce tu contraseña",
+
+        studentLogin:
+            "Abrir Mi Panel",
+
+        teacherLogin:
+            "Entrar como Profesor",
+
+        adminLogin:
+            "Entrar como Administrador",
+
+        noAccount:
+            "¿Nuevo en GS Language Academy?",
+
+        registerHere:
+            "Crea tu cuenta de estudiante",
+
+        invalidStudent:
+            "¡Correo o contraseña incorrectos!",
+
+        noStudent:
+            "No se encontró ninguna cuenta de estudiante. Crea tu cuenta primero.",
+
+        noTeacher:
+            "No se encontraron cuentas de profesores. Contacta con el administrador.",
+
+        invalidTeacher:
+            "Correo o contraseña del profesor incorrectos.",
+
+        invalidAdmin:
+            "Correo o contraseña del administrador incorrectos."
     },
 
+
     ar: {
-        academyName: "أكاديمية GS للغات",
-        welcomeBack: "مرحباً بعودتك! يرجى تسجيل الدخول للمتابعة.",
-        loginQuestion: "كيف تريد تسجيل الدخول؟",
+
+        dailyLabel:
+            "مساحتك التعليمية",
+
+        brandTitle:
+            "هل أنت مستعد<br><span class=\"highlight\">لخطوتك القادمة؟</span>",
+
+        brandDescription:
+            "مرحباً بعودتك إلى مساحتك التعليمية. سجّل الدخول للبقاء على اطلاع بجدولك، حصصك، حضورك، تقدمك، وكل ما تحتاجه في رحلة تعلم الإنجليزية.",
+
+        pointOne:
+            "اطّلع على حصصك القادمة",
+
+        pointTwo:
+            "تابع تقدمك في التعلم",
+
+        pointThree:
+            "ابقَ على اطلاع بكل جديد في أكاديميتك",
+
+        brandFooter:
+            "حصصك. تقدمك. فرصتك القادمة.",
+
+        welcomeTitle:
+            "مرحباً بعودتك!",
+
+        welcomeDescription:
+            "مساحتك التعليمية بانتظارك. سجّل الدخول للاطلاع على جدولك وحصصك وتقدمك وآخر التحديثات.",
+
+        loginQuestion:
+            "كيف تريد تسجيل الدخول؟",
+
         student: "طالب",
         teacher: "معلم",
         admin: "مدير",
-        email: "البريد الإلكتروني",
-        password: "كلمة المرور",
-        emailPlaceholder: "أدخل بريدك الإلكتروني",
-        passwordPlaceholder: "أدخل كلمة المرور",
-        studentLogin: "تسجيل دخول الطالب",
-        teacherLogin: "تسجيل دخول المعلم",
-        adminLogin: "تسجيل دخول المدير",
-        noAccount: "ليس لديك حساب طالب؟",
-        registerHere: "سجل هنا",
-        contactAcademy: "تواصل مع أكاديمية GS للغات",
-        emailLabel: "البريد الإلكتروني:",
-        whatsappLabel: "واتساب:",
-        instagramLabel: "إنستغرام:",
-        invalidStudent: "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
-        noStudent: "لم يتم العثور على تسجيل طالب. يرجى التسجيل أولاً.",
-        noTeacher: "لم يتم العثور على حسابات للمعلمين. يرجى التواصل مع المدير.",
-        invalidTeacher: "البريد الإلكتروني أو كلمة المرور الخاصة بالمعلم غير صحيحة.",
-        invalidAdmin: "البريد الإلكتروني أو كلمة المرور الخاصة بالمدير غير صحيحة."
+
+        email:
+            "البريد الإلكتروني",
+
+        password:
+            "كلمة المرور",
+
+        emailPlaceholder:
+            "أدخل بريدك الإلكتروني",
+
+        passwordPlaceholder:
+            "أدخل كلمة المرور",
+
+        studentLogin:
+            "فتح لوحة التحكم الخاصة بي",
+
+        teacherLogin:
+            "تسجيل دخول المعلم",
+
+        adminLogin:
+            "تسجيل دخول المدير",
+
+        noAccount:
+            "جديد في أكاديمية GS للغات؟",
+
+        registerHere:
+            "أنشئ حساب الطالب الخاص بك",
+
+        invalidStudent:
+            "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
+
+        noStudent:
+            "لم يتم العثور على حساب طالب. يرجى إنشاء حسابك أولاً.",
+
+        noTeacher:
+            "لم يتم العثور على حسابات للمعلمين. يرجى التواصل مع المدير.",
+
+        invalidTeacher:
+            "البريد الإلكتروني أو كلمة المرور الخاصة بالمعلم غير صحيحة.",
+
+        invalidAdmin:
+            "البريد الإلكتروني أو كلمة المرور الخاصة بالمدير غير صحيحة."
     }
 
 };
 
+
+/* LANGUAGE SETTINGS */
+
 function getLanguage() {
-    const savedLanguage = localStorage.getItem("language");
+
+    const savedLanguage =
+        localStorage.getItem("language") ||
+        localStorage.getItem("siteLanguage") ||
+        "en";
 
     return translations[savedLanguage]
         ? savedLanguage
         : "en";
 }
+
 
 function changeLanguage(language) {
 
@@ -550,8 +944,11 @@ function changeLanguage(language) {
     }
 
     localStorage.setItem("language", language);
+    localStorage.setItem("siteLanguage", language);
+
     applyLanguage();
 }
+
 
 function applyLanguage() {
 
@@ -561,26 +958,27 @@ function applyLanguage() {
     document.documentElement.lang = language;
 
     document.documentElement.dir =
-        language === "ar" ? "rtl" : "ltr";
-
-    document.body.classList.toggle(
-        "rtl",
         language === "ar"
-    );
+            ? "rtl"
+            : "ltr";
+
 
     document.querySelectorAll("[data-i18n]").forEach(function(element) {
 
-        const key = element.getAttribute("data-i18n");
+        const key =
+            element.getAttribute("data-i18n");
 
         if (text[key]) {
-            element.textContent = text[key];
+            element.innerHTML = text[key];
         }
 
     });
 
+
     document.querySelectorAll("[data-i18n-placeholder]").forEach(function(element) {
 
-        const key = element.getAttribute("data-i18n-placeholder");
+        const key =
+            element.getAttribute("data-i18n-placeholder");
 
         if (text[key]) {
             element.placeholder = text[key];
@@ -588,67 +986,141 @@ function applyLanguage() {
 
     });
 
-    const selector = document.getElementById("languageSelector");
 
-    if (selector) {
-        selector.value = language;
-    }
+    document.getElementById("languageSelector").value =
+        language;
 }
+
+
+/* SWITCH LOGIN TYPE */
 
 function showStudentLogin() {
 
-    document.getElementById("studentLoginForm").classList.remove("hidden");
-    document.getElementById("teacherLoginForm").classList.add("hidden");
-    document.getElementById("adminLoginForm").classList.add("hidden");
+    document.getElementById("studentLoginForm")
+        .classList.remove("hidden");
 
-    document.getElementById("studentBtn").classList.add("active");
-    document.getElementById("teacherBtn").classList.remove("active");
-    document.getElementById("adminBtn").classList.remove("active");
+    document.getElementById("teacherLoginForm")
+        .classList.add("hidden");
 
-    document.getElementById("registerLink").style.display = "block";
+    document.getElementById("adminLoginForm")
+        .classList.add("hidden");
+
+
+    document.getElementById("studentBtn")
+        .classList.add("active");
+
+    document.getElementById("teacherBtn")
+        .classList.remove("active");
+
+    document.getElementById("adminBtn")
+        .classList.remove("active");
+
+
+    document.getElementById("registerLink")
+        .style.display = "block";
 }
+
 
 function showTeacherLogin() {
 
-    document.getElementById("studentLoginForm").classList.add("hidden");
-    document.getElementById("teacherLoginForm").classList.remove("hidden");
-    document.getElementById("adminLoginForm").classList.add("hidden");
+    document.getElementById("studentLoginForm")
+        .classList.add("hidden");
 
-    document.getElementById("studentBtn").classList.remove("active");
-    document.getElementById("teacherBtn").classList.add("active");
-    document.getElementById("adminBtn").classList.remove("active");
+    document.getElementById("teacherLoginForm")
+        .classList.remove("hidden");
 
-    document.getElementById("registerLink").style.display = "none";
+    document.getElementById("adminLoginForm")
+        .classList.add("hidden");
+
+
+    document.getElementById("studentBtn")
+        .classList.remove("active");
+
+    document.getElementById("teacherBtn")
+        .classList.add("active");
+
+    document.getElementById("adminBtn")
+        .classList.remove("active");
+
+
+    document.getElementById("registerLink")
+        .style.display = "none";
 }
+
 
 function showAdminLogin() {
 
-    document.getElementById("studentLoginForm").classList.add("hidden");
-    document.getElementById("teacherLoginForm").classList.add("hidden");
-    document.getElementById("adminLoginForm").classList.remove("hidden");
+    document.getElementById("studentLoginForm")
+        .classList.add("hidden");
 
-    document.getElementById("studentBtn").classList.remove("active");
-    document.getElementById("teacherBtn").classList.remove("active");
-    document.getElementById("adminBtn").classList.add("active");
+    document.getElementById("teacherLoginForm")
+        .classList.add("hidden");
 
-    document.getElementById("registerLink").style.display = "none";
+    document.getElementById("adminLoginForm")
+        .classList.remove("hidden");
+
+
+    document.getElementById("studentBtn")
+        .classList.remove("active");
+
+    document.getElementById("teacherBtn")
+        .classList.remove("active");
+
+    document.getElementById("adminBtn")
+        .classList.add("active");
+
+
+    document.getElementById("registerLink")
+        .style.display = "none";
 }
+
+
+/* STUDENT LOGIN */
 
 function loginStudent() {
 
-    const text = translations[getLanguage()];
-    const email = document.getElementById("studentEmail").value.trim();
-    const password = document.getElementById("studentPassword").value;
-    const studentData = localStorage.getItem("student");
+    const text =
+        translations[getLanguage()];
 
-    if (studentData) {
+    const email =
+        document.getElementById("studentEmail")
+            .value
+            .trim();
 
-        const student = JSON.parse(studentData);
+    const password =
+        document.getElementById("studentPassword")
+            .value;
 
-        if (email === student.email && password === student.password) {
+    const studentData =
+        localStorage.getItem("student");
 
-            localStorage.setItem("loggedIn", "true");
-            window.location.href = "Dashboard.html";
+
+    if (!studentData) {
+
+        alert(text.noStudent);
+
+        return;
+    }
+
+
+    try {
+
+        const student =
+            JSON.parse(studentData);
+
+
+        if (
+            email === student.email &&
+            password === student.password
+        ) {
+
+            localStorage.setItem(
+                "loggedIn",
+                "true"
+            );
+
+            window.location.href =
+                "Dashboard.html";
 
         } else {
 
@@ -656,60 +1128,119 @@ function loginStudent() {
 
         }
 
-    } else {
+    } catch (error) {
 
-        alert(text.noStudent);
+        alert(text.invalidStudent);
 
     }
 }
 
+
+/* TEACHER LOGIN */
+
 function teacherLogin() {
 
-    const text = translations[getLanguage()];
-    const email = document.getElementById("teacherEmail").value.trim();
-    const password = document.getElementById("teacherPassword").value;
-    const teachersData = localStorage.getItem("teachers");
+    const text =
+        translations[getLanguage()];
+
+    const email =
+        document.getElementById("teacherEmail")
+            .value
+            .trim();
+
+    const password =
+        document.getElementById("teacherPassword")
+            .value;
+
+    const teachersData =
+        localStorage.getItem("teachers");
+
 
     if (!teachersData) {
 
         alert(text.noTeacher);
-        return;
 
+        return;
     }
 
-    const teachers = JSON.parse(teachersData);
 
-    const teacher = teachers.find(function(t) {
-        return t.email === email && t.password === password;
-    });
+    try {
 
-    if (teacher) {
+        const teachers =
+            JSON.parse(teachersData);
 
-        localStorage.setItem("teacherLoggedIn", "true");
-        localStorage.setItem("currentTeacherId", teacher.id);
 
-        window.location.href = "Teacher.html";
+        const teacher =
+            teachers.find(function(t) {
 
-    } else {
+                return (
+                    t.email === email &&
+                    t.password === password
+                );
+
+            });
+
+
+        if (teacher) {
+
+            localStorage.setItem(
+                "teacherLoggedIn",
+                "true"
+            );
+
+            localStorage.setItem(
+                "currentTeacherId",
+                teacher.id
+            );
+
+            window.location.href =
+                "Teacher.html";
+
+        } else {
+
+            alert(text.invalidTeacher);
+
+        }
+
+    } catch (error) {
 
         alert(text.invalidTeacher);
 
     }
 }
 
+
+/* ADMIN LOGIN */
+
 function adminLogin() {
 
-    const text = translations[getLanguage()];
-    const email = document.getElementById("adminEmail").value.trim();
-    const password = document.getElementById("adminPassword").value;
+    const text =
+        translations[getLanguage()];
+
+    const email =
+        document.getElementById("adminEmail")
+            .value
+            .trim();
+
+    const password =
+        document.getElementById("adminPassword")
+            .value;
+
 
     if (
-        email.toLowerCase() === "gslanguageacademy1@gmail.com" &&
+        email.toLowerCase() ===
+        "gslanguageacademy1@gmail.com"
+        &&
         password === "123123"
     ) {
 
-        localStorage.setItem("adminLoggedIn", "true");
-        window.location.href = "Admin.html";
+        localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+        );
+
+        window.location.href =
+            "Admin.html";
 
     } else {
 
@@ -718,20 +1249,40 @@ function adminLogin() {
     }
 }
 
-document.getElementById("studentLoginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    loginStudent();
-});
 
-document.getElementById("teacherLoginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    teacherLogin();
-});
+/* FORM SUBMISSIONS */
 
-document.getElementById("adminLoginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    adminLogin();
-});
+document.getElementById("studentLoginForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        loginStudent();
+
+    });
+
+
+document.getElementById("teacherLoginForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        teacherLogin();
+
+    });
+
+
+document.getElementById("adminLoginForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        adminLogin();
+
+    });
+
+
+/* INITIALIZE */
 
 applyLanguage();
 
