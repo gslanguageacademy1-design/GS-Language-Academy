@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - GS Language Academy</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #f7f4f2;
+            color: #672a1f;
+        }
+        button, input, select, textarea {
+            font-family: Arial, sans-serif;
+        }
+        .hidden { display: none !important; }
+        #teacherLoginScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f7f4f2;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 430px;
+            background: #fffaf8;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(103, 42, 31, 0.12);
+            text-align: center;
+        }
+        .login-box img {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        .login-box h1 { color: #7f3025; margin-bottom: 8px; }
+        .login-box p {
+            color: #8b625b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .login-box label {
+            display: block;
+            text-align: left;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 17px;
+            border: 1px solid #dec9c4;
+            border-radius: 9px;
+            outline: none;
+        }
+        .login-box input:focus { border-color: #a93d2f; }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #a93d2f;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .login-btn:hover { background: #7f3025; }
+        .app { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 250px;
+            background: #7f3025;
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .brand { text-align: center; margin-bottom: 30px; }
+        .brand img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+        }
+        .brand h2 { font-size: 18px; margin-top: 10px; }
+        .brand p { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .nav-btn {
+            width: 100%;
+            padding: 13px 15px;
+            border: none;
+            background: transparent;
+            color: white;
+            text-align: left;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-btn:hover, .nav-btn.active { background: #a93d2f; }
+        .logout-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: transparent;
+            color: white;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .logout-btn:hover { background: rgba(255,255,255,0.12); }
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+        .topbar {
+            background: #fffaf8;
+            border-bottom: 1px solid #eadbd7;
+            padding: 18px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+        .topbar h1 { color: #7f3025; font-size: 24px; }
+        .teacher-info { display: flex; align-items: center; gap: 10px; }
+        .avatar {
+            width: 42px;
+            height: 42px;
+            background: #f8b632;
+            color: #672a1f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .teacher-name { font-weight: bold; color: #672a1f; }
+        .content { padding: 30px; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .section-title { margin-bottom: 20px; }
+        .section-title h2 { color: #7f3025; margin-bottom: 5px; }
+        .section-title p { color: #8b625b; font-size: 14px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: #fffaf8;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #eadbd7;
+            box-shadow: 0 4px 15px rgba(103,42,31,0.05);
+        }
+        .stat-card h3 {
+            font-size: 13px;
+            color: #8b625b;
+            margin-bottom: 10px;
+        }
+        .stat-card .number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #a93d2f;
+        }
+        .card {
+            background: #fffaf8;
+            border: 1px solid #eadbd7;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(103,42,31,0.05);
+        }
+        .card h3 { color: #7f3025; margin-bottom: 16px; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #eadbd7;
+            text-align: left;
+            font-size: 13px;
+        }
+        th { color: #7f3025; background: #fdf7f5; }
+        td { color: #672a1f; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dec9c4;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+            color: #672a1f;
+        }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .form-group input:focus, .form-group select:focus,
+        .form-group textarea:focus { border-color: #a93d2f; }
+        .primary-btn {
+            background: #a93d2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .primary-btn:hover { background: #7f3025; }
+        .secondary-btn {
+            background: #f8b632;
+            color: #672a1f;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .danger-btn {
+            background: #7f3025;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 7px 11px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .student-card {
+            background: #fffaf8;
+            border: 1px solid #eadbd7;
+            border-radius: 14px;
+            padding: 20px;
+            transition: 0.2s;
+        }
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(103,42,31,0.08);
+        }
+        .student-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #f8b632;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #672a1f;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .student-card h3 { margin-bottom: 5px; color: #7f3025; }
+        .student-card p {
+            font-size: 13px;
+            color: #8b625b;
+            margin-bottom: 5px;
+        }
+        .student-card button { margin-top: 12px; width: 100%; }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eadbd7;
+            margin-bottom: 20px;
+        }
+        .large-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f8b632;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .profile-header h2 { color: #7f3025; margin-bottom: 5px; }
+        .profile-header p { color: #8b625b; font-size: 13px; }
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .detail-box { background: #fdf7f5; padding: 15px; border-radius: 9px; }
+        .detail-box span {
+            display: block;
+            font-size: 11px;
+            color: #8b625b;
+            margin-bottom: 5px;
+        }
+        .detail-box strong { font-size: 14px; color: #672a1f; }
+        .search-box { margin-bottom: 20px; }
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 13px;
+            border: 1px solid #dec9c4;
+            border-radius: 9px;
+            outline: none;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .badge-present { background: #e5f5e8; color: #2f6b3c; }
+        .badge-late { background: #fff2d2; color: #8a6200; }
+        .badge-absent { background: #f9dddd; color: #8b2c2c; }
+        .badge-excused { background: #e7e1f6; color: #59438b; }
+        .document-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+        .document-heading h3 {
+            color: #7f3025;
+            margin-bottom: 7px;
+        }
+        .document-heading p, .document-note {
+            color: #8b625b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .read-only-label {
+            display: inline-block;
+            flex-shrink: 0;
+            padding: 7px 11px;
+            border-radius: 20px;
+            background: #f8edd5;
+            color: #7f5a13;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .document-viewer {
+            width: 100%;
+            height: 75vh;
+            min-height: 520px;
+            overflow: hidden;
+            border: 1px solid #dec9c4;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .document-viewer object,
+        .document-viewer iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #fff;
+        }
+        .document-fallback {
+            padding: 30px;
+            text-align: center;
+            color: #672a1f;
+        }
+        .document-fallback a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: #a93d2f;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .document-note { margin-top: 12px; }
+        .announcement-item {
+            background: #fffaf8;
+            border: 1px solid #eadbd7;
+            border-left: 4px solid #a93d2f;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+        .announcement-item h3 { color: #7f3025; margin-bottom: 6px; }
+        .announcement-item .meta { font-size: 12px; color: #8b625b; margin-bottom: 10px; }
+        .announcement-item p { font-size: 14px; line-height: 1.6; }
+        .mobile-menu {
+            display: none;
+            border: none;
+            background: #7f3025;
+            color: white;
+            padding: 10px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        @media (max-width: 1100px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .student-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 800px) {
+            .sidebar { transform: translateX(-100%); transition: 0.25s; }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; width: 100%; }
+            .mobile-menu { display: block; }
+            .topbar { padding: 15px 18px; }
+            .content { padding: 20px; }
+            .form-grid, .profile-details { grid-template-columns: 1fr; }
+            .student-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .teacher-info .teacher-name { display: none; }
+            .content { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="teacherLoginScreen">
+    <div class="login-box">
+        <img src="logo.png" alt="GS Language Academy Logo" onerror="this.style.display='none'">
+        <h1>Teacher Portal</h1>
+        <p>Sign in to manage your students and academic records.</p>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" value="teacher@gsacademy.com">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" value="123456">
+        <button class="login-btn" onclick="teacherLogin()">Teacher Login</button>
+    </div>
+</div>
+
+<div id="teacherApp" class="app hidden">
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <img src="logo.png" alt="GS Language Academy Logo" onerror="this.style.display='none'">
+            <h2>GS Language Academy</h2>
+            <p>Teacher Portal</p>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="showSection('dashboard', this)">Dashboard</button>
+            <button class="nav-btn" onclick="showSection('students', this)">My Students</button>
+            <button class="nav-btn" onclick="showSection('classes', this)">My Classes</button>
+            <button class="nav-btn" onclick="showSection('attendance', this)">Attendance</button>
+            <button class="nav-btn" onclick="showSection('lessons', this)">Lesson Records</button>
+            <button class="nav-btn" onclick="showSection('guideLessons', this)">Guide Lessons</button>
+            <button class="nav-btn" onclick="showSection('syllabus', this)">Syllabus</button>
+            <button class="nav-btn" onclick="showSection('progress', this)">Student Progress</button>
+            <button class="nav-btn" onclick="showSection('announcements', this)">Announcements</button>
+            <button class="nav-btn" onclick="showSection('profile', this)">My Profile</button>
+        </div>
+        <button class="logout-btn" onclick="teacherLogout()">Logout</button>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+                <h1 id="pageTitle">Teacher Dashboard</h1>
+            </div>
+            <div class="teacher-info">
+                <div class="teacher-name" id="topTeacherName">Teacher</div>
+                <div class="avatar" id="topAvatar">T</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="section active">
+                <div class="section-title">
+                    <h2>Welcome, <span id="dashboardTeacherName">Teacher</span></h2>
+                    <p>Here is an overview of your students and classes.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>My Students</h3>
+                        <div class="number" id="statStudents">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>My Classes</h3>
+                        <div class="number" id="statClasses">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Attendance Records</h3>
+                        <div class="number" id="statAttendance">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Progress Records</h3>
+                        <div class="number" id="statProgress">0</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Upcoming / Scheduled Classes</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardClassesBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Students Needing Attention</h3>
+                    <div id="attentionStudents">
+                        <p style="color:#8b625b;">No students currently flagged.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MY STUDENTS -->
+            <section id="students" class="section">
+                <div class="section-title">
+                    <h2>My Students</h2>
+                    <p>Students assigned to you by the administrator.</p>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="studentSearch" placeholder="Search students..." oninput="renderStudents()">
+                </div>
+                <div class="student-grid" id="studentGrid"></div>
+            </section>
+
+            <!-- MY CLASSES -->
+            <section id="classes" class="section">
+                <div class="section-title">
+                    <h2>My Classes</h2>
+                    <p>Classes assigned to you by the administrator.</p>
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classesBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ATTENDANCE -->
+            <section id="attendance" class="section">
+                <div class="section-title">
+                    <h2>Attendance</h2>
+                    <p>Record attendance for your assigned students.</p>
+                </div>
+                <div class="card">
+                    <form id="attendanceForm" onsubmit="recordAttendance(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="attendanceStudent">Student</label>
+                                <select id="attendanceStudent" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceDate">Date</label>
+                                <input type="date" id="attendanceDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceStatus">Status</label>
+                                <select id="attendanceStatus" required>
+                                    <option value="Present">Present</option>
+                                    <option value="Late">Late</option>
+                                    <option value="Absent">Absent</option>
+                                    <option value="Excused">Excused</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceNotes">Notes</label>
+                                <input type="text" id="attendanceNotes" placeholder="Optional notes">
+                            </div>
+                        </div>
+                        <button class="primary-btn" type="submit">Save Attendance</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>My Attendance Records</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Notes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LESSON RECORDS -->
+            <section id="lessons" class="section">
+                <div class="section-title">
+                    <h2>Lesson Records</h2>
+                    <p>Record the lessons you have completed with your students.</p>
+                </div>
+                <div class="card">
+                    <form id="lessonForm" onsubmit="recordLesson(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="lessonStudent">Student</label>
+                                <select id="lessonStudent" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lessonDate">Date</label>
+                                <input type="date" id="lessonDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lessonTopic">Lesson Topic</label>
+                                <input type="text" id="lessonTopic" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lessonHomework">Homework</label>
+                                <input type="text" id="lessonHomework">
+                            </div>
+                        </div>
+                        <button class="primary-btn" type="submit">Save Lesson</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>My Lesson Records</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Homework</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lessonsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GUIDE LESSONS -->
+            <section id="guideLessons" class="section">
+                <div class="section-title">
+                    <h2>Guide Lessons &amp; Teacher Resources</h2>
+                    <p>All uploaded A1 lesson packs and instructor guides. These documents are provided for viewing and reference.</p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lesson 01</h3>
+                            <p>Lesson 01. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lesson01.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lesson 01" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lesson01.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lessons 02–04</h3>
+                            <p>Lessons 02 to 04. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_02_to_04.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lessons 02–04" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_02_to_04.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lessons 05–08</h3>
+                            <p>Lessons 05 to 08. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_05_to_08.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lessons 05–08" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_05_to_08.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lessons 09–12</h3>
+                            <p>Lessons 09 to 12. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_09_to_12.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lessons 09–12" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_09_to_12.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lessons 13–16</h3>
+                            <p>Lessons 13 to 16. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_13_to_16.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lessons 13–16" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_13_to_16.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>A1 Zero-Start — Lessons 17–20</h3>
+                            <p>Lessons 17 to 20. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_17_to_20.pdf#toolbar=0&navpanes=0"
+                                title="A1 Zero-Start — Lessons 17–20" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_17_to_20.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>Guía Docente — Manual Operativo</h3>
+                            <p>Spanish instructor operations guide. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Language_Academy_Guia_Docente.pdf#toolbar=0&navpanes=0"
+                                title="Guía Docente — Manual Operativo" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Language_Academy_Guia_Docente.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>Instructor Quick-Start Guide</h3>
+                            <p>English instructor methodology guide. View-only teaching material for GS Language Academy instructors.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Language_Academy_Instructor_Guide.pdf#toolbar=0&navpanes=0"
+                                title="Instructor Quick-Start Guide" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Language_Academy_Instructor_Guide.pdf" target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open PDF</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- SYLLABUS -->
+            <section id="syllabus" class="section">
+                <div class="section-title">
+                    <h2>Academy Syllabus</h2>
+                    <p>Official A1 course syllabus and learning plan.</p>
+                </div>
+                <div class="card">
+                    <div class="document-heading">
+                        <div>
+                            <h3>GS Language Academy — A1 Syllabus</h3>
+                            <p>Official course curriculum plan for reference and lesson planning.</p>
+                        </div>
+                        <span class="read-only-label">VIEW ONLY</span>
+                    </div>
+                    <div class="document-viewer">
+                        <iframe src="documents/GS_Language_Academy_Syllabus_A1.pdf#toolbar=0&navpanes=0"
+                                title="GS Language Academy A1 Syllabus" loading="lazy"></iframe>
+                    </div>
+                    <p class="document-note">If the preview does not load, open the syllabus in a new browser tab.</p>
+                    <p style="margin-top:12px;">
+                        <a class="primary-btn" href="documents/GS_Language_Academy_Syllabus_A1.pdf"
+                           target="_blank" rel="noopener"
+                           style="display:inline-block;text-decoration:none;">Open Syllabus PDF</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- STUDENT PROGRESS -->
+            <section id="progress" class="section">
+                <div class="section-title">
+                    <h2>Student Progress</h2>
+                    <p>Record and review the progress of your assigned students.</p>
+                </div>
+                <div class="card">
+                    <form id="progressForm" onsubmit="recordProgress(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="progressStudent">Student</label>
+                                <select id="progressStudent" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="progressDate">Date</label>
+                                <input type="date" id="progressDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="progressLevel">Level</label>
+                                <input type="text" id="progressLevel" placeholder="e.g. A1 Elementary" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="progressScore">Score (%)</label>
+                                <input type="number" id="progressScore" min="0" max="100" required>
+                            </div>
+                            <div class="form-group full">
+                                <label for="progressNotes">Notes</label>
+                                <textarea id="progressNotes" placeholder="Performance remarks..."></textarea>
+                            </div>
+                        </div>
+                        <button class="primary-btn" type="submit">Save Progress</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>My Progress Records</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                    <th>Level</th>
+                                    <th>Score</th>
+                                    <th>Notes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="progressBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANNOUNCEMENTS -->
+            <section id="announcements" class="section">
+                <div class="section-title">
+                    <h2>Announcements</h2>
+                    <p>Updates and messages from the academy administrator.</p>
+                </div>
+                <div id="announcementsList"></div>
+            </section>
+
+            <!-- PROFILE -->
+            <section id="profile" class="section">
+                <div class="section-title">
+                    <h2>My Profile</h2>
+                    <p>Your teacher account information.</p>
+                </div>
+                <div class="card" id="teacherProfile"></div>
+            </section>
+        </div>
+    </main>
+</div>
+
+<script>
+    const teacherProfileData = {
+        name: "Sarah Mitchell",
+        email: "teacher@gsacademy.com",
+        role: "Senior English Instructor",
+        department: "General & Academic English",
+        phone: "+20 100 555 0192",
+        joinDate: "2024-09-01"
+    };
+
+    const studentsData = [
+        { id: 1, name: "Ahmed Hassan", level: "A1 Elementary", email: "ahmed.h@example.com", phone: "+20 101 234 5678", status: "Active" },
+        { id: 2, name: "Mariam Adel", level: "A1 Elementary", email: "mariam.a@example.com", phone: "+20 102 345 6789", status: "Active" },
+        { id: 3, name: "Omar Tarek", level: "A2 Pre-Intermediate", email: "omar.t@example.com", phone: "+20 103 456 7890", status: "Needs Attention" }
+    ];
+
+    const classesData = [
+        { student: "Ahmed Hassan", course: "A1 Elementary — Lesson 03", date: "2026-11-18", time: "10:00 AM", location: "Room 204" },
+        { student: "Mariam Adel", course: "A1 Elementary — Lesson 04", date: "2026-11-18", time: "12:00 PM", location: "Online (Zoom)" },
+        { student: "Omar Tarek", course: "A2 Pre-Intermediate — Unit 2", date: "2026-11-19", time: "02:30 PM", location: "Room 101" }
+    ];
+
+    let attendanceRecords = JSON.parse(localStorage.getItem("gs_attendance")) || [
+        { id: 101, student: "Ahmed Hassan", date: "2026-11-12", status: "Present", notes: "Active participation" },
+        { id: 102, student: "Omar Tarek", date: "2026-11-13", status: "Absent", notes: "Unexcused absence" }
+    ];
+
+    let lessonRecords = JSON.parse(localStorage.getItem("gs_lessons")) || [
+        { id: 201, student: "Ahmed Hassan", date: "2026-11-12", topic: "Lesson 02: Daily Routines & Present Simple", homework: "Workbook pp. 12–13" }
+    ];
+
+    let progressRecords = JSON.parse(localStorage.getItem("gs_progress")) || [
+        { id: 301, student: "Ahmed Hassan", date: "2026-11-10", level: "A1 Elementary", score: 88, notes: "Strong speaking fluency." },
+        { id: 302, student: "Omar Tarek", date: "2026-11-11", level: "A2 Pre-Intermediate", score: 58, notes: "Needs extra grammar practice." }
+    ];
+
+    const announcementsData = [
+        { title: "Updated A1 Teaching Materials Available", date: "2026-11-10", message: "The A1 Elementary Guide Lessons (01 to 04) and updated Academy Syllabus have been uploaded to the portal." },
+        { title: "Monthly Progress Reports Reminder", date: "2026-11-05", message: "Please ensure all student assessment scores are logged under Student Progress before the 25th of each month." }
+    ];
+
+    function teacherLogin() {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
+        document.getElementById("teacherLoginScreen").classList.add("hidden");
+        document.getElementById("teacherApp").classList.remove("hidden");
+        initDashboard();
+    }
+
+    function teacherLogout() {
+        document.getElementById("teacherApp").classList.add("hidden");
+        document.getElementById("teacherLoginScreen").classList.remove("hidden");
+    }
+
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+    }
+
+    function showSection(sectionId, btn) {
+        document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+        document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+        const target = document.getElementById(sectionId);
+        if (target) target.classList.add("active");
+        if (btn) {
+            btn.classList.add("active");
+            document.getElementById("pageTitle").textContent = btn.textContent;
+        }
+        document.getElementById("sidebar").classList.remove("open");
+    }
+
+    function initDashboard() {
+        const initials = teacherProfileData.name.split(" ").map(n => n[0]).join("");
+        document.getElementById("topTeacherName").textContent = teacherProfileData.name;
+        document.getElementById("dashboardTeacherName").textContent = teacherProfileData.name;
+        document.getElementById("topAvatar").textContent = initials;
+
+        populateStudentSelects();
+        setDefaultDates();
+        renderAll();
+    }
+
+    function setDefaultDates() {
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("attendanceDate").value = today;
+        document.getElementById("lessonDate").value = today;
+        document.getElementById("progressDate").value = today;
+    }
+
+    function populateStudentSelects() {
+        const selectIds = ["attendanceStudent", "lessonStudent", "progressStudent"];
+        selectIds.forEach(id => {
+            const select = document.getElementById(id);
+            select.innerHTML = studentsData.map(s => `<option value="${s.name}">${s.name} (${s.level})</option>`).join("");
+        });
+    }
+
+    function renderAll() {
+        updateStats();
+        renderClasses();
+        renderStudents();
+        renderAttendance();
+        renderLessons();
+        renderProgress();
+        renderAnnouncements();
+        renderProfile();
+    }
+
+    function updateStats() {
+        document.getElementById("statStudents").textContent = studentsData.length;
+        document.getElementById("statClasses").textContent = classesData.length;
+        document.getElementById("statAttendance").textContent = attendanceRecords.length;
+        document.getElementById("statProgress").textContent = progressRecords.length;
+
+        const flagged = progressRecords.filter(r => Number(r.score) < 65);
+        const attentionDiv = document.getElementById("attentionStudents");
+        if (flagged.length === 0) {
+            attentionDiv.innerHTML = `<p style="color:#8b625b;">No students currently flagged.</p>`;
+        } else {
+            attentionDiv.innerHTML = flagged.map(f =>
+                `<p style="margin-bottom:8px;"><strong>${f.student}</strong> (${f.level}) — Score: <strong>${f.score}\%</strong> (${f.notes})</p>`
+            ).join("");
+        }
+    }
+
+    function renderClasses() {
+        const rows = classesData.map(c => `
+            <tr>
+                <td><strong>${c.student}</strong></td>
+                <td>${c.course}</td>
+                <td>${c.date}</td>
+                <td>${c.time}</td>
+                <td>${c.location}</td>
+            </tr>
+        `).join("");
+        document.getElementById("dashboardClassesBody").innerHTML = rows;
+        document.getElementById("classesBody").innerHTML = rows;
+    }
+
+    function renderStudents() {
+        const query = (document.getElementById("studentSearch").value || "").toLowerCase();
+        const filtered = studentsData.filter(s =>
+            s.name.toLowerCase().includes(query) || s.level.toLowerCase().includes(query)
+        );
+        document.getElementById("studentGrid").innerHTML = filtered.map(s => {
+            const initials = s.name.split(" ").map(n => n[0]).join("");
+            return `
+                <div class="student-card">
+                    <div class="student-avatar">${initials}</div>
+                    <h3>${s.name}</h3>
+                    <p><strong>Level:</strong> ${s.level}</p>
+                    <p><strong>Email:</strong> ${s.email}</p>
+                    <p><strong>Phone:</strong> ${s.phone}</p>
+                    <button class="secondary-btn" onclick="quickLogProgress('${s.name}', '${s.level}')">Record Progress</button>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function quickLogProgress(studentName, level) {
+        const progressNav = Array.from(document.querySelectorAll(".nav-btn")).find(b => b.textContent === "Student Progress");
+        showSection("progress", progressNav);
+        document.getElementById("progressStudent").value = studentName;
+        document.getElementById("progressLevel").value = level;
+    }
+
+    function recordAttendance(e) {
+        e.preventDefault();
+        attendanceRecords.unshift({
+            id: Date.now(),
+            student: document.getElementById("attendanceStudent").value,
+            date: document.getElementById("attendanceDate").value,
+            status: document.getElementById("attendanceStatus").value,
+            notes: document.getElementById("attendanceNotes").value || "—"
+        });
+        localStorage.setItem("gs_attendance", JSON.stringify(attendanceRecords));
+        document.getElementById("attendanceNotes").value = "";
+        renderAll();
+    }
+
+    function deleteAttendance(id) {
+        attendanceRecords = attendanceRecords.filter(r => r.id !== id);
+        localStorage.setItem("gs_attendance", JSON.stringify(attendanceRecords));
+        renderAll();
+    }
+
+    function renderAttendance() {
+        document.getElementById("attendanceBody").innerHTML = attendanceRecords.map(r => {
+            const badgeClass = `badge-${r.status.toLowerCase()}`;
+            return `
+                <tr>
+                    <td><strong>${r.student}</strong></td>
+                    <td>${r.date}</td>
+                    <td><span class="badge ${badgeClass}">${r.status}</span></td>
+                    <td>${r.notes}</td>
+                    <td><button class="danger-btn" onclick="deleteAttendance(${r.id})">Delete</button></td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    function recordLesson(e) {
+        e.preventDefault();
+        lessonRecords.unshift({
+            id: Date.now(),
+            student: document.getElementById("lessonStudent").value,
+            date: document.getElementById("lessonDate").value,
+            topic: document.getElementById("lessonTopic").value,
+            homework: document.getElementById("lessonHomework").value || "None"
+        });
+        localStorage.setItem("gs_lessons", JSON.stringify(lessonRecords));
+        document.getElementById("lessonTopic").value = "";
+        document.getElementById("lessonHomework").value = "";
+        renderAll();
+    }
+
+    function deleteLesson(id) {
+        lessonRecords = lessonRecords.filter(r => r.id !== id);
+        localStorage.setItem("gs_lessons", JSON.stringify(lessonRecords));
+        renderAll();
+    }
+
+    function renderLessons() {
+        document.getElementById("lessonsBody").innerHTML = lessonRecords.map(r => `
+            <tr>
+                <td><strong>${r.student}</strong></td>
+                <td>${r.date}</td>
+                <td>${r.topic}</td>
+                <td>${r.homework}</td>
+                <td><button class="danger-btn" onclick="deleteLesson(${r.id})">Delete</button></td>
+            </tr>
+        `).join("");
+    }
+
+    function recordProgress(e) {
+        e.preventDefault();
+        progressRecords.unshift({
+            id: Date.now(),
+            student: document.getElementById("progressStudent").value,
+            date: document.getElementById("progressDate").value,
+            level: document.getElementById("progressLevel").value,
+            score: document.getElementById("progressScore").value,
+            notes: document.getElementById("progressNotes").value || "—"
+        });
+        localStorage.setItem("gs_progress", JSON.stringify(progressRecords));
+        document.getElementById("progressLevel").value = "";
+        document.getElementById("progressScore").value = "";
+        document.getElementById("progressNotes").value = "";
+        renderAll();
+    }
+
+    function deleteProgress(id) {
+        progressRecords = progressRecords.filter(r => r.id !== id);
+        localStorage.setItem("gs_progress", JSON.stringify(progressRecords));
+        renderAll();
+    }
+
+    function renderProgress() {
+        document.getElementById("progressBody").innerHTML = progressRecords.map(r => `
+            <tr>
+                <td><strong>${r.student}</strong></td>
+                <td>${r.date}</td>
+                <td>${r.level}</td>
+                <td><strong>${r.score}%</strong></td>
+                <td>${r.notes}</td>
+                <td><button class="danger-btn" onclick="deleteProgress(${r.id})">Delete</button></td>
+            </tr>
+        `).join("");
+    }
+
+    function renderAnnouncements() {
+        document.getElementById("announcementsList").innerHTML = announcementsData.map(a => `
+            <div class="announcement-item">
+                <h3>${a.title}</h3>
+                <div class="meta">Posted on ${a.date}</div>
+                <p>${a.message}</p>
+            </div>
+        `).join("");
+    }
+
+    function renderProfile() {
+        const initials = teacherProfileData.name.split(" ").map(n => n[0]).join("");
+        document.getElementById("teacherProfile").innerHTML = `
+            <div class="profile-header">
+                <div class="large-avatar">${initials}</div>
+                <div>
+                    <h2>${teacherProfileData.name}</h2>
+                    <p>${teacherProfileData.role}</p>
+                </div>
+            </div>
+            <div class="profile-details">
+                <div class="detail-box"><span>EMAIL</span><strong>${teacherProfileData.email}</strong></div>
+                <div class="detail-box"><span>PHONE</span><strong>${teacherProfileData.phone}</strong></div>
+                <div class="detail-box"><span>DEPARTMENT</span><strong>${teacherProfileData.department}</strong></div>
+                <div class="detail-box"><span>JOIN DATE</span><strong>${teacherProfileData.joinDate}</strong></div>
+                <div class="detail-box"><span>ASSIGNED STUDENTS</span><strong>${studentsData.length}</strong></div>
+                <div class="detail-box"><span>STATUS</span><strong>Active</strong></div>
+            </div>
+        `;
+    }
+</script>
+</body>
+</html>
