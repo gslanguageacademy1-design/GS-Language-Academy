@@ -387,6 +387,10 @@
             border-radius: 10px;
             background: #fff;
         }
+        .document-viewer {
+            position: relative;
+            isolation: isolate;
+        }
         .document-viewer object,
         .document-viewer iframe {
             display: block;
@@ -394,6 +398,22 @@
             height: 100%;
             border: 0;
             background: #fff;
+        }
+        .document-viewer::after {
+            content: "GS LANGUAGE ACADEMY • VIEW ONLY";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(103, 42, 31, 0.13);
+            font-size: clamp(18px, 3vw, 34px);
+            font-weight: 700;
+            letter-spacing: 2px;
+            transform: rotate(-25deg);
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
         }
         .document-fallback {
             padding: 30px;
@@ -454,19 +474,6 @@
     </style>
 </head>
 <body>
-
-<div id="teacherLoginScreen">
-    <div class="login-box">
-        <img src="logo.png" alt="GS Language Academy Logo" onerror="this.style.display='none'">
-        <h1>Teacher Portal</h1>
-        <p>Sign in to manage your students and academic records.</p>
-        <label for="loginEmail">Email</label>
-        <input type="email" id="loginEmail" placeholder="Enter your email" value="teacher@gsacademy.com">
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter your password" value="123456">
-        <button class="login-btn" onclick="teacherLogin()">Teacher Login</button>
-    </div>
-</div>
 
 <div id="teacherApp" class="app hidden">
     <aside class="sidebar" id="sidebar">
@@ -693,7 +700,7 @@
             <section id="guideLessons" class="section">
                 <div class="section-title">
                     <h2>Guide Lessons &amp; Teacher Resources</h2>
-                    <p>All uploaded A1 lesson packs and instructor guides. These documents are provided for viewing and reference.</p>
+                    <p>View the A1 lesson packs and instructor guides below. Scroll down to see every resource. These materials are for viewing only.</p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -704,14 +711,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lesson01.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lesson01.pdf#toolbar=0&navpanes=0&view=FitH"
                                 title="A1 Zero-Start — Lesson 01" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lesson01.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -722,14 +724,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_02_to_04.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lessons_02_to_04.pdf#toolbar=0&navpanes=0"
                                 title="A1 Zero-Start — Lessons 02–04" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_02_to_04.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -740,14 +737,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_05_to_08.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lessons_05_to_08.pdf#toolbar=0&navpanes=0"
                                 title="A1 Zero-Start — Lessons 05–08" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_05_to_08.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -758,14 +750,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_09_to_12.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lessons_09_to_12.pdf#toolbar=0&navpanes=0"
                                 title="A1 Zero-Start — Lessons 09–12" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_09_to_12.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -776,14 +763,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_13_to_16.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lessons_13_to_16.pdf#toolbar=0&navpanes=0"
                                 title="A1 Zero-Start — Lessons 13–16" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_13_to_16.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -794,14 +776,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Academy_A1_ZeroStart_Lessons_17_to_20.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Academy_A1_ZeroStart_Lessons_17_to_20.pdf#toolbar=0&navpanes=0"
                                 title="A1 Zero-Start — Lessons 17–20" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Academy_A1_ZeroStart_Lessons_17_to_20.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -812,14 +789,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Language_Academy_Guia_Docente.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Language_Academy_Guia_Docente.pdf#toolbar=0&navpanes=0"
                                 title="Guía Docente — Manual Operativo" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Language_Academy_Guia_Docente.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -830,14 +802,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Language_Academy_Instructor_Guide.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Language_Academy_Instructor_Guide.pdf#toolbar=0&navpanes=0"
                                 title="Instructor Quick-Start Guide" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the PDF in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Language_Academy_Instructor_Guide.pdf" target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open PDF</a>
-                    </p>
                 </div>
             </section>
 
@@ -845,7 +812,7 @@
             <section id="syllabus" class="section">
                 <div class="section-title">
                     <h2>Academy Syllabus</h2>
-                    <p>Official A1 course syllabus and learning plan.</p>
+                    <p>View the official A1 course syllabus below. This material is for viewing only.</p>
                 </div>
                 <div class="card">
                     <div class="document-heading">
@@ -856,15 +823,9 @@
                         <span class="read-only-label">VIEW ONLY</span>
                     </div>
                     <div class="document-viewer">
-                        <iframe src="documents/GS_Language_Academy_Syllabus_A1.pdf#toolbar=0&navpanes=0"
+                        <iframe src="https://www.gsla.info/documents/GS_Language_Academy_Syllabus_A1.pdf#toolbar=0&navpanes=0"
                                 title="GS Language Academy A1 Syllabus" loading="lazy"></iframe>
                     </div>
-                    <p class="document-note">If the preview does not load, open the syllabus in a new browser tab.</p>
-                    <p style="margin-top:12px;">
-                        <a class="primary-btn" href="documents/GS_Language_Academy_Syllabus_A1.pdf"
-                           target="_blank" rel="noopener"
-                           style="display:inline-block;text-decoration:none;">Open Syllabus PDF</a>
-                    </p>
                 </div>
             </section>
 
@@ -943,13 +904,14 @@
 </div>
 
 <script>
-    const teacherProfileData = {
-        name: "Sarah Mitchell",
-        email: "teacher@gsacademy.com",
-        role: "Senior English Instructor",
+    // Filled from the teacher account authenticated in Login.html.
+    let teacherProfileData = {
+        name: "Teacher",
+        email: "",
+        role: "Teacher",
         department: "General & Academic English",
-        phone: "+20 100 555 0192",
-        joinDate: "2024-09-01"
+        phone: "Not provided",
+        joinDate: "Not provided"
     };
 
     const studentsData = [
@@ -983,21 +945,50 @@
         { title: "Monthly Progress Reports Reminder", date: "2026-11-05", message: "Please ensure all student assessment scores are logged under Student Progress before the 25th of each month." }
     ];
 
-    function teacherLogin() {
-        const email = document.getElementById("loginEmail").value.trim();
-        const password = document.getElementById("loginPassword").value.trim();
-        if (!email || !password) {
-            alert("Please enter both email and password.");
-            return;
-        }
-        document.getElementById("teacherLoginScreen").classList.add("hidden");
-        document.getElementById("teacherApp").classList.remove("hidden");
-        initDashboard();
+    function teacherLogout() {
+        // End the same session that was created by Login.html.
+        localStorage.removeItem("teacherLoggedIn");
+        localStorage.removeItem("currentTeacherId");
+        window.location.replace("Login.html");
     }
 
-    function teacherLogout() {
-        document.getElementById("teacherApp").classList.add("hidden");
-        document.getElementById("teacherLoginScreen").classList.remove("hidden");
+    function startTeacherDashboardFromSession() {
+        const isLoggedIn = localStorage.getItem("teacherLoggedIn") === "true";
+        const teacherId = localStorage.getItem("currentTeacherId");
+
+        let teachers = [];
+        try {
+            teachers = JSON.parse(localStorage.getItem("teachers") || "[]");
+            if (!Array.isArray(teachers)) teachers = [];
+        } catch (error) {
+            teachers = [];
+        }
+
+        const currentTeacher = teachers.find(function (teacher) {
+            return String(teacher.id) === String(teacherId);
+        });
+
+        // Do not show the dashboard unless Login.html has authenticated a teacher.
+        if (!isLoggedIn || !teacherId || !currentTeacher) {
+            localStorage.removeItem("teacherLoggedIn");
+            localStorage.removeItem("currentTeacherId");
+            window.location.replace("Login.html");
+            return;
+        }
+
+        teacherProfileData = {
+            ...teacherProfileData,
+            ...currentTeacher,
+            name: currentTeacher.name || currentTeacher.fullName || "Teacher",
+            email: currentTeacher.email || "",
+            role: currentTeacher.role || currentTeacher.position || "Teacher",
+            department: currentTeacher.department || "General & Academic English",
+            phone: currentTeacher.phone || currentTeacher.phoneNumber || "Not provided",
+            joinDate: currentTeacher.joinDate || currentTeacher.startDate || "Not provided"
+        };
+
+        document.getElementById("teacherApp").classList.remove("hidden");
+        initDashboard();
     }
 
     function toggleSidebar() {
@@ -1246,6 +1237,21 @@
             </div>
         `;
     }
+
+    // Reuse the authenticated session created by Login.html.
+    startTeacherDashboardFromSession();
 </script>
+
+    <script>
+        // Basic copy/print deterrents only. These do NOT prevent screenshots or direct access to public PDF URLs.
+        document.addEventListener('contextmenu', function (event) { event.preventDefault(); });
+        document.addEventListener('keydown', function (event) {
+            const key = (event.key || '').toLowerCase();
+            if ((event.ctrlKey || event.metaKey) && ['p', 's', 'u'].includes(key)) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
 </body>
 </html>
